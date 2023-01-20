@@ -3,9 +3,12 @@
 	"private": true,
 	"version": "0.0.0",
 	"type": "module",
+	"homepage": "https://meganenglert.github.io/build-a-bird-MVP/",
 	"scripts": {
 		"start": "vite",
 		"build": "tsc && vite build",
+		"predeploy": "npm run build",
+		"deploy": "gh-pages -d dist",
 		"preview": "vite preview"
 	},
 	"devDependencies": {
@@ -16,6 +19,7 @@
 		"vite": "^3.1.0"
 	},
 	"dependencies": {
+		"gh-pages": "^5.0.0",
 		"phaser": "^3.55.2"
 	}
 }
