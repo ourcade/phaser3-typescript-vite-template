@@ -7,11 +7,6 @@ import DragAndDrop from './components/DragAndDrop'
 
 export default class GameScene extends Phaser.Scene {
 	private background?: Phaser.GameObjects.Image;
-<<<<<<< HEAD
-	private popup?: Phaser.GameObjects.Image;
-	private contain?: Phaser.GameObjects.Container;
-	private quiztext?: Phaser.GameObjects.Text;
-=======
 
     // Holds coin management system
     // Populates left side of screen with different purchasables
@@ -33,7 +28,6 @@ export default class GameScene extends Phaser.Scene {
     // Where the attribute values go
     private dragAndDrop?: DragAndDrop;
 
->>>>>>> origin/main
     constructor() {
 		super('hello-world')
 	}
@@ -41,7 +35,6 @@ export default class GameScene extends Phaser.Scene {
 	preload() {
 		//this.load.setBaseURL('https://labs.phaser.io')
 		this.load.image('bg', 'assets/background.png')
-		this.load.image('popup', 'assets/popup.png')
 		//this.load.image('logo', 'assets/sprites/phaser3-logo.png')
 		//this.load.image('red', 'assets/particles/red.png')
         

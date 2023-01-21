@@ -2,8 +2,6 @@ import Phaser from 'phaser'
 
 export default class Questions extends Phaser.GameObjects.Container{
     
-    //variables here
-    //e.g. private coins: number
     constructor(scene: Phaser.Scene) { //don't touch
         super(scene) //Don't touch
         //X and Y coords
@@ -24,5 +22,9 @@ export default class Questions extends Phaser.GameObjects.Container{
     }
 
     //methods down here
+
+    preload() {
+
+    }
 
 }
