@@ -125,9 +125,9 @@ export default class GameScene extends Phaser.Scene {
 
 
 		this.input.setDraggable(this.contain);
-		this.contain.on('drag', function (pointer, dragX, dragY) {
-			this.x = dragX;
-			this.y = dragY;
+		this.contain.on('drag',  (_pointer:undefined, dragX:number, dragY:number) => {
+			this.contain.x = dragX;
+			this.contain.y = dragY;
 		});
 // rachel end
         
