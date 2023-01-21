@@ -19,6 +19,11 @@ export default class DragAndDrop extends Phaser.GameObjects.Container{
         //e.g. this.add(this.scene.add.text(100,100, "example text", {fontSize: '28px'}))
 
 
+        //Mycah Comment: 
+        //I will add to this later
+        //Current Drag and Drop code is in the GameScene.ts
+
+
         
         this.scene.add.existing(this); //Don't touch
     }
