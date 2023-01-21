@@ -2,13 +2,14 @@ import Phaser from 'phaser'
 
 export default class DisplayArea extends Phaser.GameObjects.Container{
     
+    private color?: string
     //variables here
     //e.g. private coins: number
     constructor(scene: Phaser.Scene) { //don't touch
         super(scene) //Don't touch
         //X and Y coords
-        //this.x=
-        //this.y=
+        this.x= 750
+        this.y= 300
 
         //set class variables
         //this.coins = 0;
