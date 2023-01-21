@@ -50,6 +50,20 @@ export default class GameScene extends Phaser.Scene {
         
         // CREATES THE SHOP OBJECT & initializes values & SHOWS
         this.shop = new Shop(this);
+
+        // CREATES THE SHOP OBJECT & initializes values & SHOWS
+        this.displayArea = new DisplayArea(this);
+
+        // CREATES THE SHOP OBJECT & initializes values & SHOWS
+        this.dragAndDrop = new DragAndDrop(this);
+
+        // CREATES THE SHOP OBJECT & initializes values & SHOWS
+        this.questions = new Questions(this);
+
+        // CREATES THE SHOP OBJECT & initializes values & SHOWS
+        this.tutorial = new Tutorial(this);
+
+
 		//const particles = this.add.particles('red')
 
 		/*const emitter = particles.createEmitter({
