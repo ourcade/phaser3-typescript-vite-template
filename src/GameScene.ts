@@ -25,10 +25,16 @@ export default class GameScene extends Phaser.Scene {
         this.background.displayWidth = 900
 
 		this.popup = this.add.image(0, 0, 'popup').setOrigin(0);
-		this.quiztext = this.add.text(120, 34, 'this is a test');
+		this.quiztext = this.add.text(120, 34, 'this is a test :)')
+			.setColor('#000000')
+			.setInteractive()
+			.on('pointerover', () => this.quiztext?.setColor('#fff000'))
+			.on('pointerout', () => this.quiztext?.setColor('#000000'))
+			.on('pointerup', () => this.contain?.destroy());
 		this.contain = this.add.container(32, 70, [ this.popup, this.quiztext ]);
 		this.contain.setInteractive(new Phaser.Geom.Rectangle(0, 0, this.popup.width, this.popup.height), Phaser.Geom.Rectangle.Contains);
-		
+
+
 		this.input.setDraggable(this.contain);
 		this.contain.on('drag', function (pointer, dragX, dragY) {
 			this.x = dragX;
