@@ -4,3 +4,5 @@ node_modules
 dist
 index.html
 .eslintrc.cjs
+
+src/GameScene.ts

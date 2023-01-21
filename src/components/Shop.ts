@@ -45,7 +45,7 @@ export default class Shop extends Phaser.GameObjects.Container{
 
 
     earnCoin() {
-        this.coins++;
+        console.log(this.coins);
     }
 
 }

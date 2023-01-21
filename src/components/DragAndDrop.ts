@@ -29,5 +29,8 @@ export default class DragAndDrop extends Phaser.GameObjects.Container{
     }
 
     //methods down here
+    public earnCoin() {
+        return 0
+    }
 
 }

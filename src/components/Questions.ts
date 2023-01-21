@@ -24,5 +24,7 @@ export default class Questions extends Phaser.GameObjects.Container{
     }
 
     //methods down here
-
+    public earnCoin() {
+        return 0
+    }
 }

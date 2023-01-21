@@ -24,5 +24,8 @@ export default class DisplayArea extends Phaser.GameObjects.Container{
     }
 
     //methods down here
+    public earnCoin() {
+        return 0
+    }
 
 }
