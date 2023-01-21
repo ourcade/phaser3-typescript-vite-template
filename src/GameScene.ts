@@ -56,6 +56,9 @@ export default class GameScene extends Phaser.Scene {
     this.load.image("neneGreenHat", "assets/neneGreenHat.png");
     this.load.image("neneBlueHat", "assets/neneBlueHat.png");
     //Mycah's Code for preload() - END ----------------------------------
+
+    const colors = ["blue", "green", "purple", "red"];
+    colors.forEach((color) => this.load.image("color-" + color, "assets/nene-colors/" + color + ".png"))
   }
 
   create() {
