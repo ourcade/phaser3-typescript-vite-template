@@ -25,7 +25,7 @@ export default class GameScene extends Phaser.Scene {
         this.background.displayWidth = 900
 
 		this.popup = this.add.image(0, 0, 'popup').setOrigin(0);
-		this.quiztext = this.add.text(120, 34, 'test');
+		this.quiztext = this.add.text(120, 34, 'this is a test');
 		this.contain = this.add.container(32, 70, [ this.popup, this.quiztext ]);
 		this.contain.setInteractive(new Phaser.Geom.Rectangle(0, 0, this.popup.width, this.popup.height), Phaser.Geom.Rectangle.Contains);
 		
