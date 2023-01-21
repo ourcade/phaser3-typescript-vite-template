@@ -1,8 +1,14 @@
 import Phaser from 'phaser'
+import Shop from './components/Shop'
+import Tutorial from './components/Tutorial'
+import Questions from './components/Questions'
+import DisplayArea from './components/DisplayArea'
+import DragAndDrop from './components/DragAndDrop'
 
 
 export default class GameScene extends Phaser.Scene {
 	private background?: Phaser.GameObjects.Image;
+
 
 	///Mycah's Properties - START ----------------------------------
 	items: any;
@@ -23,6 +29,26 @@ export default class GameScene extends Phaser.Scene {
 	neneGreenHat!: Phaser.GameObjects.GameObject;
 	///Mycah's Properties - END ---------------------------------- 
 
+	// Holds coin management system
+    // Populates left side of screen with different purchasables
+    private shop?: Shop;
+
+    // Pop up with game instructions
+    // Not for MVP but probably some hints will go in here too
+    private tutorial?: Tutorial;
+
+    // Question pop ups
+    // Also processes question data and displays
+    private questions?: Questions;
+
+    // Where the different objects are displayed / stacked
+    private displayArea?: DisplayArea;
+
+    // Drag and drop components 
+    // The "machine" or whatever we're calling it
+    // Where the attribute values go
+    private dragAndDrop?: DragAndDrop;
+
     constructor() {
 		super('game-scene')
 	}
@@ -34,6 +60,7 @@ export default class GameScene extends Phaser.Scene {
 		//this.load.image('red', 'assets/particles/red.png')
         
         //this.load.image('background', 'assets/background-V0.png')
+
 
 		//Mycah's Code for preload() - START ----------------------------------
 		//These images can be replaced with better one's later
@@ -51,6 +78,7 @@ export default class GameScene extends Phaser.Scene {
 		this.load.image('neneGreenHat', 'assets/neneGreenHat.png')
 		this.load.image('neneBlueHat', 'assets/neneBlueHat.png')
 		//Mycah's Code for preload() - END ----------------------------------
+
 	}
 
 	create() {
@@ -104,13 +132,31 @@ export default class GameScene extends Phaser.Scene {
 		//this.physics.add.collider(this.pinkNene, this.greenHat, this.handlePinkNeneGreenHat, undefined, this)
 		//this.physics.add.collider(this.yellowNene, this.blueHat, this.handleYellowNeneBlueHat, undefined, this)
 		//this.physics.add.collider(this.yellowNene, this.greenHat, this.handleYellowNeneGreenHat, undefined, this)
-        
+    
 		//Mycah's Code for create() - END ----------------------------------
 
 
 
 
 		
+
+        // CREATES THE SHOP OBJECT & initializes values & SHOWS
+        this.shop = new Shop(this);
+
+        // CREATES THE SHOP OBJECT & initializes values & SHOWS
+        this.displayArea = new DisplayArea(this);
+
+        // CREATES THE SHOP OBJECT & initializes values & SHOWS
+        this.dragAndDrop = new DragAndDrop(this);
+
+        // CREATES THE SHOP OBJECT & initializes values & SHOWS
+        this.questions = new Questions(this);
+
+        // CREATES THE SHOP OBJECT & initializes values & SHOWS
+        this.tutorial = new Tutorial(this);
+
+
+
 		//const particles = this.add.particles('red')
 
 		/*const emitter = particles.createEmitter({
