@@ -2,6 +2,9 @@ import Phaser from 'phaser'
 
 export default class GameScene extends Phaser.Scene {
 	private background?: Phaser.GameObjects.Image;
+	private popup?: Phaser.GameObjects.Image;
+	private contain?: Phaser.GameObjects.Container;
+	private quiztext?: Phaser.GameObjects.Text;
     constructor() {
 		super('hello-world')
 	}
@@ -9,6 +12,7 @@ export default class GameScene extends Phaser.Scene {
 	preload() {
 		//this.load.setBaseURL('https://labs.phaser.io')
 		this.load.image('bg', 'assets/background.png')
+		this.load.image('popup', 'assets/popup.png')
 		//this.load.image('logo', 'assets/sprites/phaser3-logo.png')
 		//this.load.image('red', 'assets/particles/red.png')
         
@@ -19,7 +23,18 @@ export default class GameScene extends Phaser.Scene {
         this.background = this.add.image(450, 300,'bg')
         this.background.displayHeight = 600
         this.background.displayWidth = 900
-        
+
+		this.popup = this.add.image(0, 0, 'popup').setOrigin(0);
+		this.quiztext = this.add.text(120, 34, 'test');
+		this.contain = this.add.container(32, 70, [ this.popup, this.quiztext ]);
+		this.contain.setInteractive(new Phaser.Geom.Rectangle(0, 0, this.popup.width, this.popup.height), Phaser.Geom.Rectangle.Contains);
+		
+		this.input.setDraggable(this.contain);
+		this.contain.on('drag', function (pointer, dragX, dragY) {
+			this.x = dragX;
+			this.y = dragY;
+		});
+
 		//const particles = this.add.particles('red')
 
 		/*const emitter = particles.createEmitter({
@@ -36,4 +51,5 @@ export default class GameScene extends Phaser.Scene {
 
 		emitter.startFollow(logo)*/
 	}
+
 }
