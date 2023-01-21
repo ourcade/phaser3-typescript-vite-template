@@ -8,6 +8,12 @@ import DragAndDrop from './components/DragAndDrop'
 
 export default class GameScene extends Phaser.Scene {
 	private background?: Phaser.GameObjects.Image;
+  
+  //Rachel
+	private popup?: Phaser.GameObjects.Image;
+	private contain?: Phaser.GameObjects.Container;
+	private quiztext?: Phaser.GameObjects.Text;
+  //Rachel End
 
 
 	///Mycah's Properties - START ----------------------------------
@@ -59,6 +65,7 @@ export default class GameScene extends Phaser.Scene {
         this.load.image('color', 'assets/Colorwheel.png')
 		this.load.image('hats', 'assets/hats.jpeg')
     
+		this.load.image('popup', 'assets/popup.png')
 		//this.load.image('logo', 'assets/sprites/phaser3-logo.png')
 		//this.load.image('red', 'assets/particles/red.png')
         
@@ -88,6 +95,42 @@ export default class GameScene extends Phaser.Scene {
         this.background = this.add.image(450, 300,'bg')
         this.background.displayHeight = 600
         this.background.displayWidth = 900
+        
+        
+        // CREATES THE SHOP OBJECT & initializes values & SHOWS
+        this.shop = new Shop(this);
+
+        // CREATES THE SHOP OBJECT & initializes values & SHOWS
+        this.displayArea = new DisplayArea(this);
+
+        // CREATES THE SHOP OBJECT & initializes values & SHOWS
+        this.dragAndDrop = new DragAndDrop(this);
+
+        // CREATES THE SHOP OBJECT & initializes values & SHOWS
+        this.questions = new Questions(this);
+
+        // CREATES THE SHOP OBJECT & initializes values & SHOWS
+        this.tutorial = new Tutorial(this);
+
+// rachel
+		this.popup = this.add.image(0, 0, 'popup').setOrigin(0);
+		this.quiztext = this.add.text(120, 34, 'this is a test :)')
+			.setColor('#000000')
+			.setInteractive()
+			.on('pointerover', () => this.quiztext?.setColor('#fff000'))
+			.on('pointerout', () => this.quiztext?.setColor('#000000'))
+			.on('pointerup', () => this.contain?.destroy());
+		this.contain = this.add.container(32, 70, [ this.popup, this.quiztext ]);
+		this.contain.setInteractive(new Phaser.Geom.Rectangle(0, 0, this.popup.width, this.popup.height), Phaser.Geom.Rectangle.Contains);
+
+
+		this.input.setDraggable(this.contain);
+		this.contain.on('drag', function (pointer, dragX, dragY) {
+			this.x = dragX;
+			this.y = dragY;
+		});
+// rachel end
+        
 
 		//Mycah's Code for create() - START ----------------------------------
 		this.nene = this.physics.add.image(750, 200,'nene').setInteractive();
@@ -137,27 +180,6 @@ export default class GameScene extends Phaser.Scene {
 		//this.physics.add.collider(this.yellowNene, this.greenHat, this.handleYellowNeneGreenHat, undefined, this)
     
 		//Mycah's Code for create() - END ----------------------------------
-
-
-
-
-		
-
-        // CREATES THE SHOP OBJECT & initializes values & SHOWS
-        this.shop = new Shop(this);
-
-        // CREATES THE SHOP OBJECT & initializes values & SHOWS
-        this.displayArea = new DisplayArea(this);
-
-        // CREATES THE SHOP OBJECT & initializes values & SHOWS
-        this.dragAndDrop = new DragAndDrop(this);
-
-        // CREATES THE SHOP OBJECT & initializes values & SHOWS
-        this.questions = new Questions(this);
-
-        // CREATES THE SHOP OBJECT & initializes values & SHOWS
-        this.tutorial = new Tutorial(this);
-
 
 
 		//const particles = this.add.particles('red')
