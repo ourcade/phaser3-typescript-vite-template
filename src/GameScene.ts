@@ -1,9 +1,33 @@
 import Phaser from 'phaser'
 import Shop from './components/Shop'
+import Tutorial from './components/Tutorial'
+import Questions from './components/Questions'
+import DisplayArea from './components/DisplayArea'
+import DragAndDrop from './components/DragAndDrop'
 
 export default class GameScene extends Phaser.Scene {
 	private background?: Phaser.GameObjects.Image;
+
+    // Holds coin management system
+    // Populates left side of screen with different purchasables
     private shop?: Shop;
+
+    // Pop up with game instructions
+    // Not for MVP but probably some hints will go in here too
+    private tutorial?: Tutorial;
+
+    // Question pop ups
+    // Also processes question data and displays
+    private questions?: Questions;
+
+    // Where the different objects are displayed / stacked
+    private displayArea?: DisplayArea;
+
+    // Drag and drop components 
+    // The "machine" or whatever we're calling it
+    // Where the attribute values go
+    private dragAndDrop?: DragAndDrop;
+
     constructor() {
 		super('hello-world')
 	}
