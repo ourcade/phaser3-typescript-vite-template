@@ -14,6 +14,7 @@ export default class Shop extends Phaser.GameObjects.Container{
         //add different images/text the same way you would with create()
 
         this.add(this.scene.add.text(100,100, "example text", {fontSize: '28px'}))
+        this.add(this.scene.add.image(100,100,'color'))
 
 
         //last lines here
