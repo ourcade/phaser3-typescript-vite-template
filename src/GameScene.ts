@@ -47,7 +47,7 @@ export default class GameScene extends Phaser.Scene {
     // Drag and drop components 
     // The "machine" or whatever we're calling it
     // Where the attribute values go
-    private dragAndDrop?: DragAndDrop;
+    private dragAndDrop?: DragAndDrop; 
 
     constructor() {
 		super('game-scene')
