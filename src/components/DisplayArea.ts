@@ -18,7 +18,7 @@ export default class DisplayArea extends Phaser.GameObjects.Container{
         //add different images/text the same way you would with create()
 
         //e.g. this.add(this.scene.add.text(100,100, "example text", {fontSize: '28px'}))
-
+        this.scene.add.image(750, 300, "nene")
 
         
         this.scene.add.existing(this); //Don't touch

@@ -28,8 +28,11 @@ export default class GameScene extends Phaser.Scene {
   // Where the attribute values go
   private dragAndDrop?: DragAndDrop;
 
+  colors: Array<string>;
+
   constructor() {
     super("game-scene");
+    this.colors = ["blue", "green", "purple", "red"];
   }
 
   preload() {
@@ -42,7 +45,7 @@ export default class GameScene extends Phaser.Scene {
 
     //Mycah's Code for preload() - START ----------------------------------
     //These images can be replaced with better one's later
-    this.load.image("blueHat", "assets/blueHat.png");
+    /*this.load.image("blueHat", "assets/blueHat.png");
     this.load.image("greenHat", "assets/greenHat.png");
     this.load.image("nene", "assets/nene.png");
     this.load.image("pink", "assets/pink.png");
@@ -54,11 +57,11 @@ export default class GameScene extends Phaser.Scene {
     this.load.image("yellowNeneBlueHat", "assets/yellowNeneBlueHat.png");
     this.load.image("yellowNeneGreenHat", "assets/yellowNeneGreenHat.png");
     this.load.image("neneGreenHat", "assets/neneGreenHat.png");
-    this.load.image("neneBlueHat", "assets/neneBlueHat.png");
+    this.load.image("neneBlueHat", "assets/neneBlueHat.png");*/
     //Mycah's Code for preload() - END ----------------------------------
 
-    const colors = ["blue", "green", "purple", "red"];
-    colors.forEach((color) => this.load.image("color-" + color, "assets/nene-colors/" + color + ".png"))
+    this.colors.forEach((color) => this.load.image("color-" + color, "assets/nene-colors/" + color + ".png"))
+    this.load.image("nene", "assets/nene.png");
   }
 
   create() {

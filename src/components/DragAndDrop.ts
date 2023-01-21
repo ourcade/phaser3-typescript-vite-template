@@ -1,8 +1,9 @@
 import Phaser from "phaser";
+import GameScene from "../GameScene"
 
 export default class DragAndDrop extends Phaser.GameObjects.Container {
   ///Mycah's Properties - START ----------------------------------
-  items: any;
+  /*items: any;
   blueHat: any;
   pink: any;
   greenHat: any;
@@ -17,12 +18,16 @@ export default class DragAndDrop extends Phaser.GameObjects.Container {
   yellowNeneBlueHat!: Phaser.GameObjects.GameObject;
   yellowNeneGreenHat!: Phaser.GameObjects.GameObject;
   neneBlueHat!: Phaser.GameObjects.GameObject;
-  neneGreenHat!: Phaser.GameObjects.GameObject;
+  neneGreenHat!: Phaser.GameObjects.GameObject;*/
   ///Mycah's Properties - END ----------------------------------
 
+  //COLORS V2 START --------------------------------------------
+
+  
+  //COLORS V2 END ----------------------------------------------
   //variables here
   //e.g. private coins: number
-  constructor(scene: Phaser.Scene) {
+  constructor(scene: GameScene) {
     //don't touch
     super(scene); //Don't touch
     //X and Y coords
@@ -34,9 +39,13 @@ export default class DragAndDrop extends Phaser.GameObjects.Container {
 
     //needs sizing and placement figured out
     //add different images/text the same way you would with create()
+    //COLORS V2 START -------------------------------------------------------------
+    //COLORS V2 END ---------------------------------------------------------------
+  }
 
-    //e.g. this.add(this.scene.add.text(100,100, "example text", {fontSize: '28px'}))
-
+  
+  //e.g. this.add(this.scene.add.text(100,100, "example text", {fontSize: '28px'}))
+    /*
     //Mycah's Code for create() - START ----------------------------------
     this.nene = this.scene.physics.add.image(750, 200, "nene").setInteractive();
     this.scene.input.setDraggable(this.nene);
@@ -199,7 +208,7 @@ private handlePinkNene(
       .setInteractive();
     this.scene.input.setDraggable(this.neneGreenHat);
   }
-
+*/
   /*
 	private handlePinkNeneBlueHat(pinkNene: Phaser.GameObjects.GameObject, blueHat: Phaser.GameObjects.GameObject){
 		const myPinkNene = pinkNene as Phaser.Physics.Arcade.Image
@@ -252,4 +261,3 @@ private handlePinkNene(
   //Mycah's Code for OTHER FUNCTIONS - END ----------------------------------
 
 }
-
