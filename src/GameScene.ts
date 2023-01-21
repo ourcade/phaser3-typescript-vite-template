@@ -1,7 +1,9 @@
 import Phaser from 'phaser'
+import Shop from './components/Shop'
 
 export default class GameScene extends Phaser.Scene {
 	private background?: Phaser.GameObjects.Image;
+    private shop?: Shop;
     constructor() {
 		super('hello-world')
 	}
@@ -13,6 +15,8 @@ export default class GameScene extends Phaser.Scene {
 		//this.load.image('red', 'assets/particles/red.png')
         
         //this.load.image('background', 'assets/background-V0.png')
+
+        
 	}
 
 	create() {
@@ -20,6 +24,8 @@ export default class GameScene extends Phaser.Scene {
         this.background.displayHeight = 600
         this.background.displayWidth = 900
         
+        // CREATES THE SHOP OBJECT & initializes values & SHOWS
+        this.shop = new Shop(this);
 		//const particles = this.add.particles('red')
 
 		/*const emitter = particles.createEmitter({
