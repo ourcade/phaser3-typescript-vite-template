@@ -22,7 +22,8 @@ export default class DragAndDrop extends Phaser.GameObjects.Container {
   ///Mycah's Properties - END ----------------------------------
 
   //COLORS V2 START --------------------------------------------
-
+    private nene: Phaser.GameObjects.GameObject;
+    private dragColors: Record<string, Phaser.GameObjects.GameObject>;
   
   //COLORS V2 END ----------------------------------------------
   //variables here
@@ -40,6 +41,16 @@ export default class DragAndDrop extends Phaser.GameObjects.Container {
     //needs sizing and placement figured out
     //add different images/text the same way you would with create()
     //COLORS V2 START -------------------------------------------------------------
+    this.nene = this.scene.physics.add.image(750, 200, "nene").setInteractive();
+    this.scene.input.setDraggable(this.nene);
+
+    this.dragColors = {};
+    let y_pos = 100;
+    (this.scene as GameScene).colors.forEach((color) =>
+        (this.dragColors[color] = this.scene.physics.add.image(400, y_pos, color).setInteractive(),
+        this.scene.input.setDraggable(this.dragColors[color]),
+        y_pos += 100)
+    );
     //COLORS V2 END ---------------------------------------------------------------
   }
 
