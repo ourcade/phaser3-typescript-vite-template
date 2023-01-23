@@ -60,7 +60,9 @@ export default class GameScene extends Phaser.Scene {
     this.load.image("neneBlueHat", "assets/neneBlueHat.png");*/
     //Mycah's Code for preload() - END ----------------------------------
 
-    this.colors.forEach((color) => this.load.image("color-" + color, "assets/nene-colors/" + color + ".png"))
+    this.colors.forEach((color) =>
+      this.load.image("color-" + color, "assets/nene-colors/" + color + ".png")
+    );
     this.load.image("nene", "assets/nene.png");
   }
 
@@ -99,4 +101,5 @@ export default class GameScene extends Phaser.Scene {
 		logo.setCollideWorldBounds(true)
 
 		emitter.startFollow(logo)*/
-  }}
+  }
+}
