@@ -57,7 +57,7 @@ export default class GameScene extends Phaser.Scene {
   hats: Array<string>;
 
   constructor() {
-    super("game-scene");
+    super("GameScene");
     this.colors = ["blue", "green", "purple", "red"];
     this.hats = ["beanie", "bucket-hat", "sunhat", "visor"];
   }
