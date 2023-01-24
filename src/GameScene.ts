@@ -93,6 +93,7 @@ export default class GameScene extends Phaser.Scene {
 
     this.loadAttribute("colors", this.colors);
     this.loadAttribute("hats", this.hats);
+    this.load.image("reset", "assets/reset.png");
     this.load.image("nene", "assets/nene.png");
   }
 
