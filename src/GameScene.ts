@@ -8,6 +8,7 @@ import DragAndDrop from "./components/DragAndDrop";
 export default class GameScene extends Phaser.Scene {
   private background?: Phaser.GameObjects.Image;
 
+<<<<<<< HEAD
   //Rachel
   private popup?: Phaser.GameObjects.Image;
   private contain: Phaser.GameObjects.Container | undefined;
@@ -33,6 +34,8 @@ export default class GameScene extends Phaser.Scene {
   neneGreenHat!: Phaser.GameObjects.GameObject;
   ///Mycah's Properties - END ----------------------------------
 
+=======
+>>>>>>> megan-colors-v2
   // Holds coin management system
   // Populates left side of screen with different purchasables
   private shop?: Shop;
@@ -53,17 +56,28 @@ export default class GameScene extends Phaser.Scene {
   // Where the attribute values go
   private dragAndDrop?: DragAndDrop;
 
+<<<<<<< HEAD
   constructor() {
     super("game-scene");
+=======
+  colors: Array<string>;
+
+  constructor() {
+    super("game-scene");
+    this.colors = ["blue", "green", "purple", "red"];
+>>>>>>> megan-colors-v2
   }
 
   preload() {
     //this.load.setBaseURL('https://labs.phaser.io')
     this.load.image("bg", "assets/background.png");
+<<<<<<< HEAD
     this.load.image("color", "assets/Colorwheel.png");
     this.load.image("hats", "assets/hats.jpeg");
 
     this.load.image("popup", "assets/popup.png");
+=======
+>>>>>>> megan-colors-v2
     //this.load.image('logo', 'assets/sprites/phaser3-logo.png')
     //this.load.image('red', 'assets/particles/red.png')
 
@@ -71,7 +85,11 @@ export default class GameScene extends Phaser.Scene {
 
     //Mycah's Code for preload() - START ----------------------------------
     //These images can be replaced with better one's later
+<<<<<<< HEAD
     this.load.image("blueHat", "assets/blueHat.png");
+=======
+    /*this.load.image("blueHat", "assets/blueHat.png");
+>>>>>>> megan-colors-v2
     this.load.image("greenHat", "assets/greenHat.png");
     this.load.image("nene", "assets/nene.png");
     this.load.image("pink", "assets/pink.png");
@@ -83,8 +101,19 @@ export default class GameScene extends Phaser.Scene {
     this.load.image("yellowNeneBlueHat", "assets/yellowNeneBlueHat.png");
     this.load.image("yellowNeneGreenHat", "assets/yellowNeneGreenHat.png");
     this.load.image("neneGreenHat", "assets/neneGreenHat.png");
+<<<<<<< HEAD
     this.load.image("neneBlueHat", "assets/neneBlueHat.png");
     //Mycah's Code for preload() - END ----------------------------------
+=======
+    this.load.image("neneBlueHat", "assets/neneBlueHat.png");*/
+    //Mycah's Code for preload() - END ----------------------------------
+
+    this.colors.forEach((color: string) =>
+      (this.load.image("nene-" + color, "assets/nene-colors/" + color + ".png"),
+       this.load.image(color, "assets/colors/" + color + ".png"))
+    );
+    this.load.image("nene", "assets/nene.png");
+>>>>>>> megan-colors-v2
   }
 
   create() {
@@ -94,6 +123,7 @@ export default class GameScene extends Phaser.Scene {
 
     // CREATES THE SHOP OBJECT & initializes values & SHOWS
     this.shop = new Shop(this);
+<<<<<<< HEAD
     this.shop.earnCoin();
 
     // CREATES THE SHOP OBJECT & initializes values & SHOWS
@@ -237,6 +267,24 @@ export default class GameScene extends Phaser.Scene {
   //const particles = this.add.particles('red')
 
   /*const emitter = particles.createEmitter({
+=======
+
+    // CREATES THE SHOP OBJECT & initializes values & SHOWS
+    this.displayArea = new DisplayArea(this);
+
+    // CREATES THE SHOP OBJECT & initializes values & SHOWS
+    this.dragAndDrop = new DragAndDrop(this);
+
+    // CREATES THE SHOP OBJECT & initializes values & SHOWS
+    this.questions = new Questions(this);
+
+    // CREATES THE SHOP OBJECT & initializes values & SHOWS
+    this.tutorial = new Tutorial(this);
+
+    //const particles = this.add.particles('red')
+
+    /*const emitter = particles.createEmitter({
+>>>>>>> megan-colors-v2
 			speed: 100,
 			scale: { start: 1, end: 0 },
 			blendMode: 'ADD',
@@ -249,6 +297,7 @@ export default class GameScene extends Phaser.Scene {
 		logo.setCollideWorldBounds(true)
 
 		emitter.startFollow(logo)*/
+<<<<<<< HEAD
 
   //Mycah's Code for OTHER FUNCTIONS - START ----------------------------------
   private handlePinkNene(
@@ -365,4 +414,7 @@ export default class GameScene extends Phaser.Scene {
 	*/
 
   //Mycah's Code for OTHER FUNCTIONS - END ----------------------------------
+=======
+  }
+>>>>>>> megan-colors-v2
 }
