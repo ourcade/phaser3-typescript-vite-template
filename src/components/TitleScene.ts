@@ -17,7 +17,7 @@ export default class titleScene extends Phaser.Scene {
       }
       preload()
       {
-        this.load.image('titleScreen','assets/titleScreen.png')
+        this.load.image('titleScreen','assets/background.png')
         this.load.image('titleStart','assets/pink.png')
       }
     
