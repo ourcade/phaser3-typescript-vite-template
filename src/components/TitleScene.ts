@@ -51,5 +51,5 @@ export default class titleScene extends Phaser.Scene {
     
 
     //prevents click crash
-    mouseFix() {}
+    mouseFix() {return 0;}
 }
