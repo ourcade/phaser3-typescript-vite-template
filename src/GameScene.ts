@@ -54,10 +54,12 @@ export default class GameScene extends Phaser.Scene {
   //private dragAndDrop?: DragAndDrop;
 
   colors: Array<string>;
+  hats: Array<string>;
 
   constructor() {
     super("game-scene");
     this.colors = ["blue", "green", "purple", "red"];
+    this.hats = ["beanie", "bucket-hat", "sunhat", "visor"];
   }
 
   preload() {
@@ -89,10 +91,8 @@ export default class GameScene extends Phaser.Scene {
     this.load.image("neneBlueHat", "assets/neneBlueHat.png");*/
     //Mycah's Code for preload() - END ----------------------------------
 
-    this.colors.forEach((color: string) =>
-      (this.load.image("nene-" + color, "assets/nene-colors/" + color + ".png"),
-       this.load.image(color, "assets/colors/" + color + ".png"))
-    );
+    this.loadAttribute("colors", this.colors);
+    this.loadAttribute("hats", this.hats);
     this.load.image("nene", "assets/nene.png");
   }
 
@@ -131,5 +131,12 @@ export default class GameScene extends Phaser.Scene {
 		logo.setCollideWorldBounds(true)
 
 		emitter.startFollow(logo)*/
+  }
+
+  private loadAttribute(attributeName: string, attributeValues: Array<string>) {
+    attributeValues.forEach((value: string) =>
+      (this.load.image("nene-" + value, "assets/nene-" + attributeName + "/" + value + ".png"),
+       this.load.image(value, "assets/" + attributeName + "/" + value + ".png"))
+    );
   }
 }
