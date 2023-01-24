@@ -2,8 +2,8 @@ import Phaser from 'phaser'
 
 export default class DisplayArea extends Phaser.GameObjects.Container{
     
-    private color?: string
-    private nene?: Phaser.GameObjects.GameObject;
+    //private color?: string
+    //private nene?: Phaser.GameObjects.GameObject;
     //variables here
     //e.g. private coins: number
     constructor(scene: Phaser.Scene) { //don't touch

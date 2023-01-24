@@ -9,13 +9,13 @@ export default class GameScene extends Phaser.Scene {
   private background?: Phaser.GameObjects.Image;
 
   //Rachel
-  private popup?: Phaser.GameObjects.Image;
-  private contain: Phaser.GameObjects.Container | undefined;
-  private quiztext?: Phaser.GameObjects.Text;
+  //private popup?: Phaser.GameObjects.Image;
+  //private contain: Phaser.GameObjects.Container | undefined;
+  //private quiztext?: Phaser.GameObjects.Text;
   //Rachel End
 
   ///Mycah's Properties - START ----------------------------------
-  items: any;
+  /*items: any;
   blueHat: any;
   pink: any;
   greenHat: any;
@@ -30,28 +30,28 @@ export default class GameScene extends Phaser.Scene {
   yellowNeneBlueHat!: Phaser.GameObjects.GameObject;
   yellowNeneGreenHat!: Phaser.GameObjects.GameObject;
   neneBlueHat!: Phaser.GameObjects.GameObject;
-  neneGreenHat!: Phaser.GameObjects.GameObject;
+  neneGreenHat!: Phaser.GameObjects.GameObject;*/
   ///Mycah's Properties - END ----------------------------------
 
   // Holds coin management system
   // Populates left side of screen with different purchasables
-  private shop?: Shop;
+  //private shop?: Shop;
 
   // Pop up with game instructions
   // Not for MVP but probably some hints will go in here too
-  private tutorial?: Tutorial;
+  //private tutorial?: Tutorial;
 
   // Question pop ups
   // Also processes question data and displays
-  private questions?: Questions;
+  //private questions?: Questions;
 
   // Where the different objects are displayed / stacked
-  private displayArea?: DisplayArea;
+  //private displayArea?: DisplayArea;
 
   // Drag and drop components
   // The "machine" or whatever we're calling it
   // Where the attribute values go
-  private dragAndDrop?: DragAndDrop;
+  //private dragAndDrop?: DragAndDrop;
 
   colors: Array<string>;
 
@@ -102,19 +102,19 @@ export default class GameScene extends Phaser.Scene {
     this.background.displayWidth = 900;
 
     // CREATES THE SHOP OBJECT & initializes values & SHOWS
-    this.shop = new Shop(this);
+    new Shop(this);
 
     // CREATES THE SHOP OBJECT & initializes values & SHOWS
-    this.displayArea = new DisplayArea(this);
+    new DisplayArea(this);
 
     // CREATES THE SHOP OBJECT & initializes values & SHOWS
-    this.dragAndDrop = new DragAndDrop(this);
+    new DragAndDrop(this);
 
     // CREATES THE SHOP OBJECT & initializes values & SHOWS
-    this.questions = new Questions(this);
+    new Questions(this);
 
     // CREATES THE SHOP OBJECT & initializes values & SHOWS
-    this.tutorial = new Tutorial(this);
+    new Tutorial(this);
 
     //const particles = this.add.particles('red')
 
