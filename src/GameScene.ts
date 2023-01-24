@@ -56,7 +56,7 @@ export default class GameScene extends Phaser.Scene {
   colors: Array<string>;
 
   constructor() {
-    super("game-scene");
+    super("GameScene");
     this.colors = ["blue", "green", "purple", "red"];
   }
 
