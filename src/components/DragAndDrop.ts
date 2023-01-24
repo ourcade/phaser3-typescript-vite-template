@@ -22,8 +22,8 @@ export default class DragAndDrop extends Phaser.GameObjects.Container {
   ///Mycah's Properties - END ----------------------------------
 
   //COLORS V2 START --------------------------------------------
-    private nene: Phaser.GameObjects.GameObject;
     private dragColors: Record<string, Phaser.GameObjects.GameObject>;
+    private nene: Phaser.GameObjects.GameObject;
   
   //COLORS V2 END ----------------------------------------------
   //variables here
@@ -41,18 +41,83 @@ export default class DragAndDrop extends Phaser.GameObjects.Container {
     //needs sizing and placement figured out
     //add different images/text the same way you would with create()
     //COLORS V2 START -------------------------------------------------------------
-    this.nene = this.scene.physics.add.image(750, 200, "nene").setInteractive();
-    this.scene.input.setDraggable(this.nene);
+    //this.nene = this.scene.physics.add.image(750, 200, "nene").setInteractive();
+    //this.scene.input.setDraggable(this.nene);
 
+    this.nene = this.scene.physics.add.image(750, 300, "nene").setInteractive();
     this.dragColors = {};
     let y_pos = 100;
     (this.scene as GameScene).colors.forEach((color) =>
         (this.dragColors[color] = this.scene.physics.add.image(400, y_pos, color).setInteractive(),
         this.scene.input.setDraggable(this.dragColors[color]),
-        y_pos += 100)
+        y_pos += 125)
     );
+
+    this.setUpDrag();
+    this.setUpCollisions();
     //COLORS V2 END ---------------------------------------------------------------
   }
+
+  private setUpDrag () {
+    this.scene.input.on(
+        "dragstart",
+        function (
+          _pointer: any,
+          gameObject: { setTint: (arg0: number) => void }
+        ) {
+          gameObject.setTint(0xE0E0E0);
+        }
+      );
+  
+      this.scene.input.on(
+        "drag",
+        function (
+          _pointer: any,
+          gameObject: { x: any; y: any },
+          dragX: any,
+          dragY: any
+        ) {
+          gameObject.x = dragX;
+          gameObject.y = dragY;
+        }
+      );
+  
+      this.scene.input.on(
+        "dragend",
+        function (_pointer: any, gameObject: { clearTint: () => void }) {
+          gameObject.clearTint();
+        }
+      );
+  }
+
+  private setUpCollisions() {
+    this.scene.physics.add.overlap(this.nene, Object.values(this.dragColors), undefined);
+
+    Object.values(this.dragColors).forEach( (dragColor) => (
+        this.scene.physics.add.collider(
+            this.nene,
+            dragColor,
+            this.handleColorCollision,
+            undefined,
+            this
+          )
+    ));
+  }
+
+private handleColorCollision(
+    nene: Phaser.GameObjects.GameObject,
+    dragColor: Phaser.GameObjects.GameObject) {
+        const myNene = nene as Phaser.Physics.Arcade.Image;
+        myNene.disableBody(true, true);
+    
+        const myColor = dragColor as Phaser.Physics.Arcade.Image;
+        myColor.disableBody(true, true);
+    
+        this.nene = this.scene.physics.add.image(750, 300, "nene-" + (dragColor as Phaser.GameObjects.Image).texture.key).setInteractive();
+        this.setUpCollisions();
+
+      }
+
 
   
   //e.g. this.add(this.scene.add.text(100,100, "example text", {fontSize: '28px'}))
