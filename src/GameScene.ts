@@ -9,9 +9,12 @@ export default class GameScene extends Phaser.Scene {
   private background?: Phaser.GameObjects.Image;
 
   //Rachel
+  public coins: number
   private popup?: Phaser.GameObjects.Image;
   private contain: Phaser.GameObjects.Container | undefined;
   private quiztext?: Phaser.GameObjects.Text;
+  
+  public coinTracker: Array<String>;
   //Rachel End
 
   ///Mycah's Properties - START ----------------------------------
@@ -35,7 +38,7 @@ export default class GameScene extends Phaser.Scene {
 
   // Holds coin management system
   // Populates left side of screen with different purchasables
-  private shop?: Shop;
+  public shop?: Shop;
 
   // Pop up with game instructions
   // Not for MVP but probably some hints will go in here too
@@ -58,6 +61,9 @@ export default class GameScene extends Phaser.Scene {
   constructor() {
     super("game-scene");
     this.colors = ["blue", "green", "purple", "red"];
+	this.coins = 10;
+	this.coinTracker = []
+	
   }
 
   preload() {

@@ -125,6 +125,11 @@ private handleColorCollision(
         this.attributes["color"] = (dragColor as Phaser.GameObjects.Image).texture.key;
         this.text = this.text.setText("nene = new Nene(\n\t" + this.generateDisplayString() + "\n);");
         this.setUpCollisions();
+        if(!(this.scene as GameScene).coinTracker.includes(this.text.text)){
+          (this.scene as GameScene).coinTracker.unshift(this.text.text);
+          (this.scene as GameScene).coins = (this.scene as GameScene).coins +1;
+          (this.scene as GameScene).shop?.scoreText.setText(`Coins: ${(this.scene as GameScene).coins}`);
+        }
 
       }
 

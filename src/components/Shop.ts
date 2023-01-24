@@ -1,12 +1,14 @@
 import Phaser from 'phaser'
+import GameScene from '../GameScene';
+
 export default class Shop extends Phaser.GameObjects.Container{
-    preload(){
-        this.load.image('color','assets/Colorwheel.png')
-    }
-    private coins: number
+    
+
+    
+
     private color: Phaser.GameObjects.Image
     private hats: Phaser.GameObjects.Image
-    private scoreText?: Phaser.GameObjects.Text
+    public scoreText: Phaser.GameObjects.Text
     /**** READ ME from Megan
      * So... the fix is to put the call to load the image
      * in the GameScene.ts preload function. 
@@ -25,7 +27,7 @@ export default class Shop extends Phaser.GameObjects.Container{
         //this.x=
         //this.y=
 
-        this.coins = 10;
+        
 
         //needs sizing and placement figured out
         //add different images/text the same way you would with create()
@@ -34,7 +36,7 @@ export default class Shop extends Phaser.GameObjects.Container{
         this.add(this.scene.add.text(60,415, "Baseball Caps", {fontSize: '18px'}))
         this.add(this.scene.add.text(80,260, "5 Coins", {fontSize: '18px'}))
         this.add(this.scene.add.text(80,440, "3 Coins", {fontSize: '18px'}))
-        this.scoreText = this.scene.add.text(20,550,'Coins: 10' , {fontSize: '32px'})
+        this.scoreText = this.scene.add.text(20,550,"Coins: 10", {fontSize: '32px'});
         this.color = this.scene.add.image(125,175,'color')
         this.color.setScale(0.25)
         this.hats = this.scene.add.image(125,350,'hats')
@@ -42,14 +44,14 @@ export default class Shop extends Phaser.GameObjects.Container{
         this.color.setInteractive()
         this.hats.setInteractive()
         this.color.on('pointerup',() =>{
-            this.coins = this.coins-5;
-            this.scoreText?.setText(`Coins: ${this.coins}`);
+            (this.scene as GameScene).coins = (this.scene as GameScene).coins-5;
+            this.scoreText.setText(`Coins: ${(this.scene as GameScene).coins}`);
             this.color.removeInteractive()
             this.add(this.scene.add.text(80,175, "SOLD OUT!",  {fontSize: '18px'}))
         })
         this.hats.on('pointerup',() =>{
-                this.coins = this.coins-3;
-                this.scoreText?.setText(`Coins: ${this.coins}`);
+            (this.scene as GameScene).coins = (this.scene as GameScene).coins-3;
+               this.scoreText.setText(`Coins: ${(this.scene as GameScene).coins}`);
                 this.hats.removeInteractive()
                 this.add(this.scene.add.text(85,340, "SOLD OUT!", {fontSize: '18px'}))
             })
@@ -60,7 +62,7 @@ export default class Shop extends Phaser.GameObjects.Container{
 
 
     earnCoin() {
-        console.log(this.coins);
+        console.log((this.scene as GameScene).coins);
     }
 
 }
