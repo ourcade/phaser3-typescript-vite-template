@@ -24,6 +24,8 @@ export default class DragAndDrop extends Phaser.GameObjects.Container {
   //COLORS V2 START --------------------------------------------
     private dragColors: Record<string, Phaser.GameObjects.GameObject>;
     private nene: Phaser.GameObjects.GameObject;
+    private text: Phaser.GameObjects.Text;
+    private attributes: Record<string,string>;
   
   //COLORS V2 END ----------------------------------------------
   //variables here
@@ -43,8 +45,9 @@ export default class DragAndDrop extends Phaser.GameObjects.Container {
     //COLORS V2 START -------------------------------------------------------------
     //this.nene = this.scene.physics.add.image(750, 200, "nene").setInteractive();
     //this.scene.input.setDraggable(this.nene);
-
+    this.text = this.scene.add.text(650,450, "nene = new Nene();", {"align":"left","color":"0x000000","fixedWidth":250});
     this.nene = this.scene.physics.add.image(750, 300, "nene").setInteractive();
+    this.attributes = {};
     this.dragColors = {};
     let y_pos = 100;
     (this.scene as GameScene).colors.forEach((color) =>
@@ -109,16 +112,33 @@ private handleColorCollision(
     dragColor: Phaser.GameObjects.GameObject) {
         const myNene = nene as Phaser.Physics.Arcade.Image;
         myNene.disableBody(true, true);
-    
+        if (Object.keys(this.attributes).includes("color")) {
+            const color = this.attributes["color"];
+            const coords = this.generateCoords() as Array<number>;
+            this.dragColors[color] = this.scene.physics.add.image(coords[0], coords[1], color).setInteractive(),
+            this.scene.input.setDraggable(this.dragColors[color])
+        }
         const myColor = dragColor as Phaser.Physics.Arcade.Image;
         myColor.disableBody(true, true);
-    
-        this.nene = this.scene.physics.add.image(750, 300, "nene-" + (dragColor as Phaser.GameObjects.Image).texture.key).setInteractive();
+        const newColor = (dragColor as Phaser.GameObjects.Image).texture.key;
+        this.nene = this.scene.physics.add.image(750, 300, "nene-" + newColor).setInteractive();
+        this.attributes["color"] = (dragColor as Phaser.GameObjects.Image).texture.key;
+        this.text = this.text.setText("nene = new Nene(\n\t" + this.generateDisplayString() + "\n);");
         this.setUpCollisions();
 
       }
 
+      private generateCoords() {
+        return [Math.random() * 300 + 250, Math.random() * 400 + 100];
+      }
 
+      private generateDisplayString() {
+        const lines: Array<string> = [];
+        Object.keys(this.attributes).forEach(
+            (key) => lines.push( '"' + this.attributes[key] + '"')
+        );
+        return lines.join("\n");
+      }
   
   //e.g. this.add(this.scene.add.text(100,100, "example text", {fontSize: '28px'}))
     /*
