@@ -28,6 +28,7 @@ export default class DragAndDrop extends Phaser.GameObjects.Container {
     private text: Phaser.GameObjects.Text;
     private currentAttributes: Record<string,string>;
     private hat?: Phaser.GameObjects.GameObject;
+    private resetButton: Phaser.GameObjects.GameObject;
   
   //COLORS V2 END ----------------------------------------------
   //variables here
@@ -49,13 +50,14 @@ export default class DragAndDrop extends Phaser.GameObjects.Container {
     //this.scene.input.setDraggable(this.nene);
     this.text = this.scene.add.text(650,450, "nene = new Nene();", {"align":"left","color":"0x000000","fixedWidth":250});
     this.nene = this.scene.physics.add.image(750, 300, "nene").setInteractive();
+    this.resetButton = this.scene.physics.add.image(750, 100, "reset").setInteractive();
     this.currentAttributes = {};
     this.dragColors = {};
     this.dragHats = {};
     this.displayValueOptions((this.scene as GameScene).colors, this.dragColors);
     this.displayValueOptions((this.scene as GameScene).hats, this.dragHats);
     
-
+    this.setUpButton();
     this.setUpDrag();
     this.setUpCollisions();
     //COLORS V2 END ---------------------------------------------------------------
@@ -180,6 +182,24 @@ private handleColorCollision(
             (key) => lines.push( '"' + this.currentAttributes[key] + '",')
         );
         return lines.join("\n\t");
+      }
+
+      private setUpButton() {
+        this.resetButton.setInteractive().on('pointerdown', (() => {
+          this.text.destroy();
+          this.text = this.scene.add.text(650,450, "nene = new Nene();", {"align":"left","color":"0x000000","fixedWidth":250});
+          this.nene.destroy();
+          this.hat?.destroy();
+          this.nene = this.scene.physics.add.image(750, 300, "nene").setInteractive();
+          this.currentAttributes = {};
+          Object.values(this.dragColors).forEach((color) => color.destroy());
+          Object.values(this.dragHats).forEach((hat) => hat.destroy());
+          this.displayValueOptions((this.scene as GameScene).colors, this.dragColors);
+          this.displayValueOptions((this.scene as GameScene).hats, this.dragHats);
+          this.setUpDrag();
+          this.setUpCollisions();
+  
+        }));
       }
   
   //e.g. this.add(this.scene.add.text(100,100, "example text", {fontSize: '28px'}))
