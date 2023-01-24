@@ -8,7 +8,6 @@ import DragAndDrop from "./components/DragAndDrop";
 export default class GameScene extends Phaser.Scene {
   private background?: Phaser.GameObjects.Image;
 
-<<<<<<< HEAD
   //Rachel
   private popup?: Phaser.GameObjects.Image;
   private contain: Phaser.GameObjects.Container | undefined;
@@ -34,8 +33,6 @@ export default class GameScene extends Phaser.Scene {
   neneGreenHat!: Phaser.GameObjects.GameObject;
   ///Mycah's Properties - END ----------------------------------
 
-=======
->>>>>>> megan-colors-v2
   // Holds coin management system
   // Populates left side of screen with different purchasables
   private shop?: Shop;
@@ -56,28 +53,20 @@ export default class GameScene extends Phaser.Scene {
   // Where the attribute values go
   private dragAndDrop?: DragAndDrop;
 
-<<<<<<< HEAD
-  constructor() {
-    super("game-scene");
-=======
   colors: Array<string>;
 
   constructor() {
     super("game-scene");
     this.colors = ["blue", "green", "purple", "red"];
->>>>>>> megan-colors-v2
   }
 
   preload() {
     //this.load.setBaseURL('https://labs.phaser.io')
     this.load.image("bg", "assets/background.png");
-<<<<<<< HEAD
     this.load.image("color", "assets/Colorwheel.png");
     this.load.image("hats", "assets/hats.jpeg");
 
     this.load.image("popup", "assets/popup.png");
-=======
->>>>>>> megan-colors-v2
     //this.load.image('logo', 'assets/sprites/phaser3-logo.png')
     //this.load.image('red', 'assets/particles/red.png')
 
@@ -85,11 +74,7 @@ export default class GameScene extends Phaser.Scene {
 
     //Mycah's Code for preload() - START ----------------------------------
     //These images can be replaced with better one's later
-<<<<<<< HEAD
-    this.load.image("blueHat", "assets/blueHat.png");
-=======
     /*this.load.image("blueHat", "assets/blueHat.png");
->>>>>>> megan-colors-v2
     this.load.image("greenHat", "assets/greenHat.png");
     this.load.image("nene", "assets/nene.png");
     this.load.image("pink", "assets/pink.png");
@@ -101,10 +86,6 @@ export default class GameScene extends Phaser.Scene {
     this.load.image("yellowNeneBlueHat", "assets/yellowNeneBlueHat.png");
     this.load.image("yellowNeneGreenHat", "assets/yellowNeneGreenHat.png");
     this.load.image("neneGreenHat", "assets/neneGreenHat.png");
-<<<<<<< HEAD
-    this.load.image("neneBlueHat", "assets/neneBlueHat.png");
-    //Mycah's Code for preload() - END ----------------------------------
-=======
     this.load.image("neneBlueHat", "assets/neneBlueHat.png");*/
     //Mycah's Code for preload() - END ----------------------------------
 
@@ -113,7 +94,6 @@ export default class GameScene extends Phaser.Scene {
        this.load.image(color, "assets/colors/" + color + ".png"))
     );
     this.load.image("nene", "assets/nene.png");
->>>>>>> megan-colors-v2
   }
 
   create() {
@@ -123,151 +103,6 @@ export default class GameScene extends Phaser.Scene {
 
     // CREATES THE SHOP OBJECT & initializes values & SHOWS
     this.shop = new Shop(this);
-<<<<<<< HEAD
-    this.shop.earnCoin();
-
-    // CREATES THE SHOP OBJECT & initializes values & SHOWS
-    this.displayArea = new DisplayArea(this);
-    this.displayArea.earnCoin();
-
-    // CREATES THE SHOP OBJECT & initializes values & SHOWS
-    this.dragAndDrop = new DragAndDrop(this);
-    this.dragAndDrop.earnCoin();
-
-    // CREATES THE SHOP OBJECT & initializes values & SHOWS
-    this.questions = new Questions(this);
-    this.questions.earnCoin();
-
-    // CREATES THE SHOP OBJECT & initializes values & SHOWS
-    this.tutorial = new Tutorial(this);
-    this.tutorial.earnCoin();
-
-    // rachel
-    this.popup = this.add.image(0, 0, "popup").setOrigin(0);
-    this.quiztext = this.add
-      .text(120, 34, "this is a test :)")
-      .setColor("#000000")
-      .setInteractive()
-      .on("pointerover", () => this.quiztext?.setColor("#fff000"))
-      .on("pointerout", () => this.quiztext?.setColor("#000000"))
-      .on("pointerup", () => this.contain?.destroy());
-    this.contain = this.add.container(32, 70, [this.popup, this.quiztext]);
-    this.contain.setInteractive(
-      new Phaser.Geom.Rectangle(0, 0, this.popup.width, this.popup.height),
-      Phaser.Geom.Rectangle.Contains
-    );
-
-    this.input.setDraggable(this.contain);
-    {
-      this.contain?.on(
-        "drag",
-        (_pointer: undefined, dragX: number, dragY: number) => {
-          if (this.contain) {
-            this.contain.x = dragX;
-            this.contain.y = dragY;
-          }
-        }
-      );
-      // rachel end
-
-      //Mycah's Code for create() - START ----------------------------------
-      this.nene = this.physics.add.image(750, 200, "nene").setInteractive();
-      this.input.setDraggable(this.nene);
-
-      this.blueHat = this.physics.add
-        .image(400, 100, "blueHat")
-        .setInteractive();
-      this.input.setDraggable(this.blueHat);
-
-      this.greenHat = this.physics.add
-        .image(400, 200, "greenHat")
-        .setInteractive();
-      this.input.setDraggable(this.greenHat);
-
-      this.pink = this.physics.add.image(400, 400, "pink").setInteractive();
-      this.input.setDraggable(this.pink);
-
-      this.yellow = this.physics.add.image(400, 500, "yellow").setInteractive();
-      this.input.setDraggable(this.yellow);
-
-      this.items = ["blueHat", "greenHat", "pink", "yellow"];
-
-      this.input.dragDistanceThreshold = 16;
-
-      this.input.on(
-        "dragstart",
-        function (
-          _pointer: any,
-          gameObject: { setTint: (arg0: number) => void }
-        ) {
-          gameObject.setTint(0xff0000);
-        }
-      );
-
-      this.input.on(
-        "drag",
-        function (
-          _pointer: any,
-          gameObject: { x: any; y: any },
-          dragX: any,
-          dragY: any
-        ) {
-          gameObject.x = dragX;
-          gameObject.y = dragY;
-        }
-      );
-
-      this.input.on(
-        "dragend",
-        function (_pointer: any, gameObject: { clearTint: () => void }) {
-          gameObject.clearTint();
-        }
-      );
-
-      this.physics.add.overlap(this.nene, this.items, undefined);
-
-      this.physics.add.collider(
-        this.nene,
-        this.pink,
-        this.handlePinkNene,
-        undefined,
-        this
-      );
-      this.physics.add.collider(
-        this.nene,
-        this.yellow,
-        this.handleYellowNene,
-        undefined,
-        this
-      );
-      this.physics.add.collider(
-        this.nene,
-        this.blueHat,
-        this.handleNeneBlueHat,
-        undefined,
-        this
-      );
-      this.physics.add.collider(
-        this.nene,
-        this.greenHat,
-        this.handleNeneGreenHat,
-        undefined,
-        this
-      );
-    }
-  }
-
-  //this.physics.add.collider(this.pinkNene, this.blueHat, this.handlePinkNeneBlueHat)
-  //this.physics.add.collider(this.pinkNene, this.greenHat, this.handlePinkNeneGreenHat, undefined, this)
-  //this.physics.add.collider(this.yellowNene, this.blueHat, this.handleYellowNeneBlueHat, undefined, this)
-  //this.physics.add.collider(this.yellowNene, this.greenHat, this.handleYellowNeneGreenHat, undefined, this)
-
-  //Mycah's Code for create() - END ----------------------------------
-
-  //const particles = this.add.particles('red')
-
-  /*const emitter = particles.createEmitter({
-=======
 
     // CREATES THE SHOP OBJECT & initializes values & SHOWS
     this.displayArea = new DisplayArea(this);
@@ -284,7 +119,6 @@ export default class GameScene extends Phaser.Scene {
     //const particles = this.add.particles('red')
 
     /*const emitter = particles.createEmitter({
->>>>>>> megan-colors-v2
 			speed: 100,
 			scale: { start: 1, end: 0 },
 			blendMode: 'ADD',
@@ -297,124 +131,5 @@ export default class GameScene extends Phaser.Scene {
 		logo.setCollideWorldBounds(true)
 
 		emitter.startFollow(logo)*/
-<<<<<<< HEAD
-
-  //Mycah's Code for OTHER FUNCTIONS - START ----------------------------------
-  private handlePinkNene(
-    nene: Phaser.GameObjects.GameObject,
-    pink: Phaser.GameObjects.GameObject
-  ) {
-    const myNene = nene as Phaser.Physics.Arcade.Image;
-    myNene.disableBody(true, true);
-
-    const myPink = pink as Phaser.Physics.Arcade.Image;
-    myPink.disableBody(true, true);
-
-    this.pinkNene = this.physics.add
-      .image(750, 300, "pinkNene")
-      .setInteractive();
-    this.input.setDraggable(this.pinkNene);
   }
-
-  private handleYellowNene(
-    nene: Phaser.GameObjects.GameObject,
-    yellow: Phaser.GameObjects.GameObject
-  ) {
-    const myNene = nene as Phaser.Physics.Arcade.Image;
-    myNene.disableBody(true, true);
-
-    const myYellow = yellow as Phaser.Physics.Arcade.Image;
-    myYellow.disableBody(true, true);
-
-    this.yellowNene = this.physics.add
-      .image(750, 300, "yellowNene")
-      .setInteractive();
-    this.input.setDraggable(this.yellowNene);
-  }
-
-  private handleNeneBlueHat(
-    nene: Phaser.GameObjects.GameObject,
-    blueHat: Phaser.GameObjects.GameObject
-  ) {
-    const myNene = nene as Phaser.Physics.Arcade.Image;
-    myNene.disableBody(true, true);
-
-    const myBlueHat = blueHat as Phaser.Physics.Arcade.Image;
-    myBlueHat.disableBody(true, true);
-
-    this.neneBlueHat = this.physics.add
-      .image(750, 300, "neneBlueHat")
-      .setInteractive();
-    this.input.setDraggable(this.neneBlueHat);
-  }
-
-  private handleNeneGreenHat(
-    nene: Phaser.GameObjects.GameObject,
-    greenHat: Phaser.GameObjects.GameObject
-  ) {
-    const myNene = nene as Phaser.Physics.Arcade.Image;
-    myNene.disableBody(true, true);
-
-    const myGreenHat = greenHat as Phaser.Physics.Arcade.Image;
-    myGreenHat.disableBody(true, true);
-
-    this.neneGreenHat = this.physics.add
-      .image(750, 300, "neneGreenHat")
-      .setInteractive();
-    this.input.setDraggable(this.neneGreenHat);
-  }
-
-  /*
-	private handlePinkNeneBlueHat(pinkNene: Phaser.GameObjects.GameObject, blueHat: Phaser.GameObjects.GameObject){
-		const myPinkNene = pinkNene as Phaser.Physics.Arcade.Image
-		myPinkNene.disableBody(true, true)
-
-		const myBlueHat = blueHat as Phaser.Physics.Arcade.Image
-		myBlueHat.disableBody(true, true)
-
-		this.pinkNeneBlueHat = this.physics.add.image(750, 300,'pinkNeneBlueHat').setInteractive();
-		this.input.setDraggable(this.pinkNeneBlueHat);
-		//const myPinkNeneBlueHat = this.pinkNeneBlueHat as Phaser.Physics.Arcade.Image
-		//myPinkNeneBlueHat.enableBody(true, 750, 300, true, true)
-	}
-
-
-	private handlePinkNeneGreenHat(pinkNene: Phaser.GameObjects.GameObject, greenHat: Phaser.GameObjects.GameObject){
-		const myPinkNene = pinkNene as Phaser.Physics.Arcade.Image
-		myPinkNene.disableBody(true, true)
-
-		const myGreenHat = greenHat as Phaser.Physics.Arcade.Image
-		myGreenHat.disableBody(true, true)
-
-		this.pinkNeneGreenHat = this.physics.add.image(750, 300,'pinkNeneGreenHat').setInteractive();
-		this.input.setDraggable(this.pinkNeneGreenHat);
-	}
-
-	private handleYellowNeneBlueHat(yellowNene: Phaser.GameObjects.GameObject, blueHat: Phaser.GameObjects.GameObject){
-		const myYellowNene = yellowNene as Phaser.Physics.Arcade.Image
-		myYellowNene.disableBody(true, true)
-
-		const myBlueHat = blueHat as Phaser.Physics.Arcade.Image
-		myBlueHat.disableBody(true, true)
-
-		this.yellowNeneBlueHat = this.physics.add.image(750, 300,'yellowNeneBlueHat').setInteractive();
-		this.input.setDraggable(this.yellowNeneBlueHat);
-	}
-
-	private handleYellowNeneGreenHat(yellowNene: Phaser.GameObjects.GameObject, greenHat: Phaser.GameObjects.GameObject){
-		const myYellowNene = yellowNene as Phaser.Physics.Arcade.Image
-		myYellowNene.disableBody(true, true)
-
-		const myGreenHat = greenHat as Phaser.Physics.Arcade.Image
-		myGreenHat.disableBody(true, true)
-
-		this.yellowNeneGreenHat = this.physics.add.image(750, 300,'yellowNeneGreenHat').setInteractive();
-		this.input.setDraggable(this.yellowNeneGreenHat);
-	}
-	*/
-
-  //Mycah's Code for OTHER FUNCTIONS - END ----------------------------------
-=======
-  }
->>>>>>> megan-colors-v2
 }
