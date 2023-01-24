@@ -22,9 +22,7 @@ export default class Questions extends Phaser.GameObjects.Container{
     }
 
     //methods down here
-
-    preload() {
-
+    public earnCoin() {
+        return 0
     }
-
 }
