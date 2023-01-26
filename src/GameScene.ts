@@ -4,11 +4,17 @@ import Tutorial from "./components/Tutorial";
 import Questions from "./components/Questions";
 import DisplayArea from "./components/DisplayArea";
 import DragAndDrop from "./components/DragAndDrop";
+//import TextArea from "phaser3-rex-plugins/templates/ui/textarea/TextArea";
+//import TextBox from 'phaser3-rex-plugins/templates/ui/ui-components.js';
 
 export default class GameScene extends Phaser.Scene {
   private background?: Phaser.GameObjects.Image;
 
+  //Mycah
   private collectionButton!: Phaser.GameObjects.Image;
+  private saveButton!: Phaser.GameObjects.Image;
+
+  //private myObjects: Record<string, Phaser.GameObjects.GameObject>;
 
   //Rachel
   //private popup?: Phaser.GameObjects.Image;
@@ -58,10 +64,19 @@ export default class GameScene extends Phaser.Scene {
   colors: Array<string>;
   hats: Array<string>;
 
+  //Mycah
+  names: Array<string>;
+  myNames: any;
+  rexUI: any;
+  
+
   constructor() {
     super("GameScene");
     this.colors = ["blue", "green", "purple", "red"];
     this.hats = ["beanie", "bucket-hat", "sunhat", "visor"];
+
+    //Mycah
+    this.names = [];
   }
 
   preload() {
@@ -98,9 +113,17 @@ export default class GameScene extends Phaser.Scene {
     this.load.image("reset", "assets/reset.png");
     this.load.image("nene", "assets/nene.png");
 
+    //Mycah
     //Preloads the collection button image
     this.load.image("collectionButton", "assets/collectionButton.gif");
-  }
+
+    this.load.image("saveButton", "assets/saveButton.png");
+
+    //this.load.scenePlugin('rexuiplugin', 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/dist/rexuiplugin.min.js', 'rexUI', 'rexUI');
+    //this.load.image("yellow", "assets/yellow.png");
+    //var textBox = this.rexUI.add.textBox();
+
+   }
 
   create() {
     this.background = this.add.image(450, 300, "bg");
@@ -123,12 +146,11 @@ export default class GameScene extends Phaser.Scene {
     new Tutorial(this);
 
 
-
+    //Mycah
     //Displays the collection button
     //When the collection button is clicked, it goes to the Collection Scene 
     this.collectionButton=this.add.image(850, 70, "collectionButton")
     .setInteractive();
-
     this.collectionButton.on("pointerover",() =>{
       this.collectionButton.setAlpha(1);
     });
@@ -137,6 +159,78 @@ export default class GameScene extends Phaser.Scene {
     });
     this.collectionButton.on('pointerdown', ()=>this.goToCollectionScene());
 
+
+/*
+    var textBox = this.rexUI.add.textBox({
+      orientation: 0,
+      text: 'Hello there',
+      actionMask: false,
+
+      space: {
+        left: 0,
+        right: 0,
+        top: 0,
+        bottom: 0,
+
+        icon: 0,
+        text: 0,
+    },
+    });
+
+    */
+    
+    this.add.text(630, 540, 'Type below to name your nene:', { font: '16px Courier', color: '#000000' })
+    let text = this.add.text(630, 560, 'Type Here', { font: '16px Courier', color: '#000000' })
+    //let text = this.add.text(400, 300, 'Hello World', { fixedWidth: 150, fixedHeight: 36 })
+	  //text.setOrigin(0.5, 0.5)
+
+    
+	  text.setInteractive().on('pointerdown', () => {
+		  this.rexUI.edit(text)
+	  })
+
+    /*myText.setInteractive().on('pointerdown', () => {
+		  this.rexUI.edit(text)
+	  })*/
+
+    
+  
+  
+    let editor = this.rexUI.edit(text)
+    //let elem = editor.inputText.node
+    //let myStuff = this.rexUI.inputText
+    //let elem = editor.inputText.node
+    //let elem = editor.inputText as string
+    
+    this.saveButton=this.add.image(750, 60, "saveButton")
+    .setInteractive();
+    this.saveButton.on("pointerover",() =>{
+      this.saveButton.setAlpha(1);
+    });
+    this.saveButton.on("pointerout", ()=>{
+      this.saveButton.setAlpha(0.9);
+    });
+    this.saveButton.on('pointerdown', ()=>this.saveMyObject(editor.text));
+
+
+    //Mycah
+    //
+    /*
+    this.add.text(650, 540, 'Type to name your nene:', { font: '16px Courier', color: '#000000' });
+    let textEntry = this.add.text(650, 560, '', { font: '16px Courier', color: '#000000' });
+    this.input.keyboard.on('keydown',  (event: { keyCode: number; key: string; }) => {
+      if (event.keyCode === 8 && textEntry.text.length > 0) {
+          textEntry.text = textEntry.text.substr(0, textEntry.text.length - 1);
+      } else if (event.keyCode === 32 || (event.keyCode >= 48 && event.keyCode < 90)) {
+          textEntry.text += event.key;
+      }
+
+    this.myNames = this.add.text(20, 20,'Hey: 10' , {fontSize: '32px'})
+
+    this.names.push(textEntry as unknown as string)
+    });
+    
+    this.checkNames();*/
 
     //const particles = this.add.particles('red')
 
@@ -154,6 +248,17 @@ export default class GameScene extends Phaser.Scene {
 
 		emitter.startFollow(logo)*/
 
+  
+}
+  saveMyObject(elem: string) {
+    this.names.push(elem as string);
+    this.add.text(100, 100, "new name" + elem);
+    console.log("the names: " + this.names);
+  }
+
+  checkNames() {    
+    
+    this.myNames?.setText(`Hey: ${this.names}`);
   }
 
   private loadAttribute(attributeName: string, attributeValues: Array<string>) {
@@ -168,4 +273,7 @@ export default class GameScene extends Phaser.Scene {
     this.scene.stop('GameScene').launch('collectionScene');
   }
 
+
+
 }
+
