@@ -8,12 +8,10 @@ export default class Shop extends Phaser.GameObjects.Container{
 
     private color: Phaser.GameObjects.Image
     private hats: Phaser.GameObjects.Image
-    private scoreText?: Phaser.GameObjects.Text
+    public scoreText: Phaser.GameObjects.Text
     
     constructor(scene: Phaser.Scene) {
         super(scene)
-
-        this.coins = 10;
         
         this.add(this.scene.add.text(40,240, "Additional Colors", {fontSize: '18px'}))
         this.add(this.scene.add.text(60,415, "Baseball Caps", {fontSize: '18px'}))

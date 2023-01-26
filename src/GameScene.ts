@@ -16,7 +16,7 @@ export default class GameScene extends Phaser.Scene {
   //private contain: Phaser.GameObjects.Container | undefined;
   //private quiztext?: Phaser.GameObjects.Text;
   
-  public coinTracker: Array<String>;
+  public coinTracker: Array<string>;
   //Rachel End
 
   ///Mycah's Properties - START ----------------------------------
@@ -93,7 +93,6 @@ export default class GameScene extends Phaser.Scene {
     this.background.displayWidth = 900;
 
     // CREATES THE SHOP OBJECT & initializes values & SHOWS
-    new Shop(this);
 
     // CREATES THE SHOP OBJECT & initializes values & SHOWS
     new DisplayArea(this);
@@ -107,7 +106,7 @@ export default class GameScene extends Phaser.Scene {
     // CREATES THE SHOP OBJECT & initializes values & SHOWS
     new Tutorial(this);
 
-
+    this.shop = new Shop(this);
 
     //Displays the collection button
     //When the collection button is clicked, it goes to the Collection Scene 
