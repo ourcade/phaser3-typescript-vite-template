@@ -1,0 +1,83 @@
+[
+    {
+        "question": "An object is an instance of a class.",
+        "choices": ["True", "False"],
+        "expected": "True"
+    }, {
+        "question":"A class is an instance of an object.",
+        "choices": ["True", "False"],
+        "expected": "False"
+    }, {
+        "question":"How are objects created?",
+        "choices": ["By calling constructors with or without parameters.", "By listing or grouping similar types of data values.", "By repeating the same process over and over until a condition is met.", "By manipulating different operands"],
+        "expected": "By calling constructors with or without parameters."
+    }, {
+        "question":"How are classes different from objects?",
+        "choices": ["Classes are the blueprint for declaring and creating objects, while objects are an instance of a class.", "Objects are the blueprint for declaring and creating objects, while classes are an instance of a class.", "Objects are strings, while classes are booleans.", "Objects are booleans, while classes are strings."],
+        "expected": "Classes are the blueprint for declaring and creating objects, while objects are an instance of a class."
+    }, {
+        "question":"A class is the blueprint for declaring and creating objects.",
+        "choices": ["True", "False"],
+        "expected": "True"
+    }, {
+        "question":"An object is the blueprint for declaring and creating classes.",
+        "choices": ["True", "False"],
+        "expected": "False"
+    }, {
+        "question":"What is the blueprint for declaring and creating objects?",
+        "choices": ["A class", "An object", "A type", "A variable"],
+        "expected": "A class"
+    }, {
+        "question":"Which of the following is not part of a class?",
+        "choices": ["Motherboard", "variable declarations", "Constructors", "Methods"],
+        "expected": "Motherboard"
+    }, {
+        "question":"Subclasses inherit all the fields and public methods of its super class.",
+        "choices": ["True", "False"],
+        "expected": "True"
+    }, {
+        "question":"Based on the game, what is Nene?",
+        "choices": ["A class", "A string", "A variable", "An attribute"],
+        "expected": "A class"
+    }, {
+        "question":"Which line shows the constructor for the class Nene?\npublic class Nene{\nprivate class Nene{\nprivate String name;\npublicNene() {this.name = \"Jerry\";}\nprivate void jump(){};\n}",
+        "choices": ["Line 1", "Line 2", "Line 3", "Line 4"],
+        "expected": "Line 3"
+    }, {
+        "question":"Which constructor takes in 2 parameters?",
+        "choices": ["Nene();", "Nene(\"blue\");", "Nene(\"beanie\", \"pink\");", "Nene(\"sandals\", \"sunhat\", \"purple\");"],
+        "expected": "Nene(\"beanie\", \"pink\");"
+    }, {
+        "question":"What is the name of this class?\npublic class Nene {\n\tprivate String color;\n\tpublic Nene(){\n\t\tthis.color = “pink”;\n\t}\n\tprivate void jump(){};\n}",
+        "choices": ["Nene", "Color", "Pink", "Jump"],
+        "expected": "Nene"
+    }, {
+        "question":"What is an attribute?",
+        "choices": ["A changeable property or characteristic of some component of a program that can be set to different values.", "A list or group of similar types of data values that are grouped.", "An unexpected condition encountered during the execution of a program.", "A sequence of instructions that repeat the same process over and over until a condition is met."],
+        "expected": "A changeable property or characteristic of some component of a program that can be set to different values."
+    }, {
+        "question":"Based on the game, which of the following is an example of an attribute value of the class Nene?",
+        "choices": ["\"blue\"", "bucket", "sand", "ocean"],
+        "expected": "\"blue\""
+    }, {
+        "question":"A keyword used to initialize an object",
+        "choices": ["old", "clone", "method", "new"],
+        "expected": "new"
+    }, {
+        "question":"An abstract class cannot have a constructor.",
+        "choices": ["True", "False"],
+        "expected": "False"
+    }, {
+        "question":"What are classes made up of?",
+        "choices": ["Methods", "Mainframes", "Modules", "Magic"],
+        "expected": "Methods"
+    }, {
+        "question":"What is overloading?",
+        "choices": ["Creating multiple methods or constructors with the same name but different number or types of parameters.", "Lists or groups of similar types of data values that are grouped.", "A statement that describes a variable, function or any other identifier.", "A sequence of instructions that repeat the same process over and over until a condition is met."],
+        "expected": "Creating multiple methods or constructors with the same name but different number or types of parameters."
+    }, {
+        "question":"Another name for actions?",
+        "choices": ["Methods", "Work", "Steps", "Moves"],
+        "expected": "Methods"
+    }
+]
