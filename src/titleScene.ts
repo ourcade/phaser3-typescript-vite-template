@@ -32,13 +32,8 @@ export default class titleScene extends Phaser.Scene {
 			fill: '#000'
 		})
 
-        
-
         //load in music
         
-        
-       
-    
         //create startButton
         this.startButton = this.add.image(400, 500, 'titleStart');
         this.startButton.setInteractive();
