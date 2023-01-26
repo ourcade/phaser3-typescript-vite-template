@@ -98,6 +98,8 @@ export default class GameScene extends Phaser.Scene {
     this.load.image("reset", "assets/reset.png");
     this.load.image("nene", "assets/nene.png");
 
+    this.load.json('questions', 'src/components/quiz.json');
+
     //Preloads the collection button image
     this.load.image("collectionButton", "assets/collectionButton.gif");
   }
@@ -121,8 +123,6 @@ export default class GameScene extends Phaser.Scene {
 
     // CREATES THE SHOP OBJECT & initializes values & SHOWS
     new Tutorial(this);
-
-
 
     //Displays the collection button
     //When the collection button is clicked, it goes to the Collection Scene 

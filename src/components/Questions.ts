@@ -3,49 +3,41 @@ import GameScene from "../GameScene"
 export default class Questions extends Phaser.GameObjects.Container {
     
     //Rachel
-    private popup: Phaser.GameObjects.Image;
-    private contain: Phaser.GameObjects.Container | undefined;
+    private popupBG?: Phaser.GameObjects.Image;
+    private container: Phaser.GameObjects.Container | undefined;
     private quiztext: Phaser.GameObjects.Text | undefined;
-    private questions: Array<string>;
-    private answerT: Phaser.GameObjects.Text;
-    private answerF: Phaser.GameObjects.Text;
+    private expected?: Phaser.GameObjects.Text;
+    private choices?: Phaser.GameObjects.Text;
+
     //Rachel End
 
     constructor(scene: GameScene) { //don't touch
         super(scene) //Don't touch
-        this.questions = ["Color is an example of an attribute.", "Hats are an example of a subclass.", "Our nene is an instance of a class."]; //odd questions are true, evens are false
-        this.popup = this.scene.physics.add.image(150,100, 'popup').setOrigin(0);
-        this.quiztext = this.scene.add.text(200, 150, "this is a test :)")
-            .setColor('#000000');
-        this.answerT = this.scene.add.text(250, 275, "true")
-            .setColor('#000000')
-            .setInteractive()
-			.on('pointerover', () => this.answerT?.setColor('#fff000'))
-			.on('pointerout', () => this.answerT?.setColor('#000000'));
-        this.answerF = this.scene.add.text(400, 275, "false")
-            .setColor('#000000')
-            .setInteractive()
-			.on('pointerover', () => this.answerF?.setColor('#fff000'))
-			.on('pointerout', () => this.answerF?.setColor('#000000'));
-		this.contain = this.scene.add.container(32, 70, [ this.popup, this.quiztext, this.answerT, this.answerF ]);
-        this.quizPopUp();
+        this.scene.load.json('questions', 'src/components/quiz.json');
+        this.scene.load.start();
+        this.generatePopUp();
         this.scene.add.existing(this); //Don't touch
     }
 
-    private generateQuestion(){
-        return Math.floor(Math.random() * 3);
-    }
-
-    private quizPopUp() {
-        const index = this.generateQuestion() ;
-        this.quiztext = this.quiztext?.setText(this.questions[index]);
-        if (index % 2 == 0){
-            this.answerT.on("pointerup", () => this.contain?.destroy());
-            this.answerF.on("pointerup", () => this.answerF.setColor("#FF0000"))
-        } else {
-            this.answerF.on("pointerup", () => this.contain?.destroy());
-            this.answerT.on("pointerup", () => this.answerT.setColor("#FF0000"))
-        }
+    private generatePopUp(){
+        let quizJson = this.scene.cache.json.get('questions');
+        const index = Math.floor(Math.random() * 20);
+        this.popupBG = this.scene.physics.add.image(150,100, 'popup').setOrigin(0);
+        this.quiztext = this.scene.add.text(200, 150, quizJson[index].question)
+            .setColor('#000000');
+        this.expected = this.scene.add.text(250, 275, quizJson[index].expected)
+            .setColor('#000000')
+            .setInteractive()
+			.on('pointerover', () => this.expected?.setColor('#fff000'))
+			.on('pointerout', () => this.expected?.setColor('#000000'));
+        this.choices = this.scene.add.text(400, 275, quizJson[index].choices[0])
+            .setColor('#000000')
+            .setInteractive()
+			.on('pointerover', () => this.choices?.setColor('#fff000'))
+			.on('pointerout', () => this.choices?.setColor('#000000'));
+		this.container = this.scene.add.container(32, 70, [ this.popupBG, this.quiztext, this.expected, this.choices ]);
+        this.expected.on("pointerup", () => this.container?.destroy());
+        this.choices.on("pointerup", () => this.choices?.setColor("#FF0000"))
     }
 
 }
