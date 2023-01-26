@@ -65,7 +65,7 @@ export default class DragAndDrop extends Phaser.GameObjects.Container {
 
   private displayValueOptions(attributeNames: Array<string>, dragItems: Record<string, Phaser.GameObjects.GameObject>) {
     let y_pos = 100;
-    const x_pos = Math.random() * 300 + 300;
+    //const x_pos = Math.random() * 300 + 300;
     attributeNames.forEach((attribute) =>
         (dragItems[attribute] = this.scene.physics.add.image(350, y_pos, attribute).setInteractive(),
         this.scene.input.setDraggable(dragItems[attribute]),
@@ -74,7 +74,7 @@ export default class DragAndDrop extends Phaser.GameObjects.Container {
   }
   private displayValueOptions2(attributeNames: Array<string>, dragItems: Record<string, Phaser.GameObjects.GameObject>) {
     let y_pos = 100;
-    const x_pos = Math.random() * 300 + 300;
+    //const x_pos = Math.random() * 300 + 300;
     attributeNames.forEach((attribute) =>
         (dragItems[attribute] = this.scene.physics.add.image(500, y_pos, attribute).setInteractive(),
         this.scene.input.setDraggable(dragItems[attribute]),
