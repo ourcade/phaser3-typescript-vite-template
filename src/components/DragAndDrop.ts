@@ -55,7 +55,7 @@ export default class DragAndDrop extends Phaser.GameObjects.Container {
     this.dragColors = {};
     this.dragHats = {};
     this.displayValueOptions((this.scene as GameScene).colors, this.dragColors);
-    this.displayValueOptions((this.scene as GameScene).hats, this.dragHats);
+    this.displayValueOptions2((this.scene as GameScene).hats, this.dragHats);
     
     this.setUpButton();
     this.setUpDrag();
@@ -67,7 +67,16 @@ export default class DragAndDrop extends Phaser.GameObjects.Container {
     let y_pos = 100;
     const x_pos = Math.random() * 300 + 300;
     attributeNames.forEach((attribute) =>
-        (dragItems[attribute] = this.scene.physics.add.image(x_pos, y_pos, attribute).setInteractive(),
+        (dragItems[attribute] = this.scene.physics.add.image(350, y_pos, attribute).setInteractive(),
+        this.scene.input.setDraggable(dragItems[attribute]),
+        y_pos += 125)
+    );
+  }
+  private displayValueOptions2(attributeNames: Array<string>, dragItems: Record<string, Phaser.GameObjects.GameObject>) {
+    let y_pos = 100;
+    const x_pos = Math.random() * 300 + 300;
+    attributeNames.forEach((attribute) =>
+        (dragItems[attribute] = this.scene.physics.add.image(500, y_pos, attribute).setInteractive(),
         this.scene.input.setDraggable(dragItems[attribute]),
         y_pos += 125)
     );
@@ -195,7 +204,7 @@ private handleColorCollision(
           Object.values(this.dragColors).forEach((color) => color.destroy());
           Object.values(this.dragHats).forEach((hat) => hat.destroy());
           this.displayValueOptions((this.scene as GameScene).colors, this.dragColors);
-          this.displayValueOptions((this.scene as GameScene).hats, this.dragHats);
+          this.displayValueOptions2((this.scene as GameScene).hats, this.dragHats);
           this.setUpDrag();
           this.setUpCollisions();
   
