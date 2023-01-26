@@ -53,10 +53,4 @@ export default class titleScene extends Phaser.Scene {
             this.scene.stop('titleScene').launch('GameScene');
         })
     }
-   
-        
-    
-
-    //prevents click crash
-    mouseFix() {}
 }

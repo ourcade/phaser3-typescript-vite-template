@@ -8,6 +8,8 @@ import DragAndDrop from "./components/DragAndDrop";
 export default class GameScene extends Phaser.Scene {
   private background?: Phaser.GameObjects.Image;
 
+  private collectionButton!: Phaser.GameObjects.Image;
+
   //Rachel
   //private popup?: Phaser.GameObjects.Image;
   //private contain: Phaser.GameObjects.Container | undefined;
@@ -95,6 +97,9 @@ export default class GameScene extends Phaser.Scene {
     this.loadAttribute("hats", this.hats);
     this.load.image("reset", "assets/reset.png");
     this.load.image("nene", "assets/nene.png");
+
+    //Preloads the collection button image
+    this.load.image("collectionButton", "assets/collectionButton.gif");
   }
 
   create() {
@@ -117,6 +122,22 @@ export default class GameScene extends Phaser.Scene {
     // CREATES THE SHOP OBJECT & initializes values & SHOWS
     new Tutorial(this);
 
+
+
+    //Displays the collection button
+    //When the collection button is clicked, it goes to the Collection Scene 
+    this.collectionButton=this.add.image(850, 70, "collectionButton")
+    .setInteractive();
+
+    this.collectionButton.on("pointerover",() =>{
+      this.collectionButton.setAlpha(1);
+    });
+    this.collectionButton.on("pointerout", ()=>{
+      this.collectionButton.setAlpha(0.7);
+    });
+    this.collectionButton.on('pointerdown', ()=>this.goToCollectionScene());
+
+
     //const particles = this.add.particles('red')
 
     /*const emitter = particles.createEmitter({
@@ -132,6 +153,7 @@ export default class GameScene extends Phaser.Scene {
 		logo.setCollideWorldBounds(true)
 
 		emitter.startFollow(logo)*/
+
   }
 
   private loadAttribute(attributeName: string, attributeValues: Array<string>) {
@@ -140,4 +162,10 @@ export default class GameScene extends Phaser.Scene {
        this.load.image(value, "assets/" + attributeName + "/" + value + ".png"))
     );
   }
+
+  //Function that handles changing the scene to the Collection Scene
+  private goToCollectionScene(){
+    this.scene.stop('GameScene').launch('collectionScene');
+  }
+
 }
