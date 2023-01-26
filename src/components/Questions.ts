@@ -28,8 +28,7 @@ export default class Questions extends Phaser.GameObjects.Container {
 			.on('pointerover', () => this.answerF?.setColor('#fff000'))
 			.on('pointerout', () => this.answerF?.setColor('#000000'));
 		this.contain = this.scene.add.container(32, 70, [ this.popup, this.quiztext, this.answerT, this.answerF ]);
-		//uncomment below for popups
-        //this.quizPopUp();
+        this.quizPopUp();
         this.scene.add.existing(this); //Don't touch
     }
 
