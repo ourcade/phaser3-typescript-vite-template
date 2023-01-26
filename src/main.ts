@@ -1,6 +1,8 @@
 import Phaser from 'phaser'
+import collectionScene from './CollectionScene'
 
 import GameScene from './GameScene'
+import titleScene from './titleScene'
 
 const config: Phaser.Types.Core.GameConfig = {
 	type: Phaser.AUTO,
@@ -13,7 +15,7 @@ const config: Phaser.Types.Core.GameConfig = {
 			gravity: {},
 		},
 	},
-	scene: [GameScene],
+	scene: [titleScene,GameScene,collectionScene],
 }
 const game =  new Phaser.Game(config)
 export default game

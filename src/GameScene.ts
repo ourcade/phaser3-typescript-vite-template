@@ -8,17 +8,19 @@ import DragAndDrop from "./components/DragAndDrop";
 export default class GameScene extends Phaser.Scene {
   private background?: Phaser.GameObjects.Image;
 
+  private collectionButton!: Phaser.GameObjects.Image;
+
   //Rachel
   public coins: number
-  private popup?: Phaser.GameObjects.Image;
-  private contain: Phaser.GameObjects.Container | undefined;
-  private quiztext?: Phaser.GameObjects.Text;
+  //private popup?: Phaser.GameObjects.Image;
+  //private contain: Phaser.GameObjects.Container | undefined;
+  //private quiztext?: Phaser.GameObjects.Text;
   
   public coinTracker: Array<String>;
   //Rachel End
 
   ///Mycah's Properties - START ----------------------------------
-  items: any;
+  /*items: any;
   blueHat: any;
   pink: any;
   greenHat: any;
@@ -33,7 +35,7 @@ export default class GameScene extends Phaser.Scene {
   yellowNeneBlueHat!: Phaser.GameObjects.GameObject;
   yellowNeneGreenHat!: Phaser.GameObjects.GameObject;
   neneBlueHat!: Phaser.GameObjects.GameObject;
-  neneGreenHat!: Phaser.GameObjects.GameObject;
+  neneGreenHat!: Phaser.GameObjects.GameObject;*/
   ///Mycah's Properties - END ----------------------------------
 
   // Holds coin management system
@@ -42,28 +44,30 @@ export default class GameScene extends Phaser.Scene {
 
   // Pop up with game instructions
   // Not for MVP but probably some hints will go in here too
-  private tutorial?: Tutorial;
+  //private tutorial?: Tutorial;
 
   // Question pop ups
   // Also processes question data and displays
-  private questions?: Questions;
+  //private questions?: Questions;
 
   // Where the different objects are displayed / stacked
-  private displayArea?: DisplayArea;
+  //private displayArea?: DisplayArea;
 
   // Drag and drop components
   // The "machine" or whatever we're calling it
   // Where the attribute values go
-  private dragAndDrop?: DragAndDrop;
+  //private dragAndDrop?: DragAndDrop;
 
   colors: Array<string>;
+  hats: Array<string>;
 
   constructor() {
-    super("game-scene");
+    super("GameScene");
     this.colors = ["blue", "green", "purple", "red"];
 	this.coins = 10;
 	this.coinTracker = []
 	
+    this.hats = ["beanie", "bucket-hat", "sunhat", "visor"];
   }
 
   preload() {
@@ -95,11 +99,13 @@ export default class GameScene extends Phaser.Scene {
     this.load.image("neneBlueHat", "assets/neneBlueHat.png");*/
     //Mycah's Code for preload() - END ----------------------------------
 
-    this.colors.forEach((color: string) =>
-      (this.load.image("nene-" + color, "assets/nene-colors/" + color + ".png"),
-       this.load.image(color, "assets/colors/" + color + ".png"))
-    );
+    this.loadAttribute("colors", this.colors);
+    this.loadAttribute("hats", this.hats);
+    this.load.image("reset", "assets/reset.png");
     this.load.image("nene", "assets/nene.png");
+
+    //Preloads the collection button image
+    this.load.image("collectionButton", "assets/collectionButton.gif");
   }
 
   create() {
@@ -108,19 +114,35 @@ export default class GameScene extends Phaser.Scene {
     this.background.displayWidth = 900;
 
     // CREATES THE SHOP OBJECT & initializes values & SHOWS
-    this.shop = new Shop(this);
+    new Shop(this);
 
     // CREATES THE SHOP OBJECT & initializes values & SHOWS
-    this.displayArea = new DisplayArea(this);
+    new DisplayArea(this);
 
     // CREATES THE SHOP OBJECT & initializes values & SHOWS
-    this.dragAndDrop = new DragAndDrop(this);
+    new DragAndDrop(this);
 
     // CREATES THE SHOP OBJECT & initializes values & SHOWS
-    this.questions = new Questions(this);
+    new Questions(this);
 
     // CREATES THE SHOP OBJECT & initializes values & SHOWS
-    this.tutorial = new Tutorial(this);
+    new Tutorial(this);
+
+
+
+    //Displays the collection button
+    //When the collection button is clicked, it goes to the Collection Scene 
+    this.collectionButton=this.add.image(850, 70, "collectionButton")
+    .setInteractive();
+
+    this.collectionButton.on("pointerover",() =>{
+      this.collectionButton.setAlpha(1);
+    });
+    this.collectionButton.on("pointerout", ()=>{
+      this.collectionButton.setAlpha(0.7);
+    });
+    this.collectionButton.on('pointerdown', ()=>this.goToCollectionScene());
+
 
     //const particles = this.add.particles('red')
 
@@ -137,5 +159,19 @@ export default class GameScene extends Phaser.Scene {
 		logo.setCollideWorldBounds(true)
 
 		emitter.startFollow(logo)*/
+
   }
+
+  private loadAttribute(attributeName: string, attributeValues: Array<string>) {
+    attributeValues.forEach((value: string) =>
+      (this.load.image("nene-" + value, "assets/nene-" + attributeName + "/" + value + ".png"),
+       this.load.image(value, "assets/" + attributeName + "/" + value + ".png"))
+    );
+  }
+
+  //Function that handles changing the scene to the Collection Scene
+  private goToCollectionScene(){
+    this.scene.stop('GameScene').launch('collectionScene');
+  }
+
 }
