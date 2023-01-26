@@ -8,29 +8,12 @@ export default class Shop extends Phaser.GameObjects.Container{
 
     private color: Phaser.GameObjects.Image
     private hats: Phaser.GameObjects.Image
-    public scoreText: Phaser.GameObjects.Text
-    /**** READ ME from Megan
-     * So... the fix is to put the call to load the image
-     * in the GameScene.ts preload function. 
-     * 
-     * That will then load up the image and set a global name
-     * for it (in this case, color)
-     * 
-     * You can then freely reference it in any component
-     * 
-     * Since I had Canva open already, I made your transparent
-     * actually transparent (it had the grid showing on it)
-     */
+    private scoreText?: Phaser.GameObjects.Text
+    
     constructor(scene: Phaser.Scene) {
         super(scene)
-        //X and Y coords
-        //this.x=
-        //this.y=
 
-        
-
-        //needs sizing and placement figured out
-        //add different images/text the same way you would with create()
+        this.coins = 10;
         
         this.add(this.scene.add.text(40,240, "Additional Colors", {fontSize: '18px'}))
         this.add(this.scene.add.text(60,415, "Baseball Caps", {fontSize: '18px'}))
