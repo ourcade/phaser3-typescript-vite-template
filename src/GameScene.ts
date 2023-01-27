@@ -16,7 +16,7 @@ export default class GameScene extends Phaser.Scene {
   //private contain: Phaser.GameObjects.Container | undefined;
   //private quiztext?: Phaser.GameObjects.Text;
   
-  public coinTracker: Array<String>;
+  public coinTracker: Array<string>;
   //Rachel End
 
   ///Mycah's Properties - START ----------------------------------
@@ -77,28 +77,7 @@ export default class GameScene extends Phaser.Scene {
     this.load.image("hats", "assets/hats.jpeg");
 
     this.load.image("popup", "assets/popup.png");
-    //this.load.image('logo', 'assets/sprites/phaser3-logo.png')
-    //this.load.image('red', 'assets/particles/red.png')
-
-    //this.load.image('background', 'assets/background-V0.png')
-
-    //Mycah's Code for preload() - START ----------------------------------
-    //These images can be replaced with better one's later
-    /*this.load.image("blueHat", "assets/blueHat.png");
-    this.load.image("greenHat", "assets/greenHat.png");
-    this.load.image("nene", "assets/nene.png");
-    this.load.image("pink", "assets/pink.png");
-    this.load.image("pinkNene", "assets/pinkNene.png");
-    this.load.image("pinkNeneBlueHat", "assets/pinkNeneBlueHat.png");
-    this.load.image("pinkNeneGreenHat", "assets/pinkNeneGreenHat.png");
-    this.load.image("yellow", "assets/yellow.png");
-    this.load.image("yellowNene", "assets/yellowNene.png");
-    this.load.image("yellowNeneBlueHat", "assets/yellowNeneBlueHat.png");
-    this.load.image("yellowNeneGreenHat", "assets/yellowNeneGreenHat.png");
-    this.load.image("neneGreenHat", "assets/neneGreenHat.png");
-    this.load.image("neneBlueHat", "assets/neneBlueHat.png");*/
-    //Mycah's Code for preload() - END ----------------------------------
-
+    
     this.loadAttribute("colors", this.colors);
     this.loadAttribute("hats", this.hats);
     this.load.image("reset", "assets/reset.png");
@@ -114,7 +93,6 @@ export default class GameScene extends Phaser.Scene {
     this.background.displayWidth = 900;
 
     // CREATES THE SHOP OBJECT & initializes values & SHOWS
-    new Shop(this);
 
     // CREATES THE SHOP OBJECT & initializes values & SHOWS
     new DisplayArea(this);
@@ -128,7 +106,7 @@ export default class GameScene extends Phaser.Scene {
     // CREATES THE SHOP OBJECT & initializes values & SHOWS
     new Tutorial(this);
 
-
+    this.shop = new Shop(this);
 
     //Displays the collection button
     //When the collection button is clicked, it goes to the Collection Scene 
@@ -142,23 +120,6 @@ export default class GameScene extends Phaser.Scene {
       this.collectionButton.setAlpha(0.7);
     });
     this.collectionButton.on('pointerdown', ()=>this.goToCollectionScene());
-
-
-    //const particles = this.add.particles('red')
-
-    /*const emitter = particles.createEmitter({
-			speed: 100,
-			scale: { start: 1, end: 0 },
-			blendMode: 'ADD',
-		})
-
-		const logo = this.physics.add.image(400, 100, 'logo')
-
-		logo.setVelocity(100, 200)
-		logo.setBounce(1, 1)
-		logo.setCollideWorldBounds(true)
-
-		emitter.startFollow(logo)*/
 
   }
 

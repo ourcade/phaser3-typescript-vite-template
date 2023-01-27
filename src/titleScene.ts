@@ -18,7 +18,7 @@ export default class titleScene extends Phaser.Scene {
       }
       preload()
       {
-        this.load.image('titleScreen','assets/backGround.png')
+        this.load.image('titleScreen','assets/titleScene.jpg')
         this.load.image('titleStart','assets/pink.png')
       }
     
@@ -32,13 +32,8 @@ export default class titleScene extends Phaser.Scene {
 			fill: '#000'
 		})
 
-        
-
         //load in music
         
-        
-       
-    
         //create startButton
         this.startButton = this.add.image(400, 500, 'titleStart');
         this.startButton.setInteractive();
