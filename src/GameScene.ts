@@ -8,14 +8,18 @@ import DragAndDrop from "./components/DragAndDrop";
 export default class GameScene extends Phaser.Scene {
   private background?: Phaser.GameObjects.Image;
 
+  //Mycah
   private collectionButton!: Phaser.GameObjects.Image;
+  private saveButton!: Phaser.GameObjects.Image;
+
+  //private myObjects: Record<string, Phaser.GameObjects.GameObject>;
 
   //Rachel
-  public coins: number
+  public coins: number;
   //private popup?: Phaser.GameObjects.Image;
   //private contain: Phaser.GameObjects.Container | undefined;
   //private quiztext?: Phaser.GameObjects.Text;
-  
+
   public coinTracker: Array<string>;
   //Rachel End
 
@@ -61,13 +65,21 @@ export default class GameScene extends Phaser.Scene {
   colors: Array<string>;
   hats: Array<string>;
 
+  //Mycah
+  names: Array<string>;
+  myNames: any;
+  rexUI: any;
+
   constructor() {
     super("GameScene");
     this.colors = ["blue", "green", "purple", "red"];
-	this.coins = 10;
-	this.coinTracker = []
-	
+    this.coins = 10;
+    this.coinTracker = [];
+
     this.hats = ["beanie", "bucket-hat", "sunhat", "visor"];
+
+    //Mycah
+    this.names = [];
   }
 
   preload() {
@@ -77,14 +89,18 @@ export default class GameScene extends Phaser.Scene {
     this.load.image("hats", "assets/hats.jpeg");
 
     this.load.image("popup", "assets/popup.png");
-    
+
     this.loadAttribute("colors", this.colors);
     this.loadAttribute("hats", this.hats);
     this.load.image("reset", "assets/reset.png");
     this.load.image("nene", "assets/nene.png");
 
+    //Mycah
     //Preloads the collection button image
     this.load.image("collectionButton", "assets/collectionButton.gif");
+
+    //Preloads the save button image
+    this.load.image("saveButton", "assets/saveButton.png");
   }
 
   create() {
@@ -109,30 +125,64 @@ export default class GameScene extends Phaser.Scene {
     this.shop = new Shop(this);
 
     //Displays the collection button
-    //When the collection button is clicked, it goes to the Collection Scene 
-    this.collectionButton=this.add.image(850, 70, "collectionButton")
-    .setInteractive();
-
-    this.collectionButton.on("pointerover",() =>{
+    //When the collection button is clicked, it goes to the Collection Scene
+    this.collectionButton = this.add
+      .image(850, 70, "collectionButton")
+      .setInteractive();
+    this.collectionButton.on("pointerover", () => {
       this.collectionButton.setAlpha(1);
     });
-    this.collectionButton.on("pointerout", ()=>{
+    this.collectionButton.on("pointerout", () => {
       this.collectionButton.setAlpha(0.7);
     });
-    this.collectionButton.on('pointerdown', ()=>this.goToCollectionScene());
+    this.collectionButton.on("pointerdown", () => this.goToCollectionScene());
 
+    //Prompts the User to name their nene
+    this.add.text(600, 540, "Type below to name your nene:", {
+      font: "16px Courier",
+      color: "#000000",
+    });
+    //Takes the user's text input
+    const text = this.add.text(630, 560, "Type Here", {
+      font: "16px Courier",
+      color: "#000000",
+    });
+    text.setInteractive().on("pointerdown", () => {
+      this.rexUI.edit(text);
+    });
+    const editor = this.rexUI.edit(text);
+
+    //Displays the save button
+    //When the save button is clicked, it saves the name of the nene
+    this.saveButton = this.add.image(750, 60, "saveButton").setInteractive();
+    this.saveButton.on("pointerover", () => {
+      this.saveButton.setAlpha(1);
+    });
+    this.saveButton.on("pointerout", () => {
+      this.saveButton.setAlpha(0.9);
+    });
+    this.saveButton.on("pointerdown", () => this.saveMyObject(editor.text));
+  }
+  saveMyObject(elem: string) {
+    this.names.push(elem as string);
+    //this.add.text(100, 100, "new name" + elem);
+    console.log("the names: " + this.names);
   }
 
   private loadAttribute(attributeName: string, attributeValues: Array<string>) {
-    attributeValues.forEach((value: string) =>
-      (this.load.image("nene-" + value, "assets/nene-" + attributeName + "/" + value + ".png"),
-       this.load.image(value, "assets/" + attributeName + "/" + value + ".png"))
+    attributeValues.forEach(
+      (value: string) => (
+        this.load.image(
+          "nene-" + value,
+          "assets/nene-" + attributeName + "/" + value + ".png"
+        ),
+        this.load.image(value, "assets/" + attributeName + "/" + value + ".png")
+      )
     );
   }
 
   //Function that handles changing the scene to the Collection Scene
-  private goToCollectionScene(){
-    this.scene.stop('GameScene').launch('collectionScene');
+  private goToCollectionScene() {
+    this.scene.stop("GameScene").launch("collectionScene");
   }
-
 }
