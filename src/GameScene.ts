@@ -4,8 +4,6 @@ import Tutorial from "./components/Tutorial";
 import Questions from "./components/Questions";
 import DisplayArea from "./components/DisplayArea";
 import DragAndDrop from "./components/DragAndDrop";
-//import TextArea from "phaser3-rex-plugins/templates/ui/textarea/TextArea";
-//import TextBox from 'phaser3-rex-plugins/templates/ui/ui-components.js';
 
 export default class GameScene extends Phaser.Scene {
   private background?: Phaser.GameObjects.Image;
@@ -86,28 +84,7 @@ export default class GameScene extends Phaser.Scene {
     this.load.image("hats", "assets/hats.jpeg");
 
     this.load.image("popup", "assets/popup.png");
-    //this.load.image('logo', 'assets/sprites/phaser3-logo.png')
-    //this.load.image('red', 'assets/particles/red.png')
-
-    //this.load.image('background', 'assets/background-V0.png')
-
-    //Mycah's Code for preload() - START ----------------------------------
-    //These images can be replaced with better one's later
-    /*this.load.image("blueHat", "assets/blueHat.png");
-    this.load.image("greenHat", "assets/greenHat.png");
-    this.load.image("nene", "assets/nene.png");
-    this.load.image("pink", "assets/pink.png");
-    this.load.image("pinkNene", "assets/pinkNene.png");
-    this.load.image("pinkNeneBlueHat", "assets/pinkNeneBlueHat.png");
-    this.load.image("pinkNeneGreenHat", "assets/pinkNeneGreenHat.png");
-    this.load.image("yellow", "assets/yellow.png");
-    this.load.image("yellowNene", "assets/yellowNene.png");
-    this.load.image("yellowNeneBlueHat", "assets/yellowNeneBlueHat.png");
-    this.load.image("yellowNeneGreenHat", "assets/yellowNeneGreenHat.png");
-    this.load.image("neneGreenHat", "assets/neneGreenHat.png");
-    this.load.image("neneBlueHat", "assets/neneBlueHat.png");*/
-    //Mycah's Code for preload() - END ----------------------------------
-
+    
     this.loadAttribute("colors", this.colors);
     this.loadAttribute("hats", this.hats);
     this.load.image("reset", "assets/reset.png");
@@ -117,11 +94,9 @@ export default class GameScene extends Phaser.Scene {
     //Preloads the collection button image
     this.load.image("collectionButton", "assets/collectionButton.gif");
 
+    //Preloads the save button image
     this.load.image("saveButton", "assets/saveButton.png");
 
-    //this.load.scenePlugin('rexuiplugin', 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/dist/rexuiplugin.min.js', 'rexUI', 'rexUI');
-    //this.load.image("yellow", "assets/yellow.png");
-    //var textBox = this.rexUI.add.textBox();
 
    }
 
@@ -160,48 +135,17 @@ export default class GameScene extends Phaser.Scene {
     this.collectionButton.on('pointerdown', ()=>this.goToCollectionScene());
 
 
-/*
-    var textBox = this.rexUI.add.textBox({
-      orientation: 0,
-      text: 'Hello there',
-      actionMask: false,
-
-      space: {
-        left: 0,
-        right: 0,
-        top: 0,
-        bottom: 0,
-
-        icon: 0,
-        text: 0,
-    },
-    });
-
-    */
-    
-    this.add.text(630, 540, 'Type below to name your nene:', { font: '16px Courier', color: '#000000' })
+    //Prompts the User to name their nene
+    this.add.text(600, 540, 'Type below to name your nene:', { font: '16px Courier', color: '#000000' })
+    //Takes the user's text input
     let text = this.add.text(630, 560, 'Type Here', { font: '16px Courier', color: '#000000' })
-    //let text = this.add.text(400, 300, 'Hello World', { fixedWidth: 150, fixedHeight: 36 })
-	  //text.setOrigin(0.5, 0.5)
-
-    
 	  text.setInteractive().on('pointerdown', () => {
 		  this.rexUI.edit(text)
 	  })
-
-    /*myText.setInteractive().on('pointerdown', () => {
-		  this.rexUI.edit(text)
-	  })*/
-
-    
-  
-  
     let editor = this.rexUI.edit(text)
-    //let elem = editor.inputText.node
-    //let myStuff = this.rexUI.inputText
-    //let elem = editor.inputText.node
-    //let elem = editor.inputText as string
     
+    //Displays the save button 
+    //When the save button is clicked, it saves the name of the nene
     this.saveButton=this.add.image(750, 60, "saveButton")
     .setInteractive();
     this.saveButton.on("pointerover",() =>{
@@ -212,54 +156,14 @@ export default class GameScene extends Phaser.Scene {
     });
     this.saveButton.on('pointerdown', ()=>this.saveMyObject(editor.text));
 
-
-    //Mycah
-    //
-    /*
-    this.add.text(650, 540, 'Type to name your nene:', { font: '16px Courier', color: '#000000' });
-    let textEntry = this.add.text(650, 560, '', { font: '16px Courier', color: '#000000' });
-    this.input.keyboard.on('keydown',  (event: { keyCode: number; key: string; }) => {
-      if (event.keyCode === 8 && textEntry.text.length > 0) {
-          textEntry.text = textEntry.text.substr(0, textEntry.text.length - 1);
-      } else if (event.keyCode === 32 || (event.keyCode >= 48 && event.keyCode < 90)) {
-          textEntry.text += event.key;
-      }
-
-    this.myNames = this.add.text(20, 20,'Hey: 10' , {fontSize: '32px'})
-
-    this.names.push(textEntry as unknown as string)
-    });
-    
-    this.checkNames();*/
-
-    //const particles = this.add.particles('red')
-
-    /*const emitter = particles.createEmitter({
-			speed: 100,
-			scale: { start: 1, end: 0 },
-			blendMode: 'ADD',
-		})
-
-		const logo = this.physics.add.image(400, 100, 'logo')
-
-		logo.setVelocity(100, 200)
-		logo.setBounce(1, 1)
-		logo.setCollideWorldBounds(true)
-
-		emitter.startFollow(logo)*/
-
   
 }
   saveMyObject(elem: string) {
     this.names.push(elem as string);
-    this.add.text(100, 100, "new name" + elem);
+    //this.add.text(100, 100, "new name" + elem);
     console.log("the names: " + this.names);
   }
 
-  checkNames() {    
-    
-    this.myNames?.setText(`Hey: ${this.names}`);
-  }
 
   private loadAttribute(attributeName: string, attributeValues: Array<string>) {
     attributeValues.forEach((value: string) =>
