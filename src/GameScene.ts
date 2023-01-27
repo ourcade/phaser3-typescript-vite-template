@@ -8,7 +8,11 @@ import DragAndDrop from "./components/DragAndDrop";
 export default class GameScene extends Phaser.Scene {
   private background?: Phaser.GameObjects.Image;
 
+  //Mycah
   private collectionButton!: Phaser.GameObjects.Image;
+  private saveButton!: Phaser.GameObjects.Image;
+
+  //private myObjects: Record<string, Phaser.GameObjects.GameObject>;
 
   //Rachel
   //private popup?: Phaser.GameObjects.Image;
@@ -58,10 +62,19 @@ export default class GameScene extends Phaser.Scene {
   colors: Array<string>;
   hats: Array<string>;
 
+  //Mycah
+  names: Array<string>;
+  myNames: any;
+  rexUI: any;
+  
+
   constructor() {
     super("GameScene");
     this.colors = ["blue", "green", "purple", "red"];
     this.hats = ["beanie", "bucket-hat", "sunhat", "visor"];
+
+    //Mycah
+    this.names = [];
   }
 
   preload() {
@@ -77,9 +90,15 @@ export default class GameScene extends Phaser.Scene {
     this.load.image("reset", "assets/reset.png");
     this.load.image("nene", "assets/nene.png");
 
+    //Mycah
     //Preloads the collection button image
     this.load.image("collectionButton", "assets/collectionButton.gif");
-  }
+
+    //Preloads the save button image
+    this.load.image("saveButton", "assets/saveButton.png");
+
+
+   }
 
   create() {
     this.background = this.add.image(450, 300, "bg");
@@ -102,12 +121,11 @@ export default class GameScene extends Phaser.Scene {
     new Tutorial(this);
 
 
-
+    //Mycah
     //Displays the collection button
     //When the collection button is clicked, it goes to the Collection Scene 
     this.collectionButton=this.add.image(850, 70, "collectionButton")
     .setInteractive();
-
     this.collectionButton.on("pointerover",() =>{
       this.collectionButton.setAlpha(1);
     });
@@ -116,7 +134,36 @@ export default class GameScene extends Phaser.Scene {
     });
     this.collectionButton.on('pointerdown', ()=>this.goToCollectionScene());
 
+
+    //Prompts the User to name their nene
+    this.add.text(600, 540, 'Type below to name your nene:', { font: '16px Courier', color: '#000000' })
+    //Takes the user's text input
+    let text = this.add.text(630, 560, 'Type Here', { font: '16px Courier', color: '#000000' })
+	  text.setInteractive().on('pointerdown', () => {
+		  this.rexUI.edit(text)
+	  })
+    let editor = this.rexUI.edit(text)
+    
+    //Displays the save button 
+    //When the save button is clicked, it saves the name of the nene
+    this.saveButton=this.add.image(750, 60, "saveButton")
+    .setInteractive();
+    this.saveButton.on("pointerover",() =>{
+      this.saveButton.setAlpha(1);
+    });
+    this.saveButton.on("pointerout", ()=>{
+      this.saveButton.setAlpha(0.9);
+    });
+    this.saveButton.on('pointerdown', ()=>this.saveMyObject(editor.text));
+
+  
+}
+  saveMyObject(elem: string) {
+    this.names.push(elem as string);
+    //this.add.text(100, 100, "new name" + elem);
+    console.log("the names: " + this.names);
   }
+
 
   private loadAttribute(attributeName: string, attributeValues: Array<string>) {
     attributeValues.forEach((value: string) =>
@@ -130,4 +177,7 @@ export default class GameScene extends Phaser.Scene {
     this.scene.stop('GameScene').launch('collectionScene');
   }
 
+
+
 }
+
