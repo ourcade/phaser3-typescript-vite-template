@@ -8,36 +8,14 @@ import DragAndDrop from "./components/DragAndDrop";
 export default class GameScene extends Phaser.Scene {
   private background?: Phaser.GameObjects.Image;
 
-  //Mycah
   private collectionButton!: Phaser.GameObjects.Image;
   private saveButton!: Phaser.GameObjects.Image;
-
-  //private myObjects: Record<string, Phaser.GameObjects.GameObject>;
 
   //Rachel
   //private popup?: Phaser.GameObjects.Image;
   //private contain: Phaser.GameObjects.Container | undefined;
   //private quiztext?: Phaser.GameObjects.Text;
   //Rachel End
-
-  ///Mycah's Properties - START ----------------------------------
-  /*items: any;
-  blueHat: any;
-  pink: any;
-  greenHat: any;
-  yellow: any;
-  stuff: Phaser.Physics.Arcade.Group | undefined;
-  nene: Phaser.Types.Physics.Arcade.ImageWithDynamicBody | undefined;
-  dragObj: any;
-  pinkNene!: Phaser.GameObjects.GameObject;
-  pinkNeneBlueHat!: Phaser.GameObjects.GameObject;
-  pinkNeneGreenHat!: Phaser.GameObjects.GameObject;
-  yellowNene!: Phaser.GameObjects.GameObject;
-  yellowNeneBlueHat!: Phaser.GameObjects.GameObject;
-  yellowNeneGreenHat!: Phaser.GameObjects.GameObject;
-  neneBlueHat!: Phaser.GameObjects.GameObject;
-  neneGreenHat!: Phaser.GameObjects.GameObject;*/
-  ///Mycah's Properties - END ----------------------------------
 
   // Holds coin management system
   // Populates left side of screen with different purchasables
@@ -62,10 +40,10 @@ export default class GameScene extends Phaser.Scene {
   colors: Array<string>;
   hats: Array<string>;
 
-  //Mycah
-  names: Array<string>;
-  myNames: any;
+  public names: Array<string>;
   rexUI: any;
+  textObj: any;
+  userText: Phaser.GameObjects.Text | undefined;
   
 
   constructor() {
@@ -121,7 +99,7 @@ export default class GameScene extends Phaser.Scene {
     new Tutorial(this);
 
 
-    //Mycah
+
     //Displays the collection button
     //When the collection button is clicked, it goes to the Collection Scene 
     this.collectionButton=this.add.image(850, 70, "collectionButton")
@@ -137,12 +115,13 @@ export default class GameScene extends Phaser.Scene {
 
     //Prompts the User to name their nene
     this.add.text(600, 540, 'Type below to name your nene:', { font: '16px Courier', color: '#000000' })
+    
     //Takes the user's text input
-    let text = this.add.text(630, 560, 'Type Here', { font: '16px Courier', color: '#000000' })
-	  text.setInteractive().on('pointerdown', () => {
-		  this.rexUI.edit(text)
+    this.userText = this.add.text(630, 560, 'Type Here', { font: '16px Courier', color: '#000000' })
+	  this.userText.setInteractive().on('pointerdown', () => {
+		  this.rexUI.edit(this.userText)
 	  })
-    let editor = this.rexUI.edit(text)
+    let editor = this.rexUI.edit(this.userText)
     
     //Displays the save button 
     //When the save button is clicked, it saves the name of the nene
@@ -156,11 +135,18 @@ export default class GameScene extends Phaser.Scene {
     });
     this.saveButton.on('pointerdown', ()=>this.saveMyObject(editor.text));
 
+    /*
+    this.events.on('resume', (_scene: any, userText: { toString: () => any; }) => {
+      this.textObj.setText(userText.toString());
+    });
+*/
   
 }
-  saveMyObject(elem: string) {
+
+  //Function that saves the name of the nene in an array of names
+  private saveMyObject(elem: string) {
     this.names.push(elem as string);
-    //this.add.text(100, 100, "new name" + elem);
+    //this.add.text(100, 100, "new name " + elem);
     console.log("the names: " + this.names);
   }
 
@@ -174,7 +160,7 @@ export default class GameScene extends Phaser.Scene {
 
   //Function that handles changing the scene to the Collection Scene
   private goToCollectionScene(){
-    this.scene.stop('GameScene').launch('collectionScene');
+    this.scene.stop('GameScene').launch('collectionScene', this.names);
   }
 
 
