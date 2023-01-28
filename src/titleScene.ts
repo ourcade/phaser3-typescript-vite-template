@@ -9,14 +9,15 @@ export default class titleScene extends Phaser.Scene {
     music!: Phaser.Sound.BaseSound;
     cursors!: Phaser.Types.Input.Keyboard.CursorKeys
     titleText?: Phaser.GameObjects.Text
-    declare difficulty:any;
     declare add: any;
     declare input: any;
     declare scale: any;
+    public difficulty!: Array<string>;
     
 
     constructor() {
         super({ key: 'titleScene' });
+        this.difficulty=[];
       }
       preload()
       {
@@ -28,7 +29,7 @@ export default class titleScene extends Phaser.Scene {
       }
     
     create(){
-        this.difficulty=false;
+        
         this.add.image(400,300,'titleScreen');
         this.cursorKeys = this.input.keyboard.createCursorKeys();
         
@@ -68,8 +69,9 @@ export default class titleScene extends Phaser.Scene {
          this.hardButton.on("pointerup",()=>{
              this.titleText?.setVisible(false)
              this.hardButton?.setVisible(false)
-             this.difficulty=true;
-             this.scene.stop('titleScene').launch('GameScene');
+             this.difficulty.push("true");
+             console.log(this.difficulty[0])
+             this.scene.stop('titleScene').launch('GameScene',this.difficulty);
          })
         
 
@@ -80,7 +82,7 @@ export default class titleScene extends Phaser.Scene {
        
        
     
-        //load in music
+        
         
         //create startButton
         this.startButton = this.add.image(430, 470, 'titleStart');
