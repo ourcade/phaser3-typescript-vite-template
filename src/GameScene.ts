@@ -4,6 +4,7 @@ import Tutorial from "./components/Tutorial";
 import Questions from "./components/Questions";
 import DisplayArea from "./components/DisplayArea";
 import DragAndDrop from "./components/DragAndDrop";
+import titleScene from "./titleScene";
 
 export default class GameScene extends Phaser.Scene {
   private background?: Phaser.GameObjects.Image;
@@ -93,7 +94,8 @@ export default class GameScene extends Phaser.Scene {
     new DragAndDrop(this);
 
     // CREATES THE SHOP OBJECT & initializes values & SHOWS
-    new Questions(this);
+   
+    
 
     // CREATES THE SHOP OBJECT & initializes values & SHOWS
     new Tutorial(this);
@@ -166,4 +168,3 @@ export default class GameScene extends Phaser.Scene {
 
 
 }
-
