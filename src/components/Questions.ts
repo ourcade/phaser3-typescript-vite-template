@@ -3,51 +3,65 @@ import Phaser from 'phaser'
 import GameScene from "../GameScene"
 
 export default class Questions extends Phaser.GameObjects.Container {
-    
-    //Rachel
-    private popup: Phaser.GameObjects.Image;
-    private contain: Phaser.GameObjects.Container | undefined;
-    private quiztext: Phaser.GameObjects.Text | undefined;
-    private questions: Array<string>;
-    private answerT: Phaser.GameObjects.Text;
-    private answerF: Phaser.GameObjects.Text;
-    //Rachel End
+  //Rachel
+  private popupBG?: Phaser.GameObjects.Image;
+  private container: Phaser.GameObjects.Container | undefined;
+  private quiztext: Phaser.GameObjects.Text | undefined;
+  private choices1?: Phaser.GameObjects.Text;
+  private choices2?: Phaser.GameObjects.Text;
+  private choices3?: Phaser.GameObjects.Text;
+  private choices4?: Phaser.GameObjects.Text;
+  private index?: number;
 
-    constructor(scene: GameScene) { //don't touch
-        super(scene) //Don't touch
-        this.questions = ["Color is an example of an attribute.", "Hats are an example of a subclass.", "Our nene is an instance of a class."]; //odd questions are true, evens are false
-        this.popup = this.scene.physics.add.image(150,100, 'popup').setOrigin(0);
-        this.quiztext = this.scene.add.text(200, 150, "this is a test :)")
-            .setColor('#000000');
-        this.answerT = this.scene.add.text(250, 275, "true")
-            .setColor('#000000')
-            .setInteractive()
-			.on('pointerover', () => this.answerT?.setColor('#fff000'))
-			.on('pointerout', () => this.answerT?.setColor('#000000'));
-        this.answerF = this.scene.add.text(400, 275, "false")
-            .setColor('#000000')
-            .setInteractive()
-			.on('pointerover', () => this.answerF?.setColor('#fff000'))
-			.on('pointerout', () => this.answerF?.setColor('#000000'));
-		this.contain = this.scene.add.container(32, 70, [ this.popup, this.quiztext, this.answerT, this.answerF ]);
-        this.quizPopUp();
-        this.scene.add.existing(this); //Don't touch
-    }
+  //Rachel End
 
-    private generateQuestion(){
-        return Math.floor(Math.random() * 3);
-    }
+  constructor(scene: GameScene) { //don't touch
+      super(scene) //Don't touch
+      this.scene.load.json('questions', 'src/components/quiz.json');
+      this.scene.load.start();
+      this.generatePopUp();
+      this.scene.add.existing(this); //Don't touch
+  }
 
-    private quizPopUp() {
-        const index = this.generateQuestion() ;
-        this.quiztext = this.quiztext?.setText(this.questions[index]);
-        if (index % 2 == 0){
-            this.answerT.on("pointerup", () => this.contain?.destroy());
-            this.answerF.on("pointerup", () => this.answerF.setColor("#FF0000"))
-        } else {
-            this.answerF.on("pointerup", () => this.contain?.destroy());
-            this.answerT.on("pointerup", () => this.answerT.setColor("#FF0000"))
-        }
-    }
-
+  private generatePopUp(){
+      let quizJson = this.scene.cache.json.get('questions');
+      this.index = Math.floor(Math.random() * 20);
+      this.popupBG = this.scene.physics.add.image(150,100, 'popup').setOrigin(0);
+      this.quiztext = this.scene.add.text(200, 150, quizJson[this.index].question, { align: "center", wordWrap: { width: 400, useAdvancedWrap: true } })
+          .setColor('#000000');
+      this.choices1 = this.scene.add.text(200, 200, quizJson[this.index].choices[0], { align: "right", wordWrap: { width: 450, useAdvancedWrap: true } })
+          .setColor('#000000')
+          .setInteractive()
+          .on('pointerover', () => this.choices1?.setColor('#fff000'))
+          .on('pointerout', () => this.choices1?.setColor('#000000'))
+          .on('pointerup', () => this.container?.destroy());
+      this.choices2 = this.scene.add.text(400, 200, quizJson[this.index].choices[1], { align: "right", wordWrap: { width: 400, useAdvancedWrap: true } })
+          .setColor('#000000')
+           .setInteractive()
+           .on('pointerover', () => this.choices2?.setColor('#fff000'))
+           .on('pointerout', () => this.choices2?.setColor('#000000'))
+           .on('pointerup', () => this.container?.destroy());
+      if (quizJson[this.index].choices[0] == 'True'){
+          this.container = this.scene.add.container(32, 70, [ this.popupBG, this.quiztext, this.choices1, this.choices2 ]);
+      } else {
+          this.choices3 = this.scene.add.text(200, 300, quizJson[this.index].choices[2], { align: "right", wordWrap: { width: 400, useAdvancedWrap: true } })
+              .setColor('#000000')
+              .setInteractive()
+              .on('pointerover', () => this.choices3?.setColor('#fff000'))
+              .on('pointerout', () => this.choices3?.setColor('#000000'))
+              .on('pointerup', () => this.container?.destroy());
+          this.choices4 = this.scene.add.text(400, 300, quizJson[this.index].choices[3], { align: "right", wordWrap: { width: 400, useAdvancedWrap: true } })
+              .setColor('#000000')
+              .setInteractive()
+              .on('pointerover', () => this.choices4?.setColor('#fff000'))
+              .on('pointerout', () => this.choices4?.setColor('#000000'))
+              .on('pointerup', () => this.container?.destroy());
+          this.container = this.scene.add.container(32, 70, [ this.popupBG, this.quiztext, this.choices1, this.choices2, this.choices3, this.choices4 ]);
+          for (let i = 0; i < 4; i++){
+              if (quizJson[this.index].choices[i] == quizJson[this.index].expected){
+                  continue;
+              }
+          }
+      }
+  }
 }
