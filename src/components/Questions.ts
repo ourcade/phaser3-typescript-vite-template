@@ -43,6 +43,10 @@ export default class Questions extends Phaser.GameObjects.Container {
            .on('pointerup', () => this.container?.destroy());
       if (quizJson[this.index].choices[0] == 'True'){
           this.container = this.scene.add.container(32, 70, [ this.popupBG, this.quiztext, this.choices1, this.choices2 ]);
+          for (let i = 0; i < 2; i++){
+            if (quizJson[this.index].choices[i] == quizJson[this.index].expected){
+                continue;
+            }
       } else {
           this.choices3 = this.scene.add.text(200, 300, quizJson[this.index].choices[2], { align: "right", wordWrap: { width: 400, useAdvancedWrap: true } })
               .setColor('#000000')
