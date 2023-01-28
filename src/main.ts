@@ -1,6 +1,5 @@
 import Phaser from 'phaser'
 import collectionScene from './CollectionScene'
-import End from './End'
 
 import GameScene from './GameScene'
 import titleScene from './titleScene'
