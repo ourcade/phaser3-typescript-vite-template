@@ -37,47 +37,11 @@ export default class titleScene extends Phaser.Scene {
 			fill: '#000'
 		})
 
-        //Easy difficulty selection
-        this.easyButton=this.add.image(200,470,'easyButton')
-        this.easyButton.setVisible(false)
-        this.easyButton.setAlpha(.7);
-        this.easyButton.setInteractive();
-        this.easyButton.on("pointerover",() =>{
-            this.easyButton.setAlpha(1);
-        });
-        this.easyButton.on("pointerout", ()=>{
-            this.easyButton.setAlpha(.7);
-        });
-        this.easyButton.on("pointerup",()=>{
-            this.titleText?.setVisible(false)
-            this.easyButton?.setVisible(false)
-            this.scene.stop('titleScene').launch('GameScene');
-        })
-        
-         //Hard difficulty selection
-         this.hardButton=this.add.image(430,470,'hardButton')
-         this.hardButton.setVisible(false)
-         this.hardButton.setAlpha(.7);
-         this.hardButton.setInteractive();
-         this.hardButton.on("pointerover",() =>{
-             this.hardButton.setAlpha(1);
-         });
-         this.hardButton.on("pointerout", ()=>{
-             this.hardButton.setAlpha(.7);
-         });
-         this.hardButton.on("pointerup",()=>{
-             this.titleText?.setVisible(false)
-             this.hardButton?.setVisible(false)
-             this.difficulty=true;
-             this.scene.stop('titleScene').launch('GameScene');
-         })
-        
-
         
 
         //load in music
         
-       
+        
        
     
         //create startButton
