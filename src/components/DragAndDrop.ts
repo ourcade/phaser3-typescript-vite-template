@@ -132,6 +132,7 @@ private handleColorCollision(
         this.nene = this.scene.physics.add.image(750, 300, "nene-" + newColor).setInteractive();
         this.currentAttributes["color"] = (dragColor as Phaser.GameObjects.Image).texture.key;
         this.text = this.text.setText("nene = new Nene(\n\t" + this.generateDisplayString() + "\n);");
+        this.updateText();
         this.setUpCollisions();
         if(!(this.scene as GameScene).coinTracker.includes(this.text.text)){
           (this.scene as GameScene).coinTracker.push(this.text.text);
@@ -159,7 +160,7 @@ private handleColorCollision(
             const newHat = (dragHat as Phaser.GameObjects.Image).texture.key;
             this.hat = this.scene.physics.add.image(750, 300, "nene-" + newHat).setInteractive();
             this.currentAttributes["hat"] = (dragHat as Phaser.GameObjects.Image).texture.key;
-            this.text = this.text.setText("nene = new Nene(\n\t" + this.generateDisplayString() + "\n);");
+            this.updateText();
             this.setUpCollisions();
             if(!(this.scene as GameScene).coinTracker.includes(this.text.text)){
               (this.scene as GameScene).coinTracker.push(this.text.text);
@@ -169,6 +170,21 @@ private handleColorCollision(
               this.totalnenetext = this.totalnenetext.setText(`Total Nenes Found: ${this.totalnene}`)
             }
           }
+      
+      private updateText() {
+        const newText = this.generateDisplayString();
+        this.text = this.text.setText("nene = new Nene(\n\t" + newText + "\n);");
+
+        // Checks if nene is new for coins 
+        if(!(this.scene as GameScene).coinTracker.includes(newText)){
+          (this.scene as GameScene).coinTracker.push(newText);
+          (this.scene as GameScene).coins++;
+          (this.scene as GameScene).shop?.scoreText.setText(`Coins: ${(this.scene as GameScene).coins}`);
+
+          // TODO trigger question pop up
+        }   
+
+      }
 
       private generateCoords() {
         return [Math.random() * 300 + 250, Math.random() * 400 + 100];
@@ -176,7 +192,7 @@ private handleColorCollision(
 
       private generateDisplayString() {
         const lines: Array<string> = [];
-        Object.keys(this.currentAttributes).forEach(
+        Object.keys(this.currentAttributes).sort().forEach(
             (key) => lines.push( '"' + this.currentAttributes[key] + '",')
         );
         return lines.join("\n\t");

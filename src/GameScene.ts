@@ -5,6 +5,7 @@ import Questions from "./components/Questions";
 import DisplayArea from "./components/DisplayArea";
 import DragAndDrop from "./components/DragAndDrop";
 import eventsCenter from "./EventsCenter";
+import eventsCenter from "./EventsCenter";
 
 export default class GameScene extends Phaser.Scene {
   private background?: Phaser.GameObjects.Image;
@@ -14,6 +15,7 @@ export default class GameScene extends Phaser.Scene {
 
   //Rachel
   public coins: number;
+  public totalnene: number;
   public totalnene: number;
   //private popup?: Phaser.GameObjects.Image;
   //private contain: Phaser.GameObjects.Container | undefined;
