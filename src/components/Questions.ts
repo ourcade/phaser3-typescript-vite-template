@@ -59,7 +59,7 @@ export default class Questions extends Phaser.GameObjects.Container {
             this.container = this.scene.add.container(32, 70, [ this.popupBG, this.quiztext, this.choices1, this.choices2, this.choices3, this.choices4 ]);
             for (let i = 0; i < 4; i++){
                 if (quizJson[this.index].choices[i] == quizJson[this.index].expected){
-                    
+                    continue;
                 }
             }
         }
