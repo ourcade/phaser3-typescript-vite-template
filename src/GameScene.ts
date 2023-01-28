@@ -12,14 +12,18 @@ export default class GameScene extends Phaser.Scene {
   private saveButton!: Phaser.GameObjects.Image;
 
   //Rachel
+  public coins: number
+  public totalnene: number
   //private popup?: Phaser.GameObjects.Image;
   //private contain: Phaser.GameObjects.Container | undefined;
   //private quiztext?: Phaser.GameObjects.Text;
+  
+  public coinTracker: Array<string>;
   //Rachel End
 
   // Holds coin management system
   // Populates left side of screen with different purchasables
-  //private shop?: Shop;
+  public shop?: Shop;
 
   // Pop up with game instructions
   // Not for MVP but probably some hints will go in here too
@@ -49,6 +53,10 @@ export default class GameScene extends Phaser.Scene {
   constructor() {
     super("GameScene");
     this.colors = ["blue", "green", "purple", "red"];
+	this.coins = 10;
+	this.coinTracker = []
+	this.totalnene =1;
+	
     this.hats = ["beanie", "bucket-hat", "sunhat", "visor"];
 
     //Mycah
@@ -84,7 +92,6 @@ export default class GameScene extends Phaser.Scene {
     this.background.displayWidth = 900;
 
     // CREATES THE SHOP OBJECT & initializes values & SHOWS
-    new Shop(this);
 
     // CREATES THE SHOP OBJECT & initializes values & SHOWS
     new DisplayArea(this);
@@ -104,7 +111,7 @@ export default class GameScene extends Phaser.Scene {
     // CREATES THE SHOP OBJECT & initializes values & SHOWS
     new Tutorial(this);
 
-
+    this.shop = new Shop(this);
 
     //Displays the collection button
     //When the collection button is clicked, it goes to the Collection Scene 
@@ -168,7 +175,15 @@ export default class GameScene extends Phaser.Scene {
   private goToCollectionScene(){
     this.scene.stop('GameScene').launch('collectionScene', this.names);
   }
-
-
-
+  private goToEndScene(){
+	this.scene.stop('GameScene').launch('End');
+  }
+  
+  update(){
+	if(this.totalnene == 25){
+	this.totalnene =1;
+	this.coins =10;
+	this.goToEndScene()
+}
+}
 }
