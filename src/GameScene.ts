@@ -4,7 +4,7 @@ import Tutorial from "./components/Tutorial";
 import Questions from "./components/Questions";
 import DisplayArea from "./components/DisplayArea";
 import DragAndDrop from "./components/DragAndDrop";
-import eventsCenter from "./EventsCenter"
+import eventsCenter from "./EventsCenter";
 
 export default class GameScene extends Phaser.Scene {
   private background?: Phaser.GameObjects.Image;
@@ -14,6 +14,7 @@ export default class GameScene extends Phaser.Scene {
 
   //Rachel
   public coins: number;
+  public totalnene: number;
   //private popup?: Phaser.GameObjects.Image;
   //private contain: Phaser.GameObjects.Container | undefined;
   //private quiztext?: Phaser.GameObjects.Text;
@@ -48,14 +49,13 @@ export default class GameScene extends Phaser.Scene {
   rexUI: any;
   textObj: any;
   userText: Phaser.GameObjects.Text | undefined;
-  
 
   constructor() {
     super("GameScene");
     this.colors = ["blue", "green", "purple", "red"];
     this.coins = 10;
     this.coinTracker = [];
-
+    this.totalnene = 1;
     this.hats = ["beanie", "bucket-hat", "sunhat", "visor"];
 
     //Mycah
@@ -123,13 +123,16 @@ export default class GameScene extends Phaser.Scene {
       color: "#000000",
     });
     //Takes the user's text input
-    this.userText = this.add.text(630, 560, 'Type Here', { font: '16px Courier', color: '#000000' })
-	  this.userText.setInteractive().on('pointerdown', () => {
-		  this.rexUI.edit(this.userText)
-	  })
-    let editor = this.rexUI.edit(this.userText)
-    
-    //Displays the save button 
+    this.userText = this.add.text(630, 560, "Type Here", {
+      font: "16px Courier",
+      color: "#000000",
+    });
+    this.userText.setInteractive().on("pointerdown", () => {
+      this.rexUI.edit(this.userText);
+    });
+    const editor = this.rexUI.edit(this.userText);
+
+    //Displays the save button
     //When the save button is clicked, it saves the name of the nene
     this.saveButton = this.add.image(750, 60, "saveButton").setInteractive();
     this.saveButton.on("pointerover", () => {
@@ -159,18 +162,18 @@ export default class GameScene extends Phaser.Scene {
   }
 
   //Function that handles changing the scene to the Collection Scene
-  private goToCollectionScene(){
-    this.scene.stop('GameScene').launch('collectionScene', this.names);
+  private goToCollectionScene() {
+    this.scene.stop("GameScene").launch("collectionScene", this.names);
   }
-  private goToEndScene(){
-	this.scene.stop('GameScene').launch('End');
+  private goToEndScene() {
+    this.scene.stop("GameScene").launch("End");
   }
-  
-  update(){
-	if(this.totalnene == 25){
-	this.totalnene =1;
-	this.coins =10;
-	this.goToEndScene()
-}
-}
+
+  update() {
+    if (this.totalnene == 25) {
+      this.totalnene = 1;
+      this.coins = 10;
+      this.goToEndScene();
+    }
+  }
 }
