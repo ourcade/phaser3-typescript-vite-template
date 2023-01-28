@@ -6,7 +6,6 @@ export default class Questions extends Phaser.GameObjects.Container {
     private popupBG?: Phaser.GameObjects.Image;
     private container: Phaser.GameObjects.Container | undefined;
     private quiztext: Phaser.GameObjects.Text | undefined;
-    private expected?: Phaser.GameObjects.Text
     private choices1?: Phaser.GameObjects.Text;
     private choices2?: Phaser.GameObjects.Text;
     private choices3?: Phaser.GameObjects.Text;
