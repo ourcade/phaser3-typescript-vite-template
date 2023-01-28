@@ -1,5 +1,6 @@
 import Phaser from "phaser";
 import GameScene from "../GameScene"
+import Shop from "./Shop";
 
 export default class DragAndDrop extends Phaser.GameObjects.Container {
 
@@ -11,6 +12,8 @@ export default class DragAndDrop extends Phaser.GameObjects.Container {
     private currentAttributes: Record<string,string>;
     private hat?: Phaser.GameObjects.GameObject;
     private resetButton: Phaser.GameObjects.GameObject;
+    private totalnene: number
+    private totalnenetext: Phaser.GameObjects.Text;
   
   //COLORS V2 END ----------------------------------------------
 
@@ -21,12 +24,15 @@ export default class DragAndDrop extends Phaser.GameObjects.Container {
     this.text = this.scene.add.text(650,450, "nene = new Nene();", {"align":"left","color":"0x000000","fixedWidth":250});
     this.nene = this.scene.physics.add.image(750, 300, "nene").setInteractive();
     this.resetButton = this.scene.physics.add.image(750, 100, "reset").setInteractive();
+    this.totalnene = 1;
+    this.totalnenetext = this.scene.add.text(650,550, `Total Nenes Found: ${this.totalnene}`,{"color":"0x000000"})
     this.currentAttributes = {};
     this.dragColors = {};
     this.dragHats = {};
+    
     this.displayValueOptions((this.scene as GameScene).colors, this.dragColors);
     this.displayValueOptions2((this.scene as GameScene).hats, this.dragHats);
-    
+
     this.setUpButton();
     this.setUpDrag();
     this.setUpCollisions();
@@ -118,7 +124,7 @@ private handleColorCollision(
             const color = this.currentAttributes["color"];
             const coords = this.generateCoords() as Array<number>;
             this.dragColors[color] = this.scene.physics.add.image(coords[0], coords[1], color).setInteractive(),
-            this.scene.input.setDraggable(this.dragColors[color])
+            this.scene.input.setDraggable(this.dragColors[color]);
         }
         const myColor = dragColor as Phaser.Physics.Arcade.Image;
         myColor.disableBody(true, true);
@@ -128,6 +134,13 @@ private handleColorCollision(
         this.text = this.text.setText("nene = new Nene(\n\t" + this.generateDisplayString() + "\n);");
         this.updateText();
         this.setUpCollisions();
+        if(!(this.scene as GameScene).coinTracker.includes(this.text.text)){
+          (this.scene as GameScene).coinTracker.push(this.text.text);
+          (this.scene as GameScene).coins = (this.scene as GameScene).coins +1;
+          (this.scene as GameScene).shop?.scoreText.setText(`Coins: ${(this.scene as GameScene).coins}`);
+          this.totalnene = this.totalnene +1;
+          this.totalnenetext = this.totalnenetext.setText(`Total Nenes Found: ${this.totalnene}`)
+        }
 
       }
 
@@ -149,7 +162,13 @@ private handleColorCollision(
             this.currentAttributes["hat"] = (dragHat as Phaser.GameObjects.Image).texture.key;
             this.updateText();
             this.setUpCollisions();
-            
+            if(!(this.scene as GameScene).coinTracker.includes(this.text.text)){
+              (this.scene as GameScene).coinTracker.push(this.text.text);
+              (this.scene as GameScene).coins = (this.scene as GameScene).coins+1;
+              (this.scene as GameScene).shop?.scoreText.setText(`Coins: ${(this.scene as GameScene).coins}`);
+              this.totalnene = this.totalnene +1;
+              this.totalnenetext = this.totalnenetext.setText(`Total Nenes Found: ${this.totalnene}`)
+            }
           }
       
       private updateText() {
@@ -193,7 +212,7 @@ private handleColorCollision(
           this.displayValueOptions2((this.scene as GameScene).hats, this.dragHats);
           this.setUpDrag();
           this.setUpCollisions();
-  
+
         }));
       }
 }

@@ -16,7 +16,8 @@ const config: Phaser.Types.Core.GameConfig = {
 			gravity: {},
 		},
 	},
-	scene: [titleScene,GameScene,collectionScene],
+
+	scene: [titleScene,GameScene,collectionScene,End],
 	dom: {
         createContainer: true
     },
@@ -29,6 +30,7 @@ const config: Phaser.Types.Core.GameConfig = {
 			}
 		]
     }
+
 }
 const game =  new Phaser.Game(config)
 export default game
