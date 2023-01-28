@@ -94,7 +94,7 @@ export default class GameScene extends Phaser.Scene {
     new DragAndDrop(this);
 
     // CREATES THE SHOP OBJECT & initializes values & SHOWS
-   
+    
     
 
     // CREATES THE SHOP OBJECT & initializes values & SHOWS
