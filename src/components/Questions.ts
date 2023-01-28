@@ -47,6 +47,7 @@ export default class Questions extends Phaser.GameObjects.Container {
             if (quizJson[this.index].choices[i] == quizJson[this.index].expected){
                 continue;
             }
+        }
       } else {
           this.choices3 = this.scene.add.text(200, 300, quizJson[this.index].choices[2], { align: "right", wordWrap: { width: 400, useAdvancedWrap: true } })
               .setColor('#000000')
