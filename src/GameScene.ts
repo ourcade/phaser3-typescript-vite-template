@@ -9,6 +9,7 @@ export default class GameScene extends Phaser.Scene {
   private background?: Phaser.GameObjects.Image;
 
   private collectionButton!: Phaser.GameObjects.Image;
+  private saveButton!: Phaser.GameObjects.Image;
 
   //Rachel
   public coins: number
@@ -19,25 +20,6 @@ export default class GameScene extends Phaser.Scene {
   
   public coinTracker: Array<string>;
   //Rachel End
-
-  ///Mycah's Properties - START ----------------------------------
-  /*items: any;
-  blueHat: any;
-  pink: any;
-  greenHat: any;
-  yellow: any;
-  stuff: Phaser.Physics.Arcade.Group | undefined;
-  nene: Phaser.Types.Physics.Arcade.ImageWithDynamicBody | undefined;
-  dragObj: any;
-  pinkNene!: Phaser.GameObjects.GameObject;
-  pinkNeneBlueHat!: Phaser.GameObjects.GameObject;
-  pinkNeneGreenHat!: Phaser.GameObjects.GameObject;
-  yellowNene!: Phaser.GameObjects.GameObject;
-  yellowNeneBlueHat!: Phaser.GameObjects.GameObject;
-  yellowNeneGreenHat!: Phaser.GameObjects.GameObject;
-  neneBlueHat!: Phaser.GameObjects.GameObject;
-  neneGreenHat!: Phaser.GameObjects.GameObject;*/
-  ///Mycah's Properties - END ----------------------------------
 
   // Holds coin management system
   // Populates left side of screen with different purchasables
@@ -62,6 +44,12 @@ export default class GameScene extends Phaser.Scene {
   colors: Array<string>;
   hats: Array<string>;
 
+  public names: Array<string>;
+  rexUI: any;
+  textObj: any;
+  userText: Phaser.GameObjects.Text | undefined;
+  
+
   constructor() {
     super("GameScene");
     this.colors = ["blue", "green", "purple", "red"];
@@ -70,6 +58,9 @@ export default class GameScene extends Phaser.Scene {
 	this.totalnene =1;
 	
     this.hats = ["beanie", "bucket-hat", "sunhat", "visor"];
+
+    //Mycah
+    this.names = [];
   }
 
   preload() {
@@ -85,9 +76,15 @@ export default class GameScene extends Phaser.Scene {
     this.load.image("reset", "assets/reset.png");
     this.load.image("nene", "assets/nene.png");
 
+    //Mycah
     //Preloads the collection button image
     this.load.image("collectionButton", "assets/collectionButton.gif");
-  }
+
+    //Preloads the save button image
+    this.load.image("saveButton", "assets/saveButton.png");
+
+
+   }
 
   create() {
     this.background = this.add.image(450, 300, "bg");
@@ -114,7 +111,6 @@ export default class GameScene extends Phaser.Scene {
     //When the collection button is clicked, it goes to the Collection Scene 
     this.collectionButton=this.add.image(850, 70, "collectionButton")
     .setInteractive();
-
     this.collectionButton.on("pointerover",() =>{
       this.collectionButton.setAlpha(1);
     });
@@ -123,7 +119,44 @@ export default class GameScene extends Phaser.Scene {
     });
     this.collectionButton.on('pointerdown', ()=>this.goToCollectionScene());
 
+
+    //Prompts the User to name their nene
+    this.add.text(600, 540, 'Type below to name your nene:', { font: '16px Courier', color: '#000000' })
+    
+    //Takes the user's text input
+    this.userText = this.add.text(630, 560, 'Type Here', { font: '16px Courier', color: '#000000' })
+	  this.userText.setInteractive().on('pointerdown', () => {
+		  this.rexUI.edit(this.userText)
+	  })
+    let editor = this.rexUI.edit(this.userText)
+    
+    //Displays the save button 
+    //When the save button is clicked, it saves the name of the nene
+    this.saveButton=this.add.image(750, 60, "saveButton")
+    .setInteractive();
+    this.saveButton.on("pointerover",() =>{
+      this.saveButton.setAlpha(1);
+    });
+    this.saveButton.on("pointerout", ()=>{
+      this.saveButton.setAlpha(0.9);
+    });
+    this.saveButton.on('pointerdown', ()=>this.saveMyObject(editor.text));
+
+    /*
+    this.events.on('resume', (_scene: any, userText: { toString: () => any; }) => {
+      this.textObj.setText(userText.toString());
+    });
+*/
+  
+}
+
+  //Function that saves the name of the nene in an array of names
+  private saveMyObject(elem: string) {
+    this.names.push(elem as string);
+    //this.add.text(100, 100, "new name " + elem);
+    console.log("the names: " + this.names);
   }
+
 
   private loadAttribute(attributeName: string, attributeValues: Array<string>) {
     attributeValues.forEach((value: string) =>
@@ -134,17 +167,18 @@ export default class GameScene extends Phaser.Scene {
 
   //Function that handles changing the scene to the Collection Scene
   private goToCollectionScene(){
-    this.scene.stop('GameScene').launch('collectionScene');
+    this.scene.stop('GameScene').launch('collectionScene', this.names);
   }
   private goToEndScene(){
 	this.scene.stop('GameScene').launch('End');
   }
   
   update(){
-	if(this.totalnene == 2){
+	if(this.totalnene == 25){
 	this.totalnene =1;
 	this.coins =10;
 	this.goToEndScene()
 }
 }
 }
+

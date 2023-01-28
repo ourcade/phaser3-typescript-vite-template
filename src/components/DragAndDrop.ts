@@ -24,7 +24,7 @@ export default class DragAndDrop extends Phaser.GameObjects.Container {
     this.nene = this.scene.physics.add.image(750, 300, "nene").setInteractive();
     this.resetButton = this.scene.physics.add.image(750, 100, "reset").setInteractive();
     
-    this.totalnenetext = this.scene.add.text(650,550, `Total Nenes Found: ${(this.scene as GameScene).totalnene}`,{"color":"0x000000"})
+    this.totalnenetext = this.scene.add.text(650,525, `Total Nenes Found: ${(this.scene as GameScene).totalnene}`,{"color":"0x000000"})
     this.currentAttributes = {};
     this.dragColors = {};
     this.dragHats = {};
