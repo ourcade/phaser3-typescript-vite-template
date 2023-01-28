@@ -13,7 +13,6 @@ export default class GameScene extends Phaser.Scene {
 
   //Rachel
   public coins: number
-  public totalnene: number
   //private popup?: Phaser.GameObjects.Image;
   //private contain: Phaser.GameObjects.Container | undefined;
   //private quiztext?: Phaser.GameObjects.Text;
@@ -55,7 +54,6 @@ export default class GameScene extends Phaser.Scene {
     this.colors = ["blue", "green", "purple", "red"];
 	this.coins = 10;
 	this.coinTracker = []
-	this.totalnene =1;
 	
     this.hats = ["beanie", "bucket-hat", "sunhat", "visor"];
 

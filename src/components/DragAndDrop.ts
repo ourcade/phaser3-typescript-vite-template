@@ -12,6 +12,7 @@ export default class DragAndDrop extends Phaser.GameObjects.Container {
     private currentAttributes: Record<string,string>;
     private hat?: Phaser.GameObjects.GameObject;
     private resetButton: Phaser.GameObjects.GameObject;
+    private totalnene: number
     private totalnenetext: Phaser.GameObjects.Text;
   
   //COLORS V2 END ----------------------------------------------
@@ -23,20 +24,18 @@ export default class DragAndDrop extends Phaser.GameObjects.Container {
     this.text = this.scene.add.text(650,450, "nene = new Nene();", {"align":"left","color":"0x000000","fixedWidth":250});
     this.nene = this.scene.physics.add.image(750, 300, "nene").setInteractive();
     this.resetButton = this.scene.physics.add.image(750, 100, "reset").setInteractive();
-    
-    this.totalnenetext = this.scene.add.text(650,525, `Total Nenes Found: ${(this.scene as GameScene).totalnene}`,{"color":"0x000000"})
+    this.totalnene = 1;
+    this.totalnenetext = this.scene.add.text(650,550, `Total Nenes Found: ${this.totalnene}`,{"color":"0x000000"})
     this.currentAttributes = {};
     this.dragColors = {};
     this.dragHats = {};
     
     this.displayValueOptions((this.scene as GameScene).colors, this.dragColors);
-    
     this.displayValueOptions2((this.scene as GameScene).hats, this.dragHats);
+
     this.setUpButton();
     this.setUpDrag();
     this.setUpCollisions();
-    
-
     //COLORS V2 END ---------------------------------------------------------------
   }
 
@@ -47,8 +46,6 @@ export default class DragAndDrop extends Phaser.GameObjects.Container {
         (dragItems[attribute] = this.scene.physics.add.image(350, y_pos, attribute).setInteractive(),
         this.scene.input.setDraggable(dragItems[attribute]),
         y_pos += 125)
-        
-        
     );
   }
   private displayValueOptions2(attributeNames: Array<string>, dragItems: Record<string, Phaser.GameObjects.GameObject>) {
@@ -58,7 +55,6 @@ export default class DragAndDrop extends Phaser.GameObjects.Container {
         (dragItems[attribute] = this.scene.physics.add.image(500, y_pos, attribute).setInteractive(),
         this.scene.input.setDraggable(dragItems[attribute]),
         y_pos += 125)
-        
     );
   }
 
@@ -141,9 +137,10 @@ private handleColorCollision(
           (this.scene as GameScene).coinTracker.push(this.text.text);
           (this.scene as GameScene).coins = (this.scene as GameScene).coins +1;
           (this.scene as GameScene).shop?.scoreText.setText(`Coins: ${(this.scene as GameScene).coins}`);
-          (this.scene as GameScene).totalnene = (this.scene as GameScene).totalnene +1;
-          this.totalnenetext = this.totalnenetext.setText(`Total Nenes Found: ${(this.scene as GameScene).totalnene}`)
+          this.totalnene = this.totalnene +1;
+          this.totalnenetext = this.totalnenetext.setText(`Total Nenes Found: ${this.totalnene}`)
         }
+
       }
 
       private handleHatCollision(
@@ -168,8 +165,8 @@ private handleColorCollision(
               (this.scene as GameScene).coinTracker.push(this.text.text);
               (this.scene as GameScene).coins = (this.scene as GameScene).coins+1;
               (this.scene as GameScene).shop?.scoreText.setText(`Coins: ${(this.scene as GameScene).coins}`);
-              (this.scene as GameScene).totalnene = (this.scene as GameScene).totalnene +1;
-              this.totalnenetext = this.totalnenetext.setText(`Total Nenes Found: ${(this.scene as GameScene).totalnene}`)
+              this.totalnene = this.totalnene +1;
+              this.totalnenetext = this.totalnenetext.setText(`Total Nenes Found: ${this.totalnene}`)
             }
           }
 
@@ -202,5 +199,4 @@ private handleColorCollision(
 
         }));
       }
-      
 }
