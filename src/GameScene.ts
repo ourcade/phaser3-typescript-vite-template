@@ -84,7 +84,7 @@ export default class GameScene extends Phaser.Scene {
 
    }
 
-  create() {
+  create(difficulty: Array<string>) {
     this.background = this.add.image(450, 300, "bg");
     this.background.displayHeight = 600;
     this.background.displayWidth = 900;
@@ -98,7 +98,13 @@ export default class GameScene extends Phaser.Scene {
     new DragAndDrop(this);
 
     // CREATES THE SHOP OBJECT & initializes values & SHOWS
-    new Questions(this);
+    
+    
+    if(difficulty[0]==="true"){
+      new Questions(this)
+    }
+    
+    
 
     // CREATES THE SHOP OBJECT & initializes values & SHOWS
     new Tutorial(this);
@@ -179,4 +185,3 @@ export default class GameScene extends Phaser.Scene {
 }
 }
 }
-
