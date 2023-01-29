@@ -1,7 +1,6 @@
 
 import Phaser from 'phaser'
 import GameScene from "../GameScene"
-import game from '../main';
 import quizJson from '../components/quiz.json'
 export default class Questions extends Phaser.GameObjects.Container {
     
@@ -22,12 +21,12 @@ export default class Questions extends Phaser.GameObjects.Container {
         this.scene.add.existing(this); //Don't touch
     }
 
-    private generatePopUp(){
+    generatePopUp(){
         this.index = Math.floor(Math.random() * 20);
         this.popupBG = this.scene.physics.add.image(150,100, 'popup').setOrigin(0);
         this.quiztext = this.scene.add.text(200, 150, quizJson[this.index].question, { align: "center", wordWrap: { width: 400, useAdvancedWrap: true } })
             .setColor('#000000');
-        this.choices1 = this.scene.add.text(200, 200, quizJson[this.index].choices[0], { align: "right", wordWrap: { width: 450, useAdvancedWrap: true } })
+        this.choices1 = this.scene.add.text(200, 200, quizJson[this.index].choices[0], { align: "left", wordWrap: { width: 450, useAdvancedWrap: true } })
             .setColor('#000000')
             .setInteractive()
 			.on('pointerover', () => this.choices1?.setColor('#fff000'))
@@ -49,7 +48,7 @@ export default class Questions extends Phaser.GameObjects.Container {
                 }
             }
         } else {
-            this.choices3 = this.scene.add.text(200, 300, quizJson[this.index].choices[2], { align: "right", wordWrap: { width: 400, useAdvancedWrap: true } })
+            this.choices3 = this.scene.add.text(200, 300, quizJson[this.index].choices[2], { align: "left", wordWrap: { width: 400, useAdvancedWrap: true } })
                 .setColor('#000000')
                 .setInteractive()
                 .on('pointerover', () => this.choices3?.setColor('#fff000'))
