@@ -143,6 +143,7 @@ export default class GameScene extends Phaser.Scene {
   }
   saveMyObject(elem: string) {
     this.coinTracker[this.dragAndDrop?.generateDisplayString() || ""] = (elem as string);
+    eventsCenter.emit("update-nenes", this.coinTracker);
     //this.add.text(100, 100, "new name " + elem);
     this.dragAndDrop?.updateText(elem as string);
   }
