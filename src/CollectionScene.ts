@@ -4,17 +4,19 @@ import eventsCenter from './EventsCenter'
 export default class collectionScene extends Phaser.Scene {
     private backButton!: Phaser.GameObjects.Image;
     collectionBG!: Phaser.GameObjects.Image;
-    private nenesCollected: Array<string>;
+    private nenesCollected: Record<string,string>;
     private colors: Array<string>;
     private hats: Array<string>;
-    private names: Array<string>;
+    private neneImages: Phaser.GameObjects.Group;
+    private neneText: Phaser.GameObjects.Group;
 
     constructor(){
         super({key: 'collectionScene'});
-        this.nenesCollected = ["nene = new Nene();"];
-        this.names = [""];
+        this.nenesCollected = {"":"vanilla nene"};
         this.colors = ["red","green","blue","purple"];
         this.hats = ["sunhat", "beanie","bucket-hat", "visor"];
+        this.neneImages = new Phaser.GameObjects.Group(this);
+        this.neneText = new Phaser.GameObjects.Group(this);
     }
 
     preload() {
@@ -24,15 +26,16 @@ export default class collectionScene extends Phaser.Scene {
     }
 
     create(){
-        eventsCenter.on('update-names', this.updateNames, this);
         eventsCenter.on('update-nenes', this.updateNenes, this);
         //Displays the yellow background for the Collection Scene
         this.collectionBG=this.add.image(450, 300, "collectionBG");  
+        this.collectionBG.ignoreDestroy = true;
 
         //Displays the back button
         //When the back button is clicked, it returns to the Game Scene 
         this.backButton=this.add.image(70, 530, "backButton")
         .setInteractive();
+        this.backButton.ignoreDestroy = true;
 
         this.backButton.on("pointerover",() =>{
             this.backButton.setAlpha(1);
@@ -47,15 +50,9 @@ export default class collectionScene extends Phaser.Scene {
         this.loadInNenes();
     }
 
-    public updateNenes(currentNenes: Array<string>) {
+    public updateNenes(currentNenes: Record<string,string>) {
         console.log(currentNenes);
         this.nenesCollected = currentNenes;
-        this.loadInNenes();
-    }
-
-    public updateNames(currentNames: Array<string>) {
-        console.log(currentNames);
-        this.names = currentNames;
         this.loadInNenes();
     }
 
@@ -73,32 +70,33 @@ export default class collectionScene extends Phaser.Scene {
     }
 
     private loadInNenes() {
+        this.neneImages.clear(true);
+        this.neneText.clear(true);
         let x = -10;
         let y = 150;
         console.log(this.nenesCollected);
-        console.log(this.names);
 
-        this.nenesCollected.forEach( (desc: string) => {
+        Object.keys(this.nenesCollected).sort().forEach( (desc: string) => {
             console.log(desc);
             [x, y] = this.increment(x, y);
             let foundColor = false; 
             this.colors.forEach( (color) => {
                 if (desc.includes(color)) {
                     foundColor = true;
-                    this.add.image(x,y, "nene-" + color).setScale(0.75);
+                    this.neneImages.add(this.add.image(x,y, "nene-" + color).setScale(0.75));
+                    
                 }           
             });
             if (!foundColor) {
-                this.add.image(x,y,"nene").setScale(0.75);
+                this.neneImages.add(this.add.image(x,y,"nene").setScale(0.75));
             }
             this.hats.forEach( (hat) => {
                 if (desc.includes(hat)) {
                     foundColor = true;
-                    this.add.image(x,y, "nene-"+hat).setScale(0.75);
+                    this.neneImages.add(this.add.image(x,y, "nene-"+hat).setScale(0.75));
                 }           
             });
-            const index = this.nenesCollected.indexOf(desc);
-            this.add.text(x-50, y+100, this.names[index], { font: '16px Courier', color: '#000000' })
+            this.neneText.add(this.add.text(x-50, y+100, this.nenesCollected[desc], { font: '16px Courier', color: '#000000' }));
         }
 
         );
