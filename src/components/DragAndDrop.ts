@@ -1,7 +1,7 @@
 import Phaser from "phaser";
 import eventsCenter from "../EventsCenter";
 import GameScene from "../GameScene"
-import Shop from "./Shop";
+//import Shop from "./Shop";
 
 export default class DragAndDrop extends Phaser.GameObjects.Container {
 
