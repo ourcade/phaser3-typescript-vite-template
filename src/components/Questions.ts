@@ -23,16 +23,16 @@ export default class Questions extends Phaser.GameObjects.Container {
 
     generatePopUp(){
         this.index = Math.floor(Math.random() * 20);
-        this.popupBG = this.scene.physics.add.image(150,100, 'popup').setOrigin(0);
-        this.quiztext = this.scene.add.text(200, 150, quizJson[this.index].question, { align: "center", wordWrap: { width: 400, useAdvancedWrap: true } })
+        this.popupBG = this.scene.physics.add.image(100, 50, 'popup').setOrigin(0);
+        this.quiztext = this.scene.add.text(150, 100, quizJson[this.index].question, { align: "center", wordWrap: { width: 500, useAdvancedWrap: true } })
             .setColor('#000000');
-        this.choices1 = this.scene.add.text(200, 200, quizJson[this.index].choices[0], { align: "left", wordWrap: { width: 450, useAdvancedWrap: true } })
+        this.choices1 = this.scene.add.text(150, 200, quizJson[this.index].choices[0], { align: "left", wordWrap: { width: 200, useAdvancedWrap: true } })
             .setColor('#000000')
             .setInteractive()
 			.on('pointerover', () => this.choices1?.setColor('#fff000'))
 			.on('pointerout', () => this.choices1?.setColor('#000000'))
             .on('pointerup', () => this.container?.destroy());
-        this.choices2 = this.scene.add.text(400, 200, quizJson[this.index].choices[1], { align: "right", wordWrap: { width: 400, useAdvancedWrap: true } })
+        this.choices2 = this.scene.add.text(500, 200, quizJson[this.index].choices[1], { align: "right", wordWrap: { width: 200, useAdvancedWrap: true } })
             .setColor('#000000')
              .setInteractive()
 			 .on('pointerover', () => this.choices2?.setColor('#fff000'))
@@ -48,13 +48,13 @@ export default class Questions extends Phaser.GameObjects.Container {
                 }
             }
         } else {
-            this.choices3 = this.scene.add.text(200, 300, quizJson[this.index].choices[2], { align: "left", wordWrap: { width: 400, useAdvancedWrap: true } })
+            this.choices3 = this.scene.add.text(150, 350, quizJson[this.index].choices[2], { align: "left", wordWrap: { width: 200, useAdvancedWrap: true } })
                 .setColor('#000000')
                 .setInteractive()
                 .on('pointerover', () => this.choices3?.setColor('#fff000'))
                 .on('pointerout', () => this.choices3?.setColor('#000000'))
                 .on('pointerup', () => this.container?.destroy());
-            this.choices4 = this.scene.add.text(400, 300, quizJson[this.index].choices[3], { align: "right", wordWrap: { width: 400, useAdvancedWrap: true } })
+            this.choices4 = this.scene.add.text(500, 350, quizJson[this.index].choices[3], { align: "right", wordWrap: { width: 200, useAdvancedWrap: true } })
                 .setColor('#000000')
                 .setInteractive()
 			    .on('pointerover', () => this.choices4?.setColor('#fff000'))
