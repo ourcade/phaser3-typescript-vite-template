@@ -189,8 +189,10 @@ private handleColorCollision(
         Object.keys(this.currentAttributes).sort().forEach(
             (key) => lines.push( "\"" + this.currentAttributes[key] + "\",")
         );
-        if (lines)
-          return lines.join("\n\t");
+        if (lines){
+          const str = lines.join("\n\t");
+          return str.substring(0, str.length-1)
+        }
         return "";
       }
 
