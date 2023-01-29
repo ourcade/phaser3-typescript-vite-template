@@ -17,10 +17,11 @@ export default class DragAndDrop extends Phaser.GameObjects.Container {
     private totalnene: number
     private totalnenetext: Phaser.GameObjects.Text;
     private questions: Questions
+    private difficulty: Array<String>
   
   //COLORS V2 END ----------------------------------------------
 
-  constructor(scene: GameScene) {
+  constructor(scene: GameScene, difficulty: Array<String>) {
 
     super(scene); 
 
@@ -33,6 +34,7 @@ export default class DragAndDrop extends Phaser.GameObjects.Container {
     this.dragColors = {};
     this.dragHats = {};
     this.questions = new Questions(scene);
+    this.difficulty = difficulty;
     
     this.displayValueOptions((this.scene as GameScene).colors, this.dragColors);
     this.displayValueOptions2((this.scene as GameScene).hats, this.dragHats);
@@ -184,7 +186,7 @@ private handleColorCollision(
           eventsCenter.emit("update-nenes", (this.scene as GameScene).coinTracker);
           this.totalnene = this.totalnene +1;
           this.totalnenetext = this.totalnenetext.setText(`Total Nenes Found: ${this.totalnene}`)
-          if (this.totalnene % 5 == 0){
+          if (this.totalnene % 5 == 0 && this.difficulty[0]==="true"){
             this.questions.generatePopUp();
           }
           if (this.totalnene == 25) {

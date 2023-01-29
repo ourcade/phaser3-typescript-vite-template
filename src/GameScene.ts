@@ -92,13 +92,11 @@ export default class GameScene extends Phaser.Scene {
     new DisplayArea(this);
 
     // CREATES THE SHOP OBJECT & initializes values & SHOWS
-    this.dragAndDrop = new DragAndDrop(this);
+    this.dragAndDrop = new DragAndDrop(this, difficulty);
 
     // CREATES THE SHOP OBJECT & initializes values & SHOWS
     //new Questions(this);
-    if(difficulty[0]==="true"){
-      new Questions(this)
-    }
+    new Questions(this)
 
     // CREATES THE SHOP OBJECT & initializes values & SHOWS
     new Tutorial(this);
