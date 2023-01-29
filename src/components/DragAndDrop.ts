@@ -1,6 +1,7 @@
 import Phaser from "phaser";
+import eventsCenter from "../EventsCenter";
 import GameScene from "../GameScene"
-import Shop from "./Shop";
+//import Shop from "./Shop";
 
 export default class DragAndDrop extends Phaser.GameObjects.Container {
 
@@ -132,6 +133,7 @@ private handleColorCollision(
         this.nene = this.scene.physics.add.image(750, 300, "nene-" + newColor).setInteractive();
         this.currentAttributes["color"] = (dragColor as Phaser.GameObjects.Image).texture.key;
         this.text = this.text.setText("nene = new Nene(\n\t" + this.generateDisplayString() + "\n);");
+        this.updateText();
         this.setUpCollisions();
         if(!(this.scene as GameScene).coinTracker.includes(this.text.text)){
           (this.scene as GameScene).coinTracker.push(this.text.text);
@@ -159,7 +161,7 @@ private handleColorCollision(
             const newHat = (dragHat as Phaser.GameObjects.Image).texture.key;
             this.hat = this.scene.physics.add.image(750, 300, "nene-" + newHat).setInteractive();
             this.currentAttributes["hat"] = (dragHat as Phaser.GameObjects.Image).texture.key;
-            this.text = this.text.setText("nene = new Nene(\n\t" + this.generateDisplayString() + "\n);");
+            this.updateText();
             this.setUpCollisions();
             if(!(this.scene as GameScene).coinTracker.includes(this.text.text)){
               (this.scene as GameScene).coinTracker.push(this.text.text);
@@ -169,17 +171,41 @@ private handleColorCollision(
               this.totalnenetext = this.totalnenetext.setText(`Total Nenes Found: ${(this.scene as GameScene).totalnene}`)
             }
           }
+      
+      private updateText() {
+        const newText = this.generateDisplayString();
+        this.text = this.text.setText("nene = new Nene(\n\t" + newText + "\n);");
+
+        // Checks if nene is new for coins 
+        if(!Object.keys((this.scene as GameScene).coinTracker).includes(newText)){
+          (this.scene as GameScene).coinTracker[newText] = newText;
+          (this.scene as GameScene).coins++;
+          (this.scene as GameScene).shop?.scoreText.setText(`Coins: ${(this.scene as GameScene).coins}`);
+          eventsCenter.emit("update-nenes", (this.scene as GameScene).coinTracker);
+          (this.scene as GameScene).totalnene = (this.scene as GameScene).totalnene +1;
+          this.totalnenetext = this.totalnenetext.setText(`Total Nenes Found: ${(this.scene as GameScene).totalnene}`)
+          if ((this.scene as GameScene).totalnene == 25) {
+            this.scene.scene.stop().launch("End");
+          }
+          // TODO trigger question pop up
+        }   
+
+      }
 
       private generateCoords() {
         return [Math.random() * 300 + 250, Math.random() * 400 + 100];
       }
 
-      private generateDisplayString() {
+      public generateDisplayString() {
         const lines: Array<string> = [];
-        Object.keys(this.currentAttributes).forEach(
-            (key) => lines.push( '"' + this.currentAttributes[key] + '",')
+        Object.keys(this.currentAttributes).sort().forEach(
+            (key) => lines.push( "\"" + this.currentAttributes[key] + "\",")
         );
-        return lines.join("\n\t");
+        if (lines){
+          const str = lines.join("\n\t");
+          return str.substring(0, str.length-1)
+        }
+        return "";
       }
 
       private setUpButton() {
