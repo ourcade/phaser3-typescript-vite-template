@@ -1,7 +1,7 @@
 import Phaser from "phaser";
 import Shop from "./components/Shop";
 import Tutorial from "./components/Tutorial";
-//import Questions from "./components/Questions";
+import Questions from "./components/Questions";
 import DisplayArea from "./components/DisplayArea";
 import DragAndDrop from "./components/DragAndDrop";
 import eventsCenter from "./EventsCenter";
@@ -83,7 +83,7 @@ export default class GameScene extends Phaser.Scene {
     this.scene.setVisible(false, "collectionScene");
   }
 
-  create() {
+  create(difficulty: Array<string>) {
     this.background = this.add.image(450, 300, "bg");
     this.background.displayHeight = 600;
     this.background.displayWidth = 900;
@@ -98,6 +98,9 @@ export default class GameScene extends Phaser.Scene {
 
     // CREATES THE SHOP OBJECT & initializes values & SHOWS
     //new Questions(this);
+    if(difficulty[0]==="true"){
+      new Questions(this)
+    }
 
     // CREATES THE SHOP OBJECT & initializes values & SHOWS
     new Tutorial(this);
