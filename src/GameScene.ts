@@ -5,7 +5,7 @@ import Questions from "./components/Questions";
 import DisplayArea from "./components/DisplayArea";
 import DragAndDrop from "./components/DragAndDrop";
 import eventsCenter from "./EventsCenter";
-//import eventsCenter from "./EventsCenter"
+
 
 export default class GameScene extends Phaser.Scene {
   private background?: Phaser.GameObjects.Image;
@@ -166,16 +166,20 @@ export default class GameScene extends Phaser.Scene {
 
   //Function that handles changing the scene to the Collection Scene
   private goToCollectionScene() {
-    this.scene.sleep();
+    this.scene.sleep()
+    
   }
   private goToEndScene() {
-    this.scene.stop("GameScene").launch("End");
+    this.scene.stop("GameScene").stop("collectionScene").launch("End")
+
   }
 
   update() {
-    if (this.totalnene == 25) {
+    if (this.totalnene == 3) {
       this.totalnene = 1;
       this.coins = 0;
+      this.coinTracker = {"":"vanilla nene"};
+      eventsCenter.emit("update-nenes",this.coinTracker)
       this.goToEndScene();
     }
   }
