@@ -13,6 +13,8 @@ export default class titleScene extends Phaser.Scene {
     declare input: any;
     declare scale: any;
     public difficulty!: Array<string>;
+    nene: any;
+    mute: any;
     
 
     constructor() {
@@ -27,19 +29,31 @@ export default class titleScene extends Phaser.Scene {
         this.load.image('titleStart','assets/startButton.png')
         this.load.image('easyButton','assets/easy.png')
         this.load.image('hardButton','assets/hard.png')
-        this.load.image('nene','assets/neneTitle.png')
+        this.load.image('bigNene','assets/neneTitle.png')
+        this.load.audio('summerFun','assets/summerFun.mp3')
+        this.load.image('mute','assets/pink.png')
 
+        
       }
     
     create(){
+        //load in music
+        this.music = this.sound.add("summerFun", { loop: true });
+        this.music.play()
+       
         //background
         this.add.image(400,300,'titleScreen');
+
+        
+       
 
         this.cursorKeys = this.input.keyboard.createCursorKeys();
         //Title Words
         this.add.image(430,100,'title');
         //Add NeNe
-        this.add.image(430,400,'nene');
+        this.add.image(430,400,'bigNene');
+       
+        
         //Easy difficulty selection
         this.easyButton=this.add.image(195,470,'easyButton')
         this.easyButton.setVisible(false)
@@ -79,10 +93,11 @@ export default class titleScene extends Phaser.Scene {
 
         
 
-        //load in music
-        
-       
-       
+        //Mute
+       this.mute=this.add.image(195,470,'mute')
+       this.easyButton.on("pointerup",()=>{
+        this.music.stop
+    })
     
         
         
