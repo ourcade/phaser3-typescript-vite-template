@@ -54,7 +54,7 @@ export default class GameScene extends Phaser.Scene {
     super("GameScene");
     this.colors = ["blue", "green", "purple", "red"];
     this.coins = 10;
-    this.coinTracker = [];
+    this.coinTracker = ["nene = new Nene();"];
     this.totalnene = 1;
     this.hats = ["beanie", "bucket-hat", "sunhat", "visor"];
 
@@ -81,6 +81,8 @@ export default class GameScene extends Phaser.Scene {
 
     //Preloads the save button image
     this.load.image("saveButton", "assets/saveButton.png");
+    this.scene.run("collectionScene");
+    this.scene.setVisible(false, "collectionScene");
   }
 
   create() {
@@ -97,7 +99,7 @@ export default class GameScene extends Phaser.Scene {
     new DragAndDrop(this);
 
     // CREATES THE SHOP OBJECT & initializes values & SHOWS
-    new Questions(this);
+    //new Questions(this);
 
     // CREATES THE SHOP OBJECT & initializes values & SHOWS
     new Tutorial(this);
@@ -147,6 +149,7 @@ export default class GameScene extends Phaser.Scene {
     this.names.push(elem as string);
     //this.add.text(100, 100, "new name " + elem);
     console.log("the names: " + this.names);
+    eventsCenter.emit("update-names", this.names);
   }
 
   private loadAttribute(attributeName: string, attributeValues: Array<string>) {
@@ -163,7 +166,7 @@ export default class GameScene extends Phaser.Scene {
 
   //Function that handles changing the scene to the Collection Scene
   private goToCollectionScene() {
-    this.scene.stop("GameScene").launch("collectionScene", this.names);
+    this.scene.sleep();
   }
   private goToEndScene() {
     this.scene.stop("GameScene").launch("End");

@@ -1,4 +1,5 @@
 import Phaser from "phaser";
+import eventsCenter from "../EventsCenter";
 import GameScene from "../GameScene"
 import Shop from "./Shop";
 
@@ -134,13 +135,7 @@ private handleColorCollision(
         this.text = this.text.setText("nene = new Nene(\n\t" + this.generateDisplayString() + "\n);");
         this.updateText();
         this.setUpCollisions();
-        if(!(this.scene as GameScene).coinTracker.includes(this.text.text)){
-          (this.scene as GameScene).coinTracker.push(this.text.text);
-          (this.scene as GameScene).coins = (this.scene as GameScene).coins +1;
-          (this.scene as GameScene).shop?.scoreText.setText(`Coins: ${(this.scene as GameScene).coins}`);
-          this.totalnene = this.totalnene +1;
-          this.totalnenetext = this.totalnenetext.setText(`Total Nenes Found: ${this.totalnene}`)
-        }
+        
 
       }
 
@@ -162,13 +157,7 @@ private handleColorCollision(
             this.currentAttributes["hat"] = (dragHat as Phaser.GameObjects.Image).texture.key;
             this.updateText();
             this.setUpCollisions();
-            if(!(this.scene as GameScene).coinTracker.includes(this.text.text)){
-              (this.scene as GameScene).coinTracker.push(this.text.text);
-              (this.scene as GameScene).coins = (this.scene as GameScene).coins+1;
-              (this.scene as GameScene).shop?.scoreText.setText(`Coins: ${(this.scene as GameScene).coins}`);
-              this.totalnene = this.totalnene +1;
-              this.totalnenetext = this.totalnenetext.setText(`Total Nenes Found: ${this.totalnene}`)
-            }
+            
           }
       
       private updateText() {
@@ -180,7 +169,9 @@ private handleColorCollision(
           (this.scene as GameScene).coinTracker.push(newText);
           (this.scene as GameScene).coins++;
           (this.scene as GameScene).shop?.scoreText.setText(`Coins: ${(this.scene as GameScene).coins}`);
-
+          eventsCenter.emit("update-nenes", (this.scene as GameScene).coinTracker);
+          this.totalnene = this.totalnene +1;
+          this.totalnenetext = this.totalnenetext.setText(`Total Nenes Found: ${this.totalnene}`)
           // TODO trigger question pop up
         }   
 
@@ -193,7 +184,7 @@ private handleColorCollision(
       private generateDisplayString() {
         const lines: Array<string> = [];
         Object.keys(this.currentAttributes).sort().forEach(
-            (key) => lines.push( '"' + this.currentAttributes[key] + '",')
+            (key) => lines.push( "\"" + this.currentAttributes[key] + "\",")
         );
         return lines.join("\n\t");
       }

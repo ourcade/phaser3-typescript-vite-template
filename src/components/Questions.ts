@@ -24,7 +24,7 @@ export default class Questions extends Phaser.GameObjects.Container {
   }
 
   private generatePopUp(){
-      let quizJson = this.scene.cache.json.get('questions');
+      const quizJson = this.scene.cache.json.get('questions');
       this.index = Math.floor(Math.random() * 20);
       this.popupBG = this.scene.physics.add.image(150,100, 'popup').setOrigin(0);
       this.quiztext = this.scene.add.text(200, 150, quizJson[this.index].question, { align: "center", wordWrap: { width: 400, useAdvancedWrap: true } })
