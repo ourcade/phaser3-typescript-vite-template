@@ -3,6 +3,8 @@ import collectionScene from './CollectionScene'
 
 import GameScene from './GameScene'
 import titleScene from './titleScene'
+import RexUIPlugin from 'phaser3-rex-plugins/templates/ui/ui-plugin'
+import End from './End'
 
 const config: Phaser.Types.Core.GameConfig = {
 	type: Phaser.AUTO,
@@ -15,7 +17,21 @@ const config: Phaser.Types.Core.GameConfig = {
 			gravity: {},
 		},
 	},
-	scene: [titleScene,GameScene,collectionScene],
+
+	scene: [titleScene,collectionScene,GameScene,End],
+	dom: {
+        createContainer: true
+    },
+	plugins: {
+		scene: [
+			{
+				key: 'rexUI',
+				plugin: RexUIPlugin,
+				mapping: 'rexUI'
+			}
+		]
+    }
+
 }
 const game =  new Phaser.Game(config)
 export default game
