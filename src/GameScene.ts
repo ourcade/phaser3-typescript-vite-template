@@ -60,7 +60,7 @@ export default class GameScene extends Phaser.Scene {
     //this.load.setBaseURL('https://labs.phaser.io')
     this.load.image("bg", "assets/background.png");
     this.load.image("color", "assets/Colorwheel.png");
-    this.load.image("hats", "assets/hats.jpeg");
+    this.load.image("hats", "assets/hats.png");
 
     this.load.image("popup", "assets/popup.png");
 

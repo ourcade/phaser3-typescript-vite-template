@@ -14,7 +14,7 @@ export default class Shop extends Phaser.GameObjects.Container{
         super(scene)
         
         this.add(this.scene.add.text(40,240, "Additional Colors", {fontSize: '18px',"color":"#FFFFFF"}))
-        this.add(this.scene.add.text(60,415, "Baseball Caps", {fontSize: '18px',"color":"#FFFFFF"}))
+        this.add(this.scene.add.text(60,415, "Hats", {fontSize: '18px',"color":"#FFFFFF"}))
         this.add(this.scene.add.text(80,260, "5 Coins", {fontSize: '18px',"color":"#FFFFFF"}))
         this.add(this.scene.add.text(80,440, "3 Coins", {fontSize: '18px', "color":"#FFFFFF"}))
         this.scoreText = this.scene.add.text(20,550,"Coins: 10", {fontSize: '32px',"color":"#FFFFFF"});
