@@ -9,7 +9,7 @@ export default class DragAndDrop extends Phaser.GameObjects.Container {
     private dragColors: Record<string, Phaser.GameObjects.GameObject>;
     private dragHats: Record<string, Phaser.GameObjects.GameObject>;
     private nene: Phaser.GameObjects.GameObject;
-    private text: Phaser.GameObjects.Text;
+    public text: Phaser.GameObjects.Text;
     private currentAttributes: Record<string,string>;
     private hat?: Phaser.GameObjects.GameObject;
     private resetButton: Phaser.GameObjects.GameObject;
@@ -160,9 +160,18 @@ private handleColorCollision(
             
           }
       
-      private updateText() {
+      public updateText(name?: string) {
         const newText = this.generateDisplayString();
-        this.text = this.text.setText("nene = new Nene(\n\t" + newText + "\n);");
+        if (!name) {
+          name = "nene";
+        }
+        if (newText ==="") {
+          this.text = this.text.setText(name + " = new Nene();");
+        }
+        else {
+          this.text = this.text.setText(name + " = new Nene(\n\t" + newText + "\n);");
+        }
+        
 
         // Checks if nene is new for coins 
         if(!(this.scene as GameScene).coinTracker.includes(newText)){

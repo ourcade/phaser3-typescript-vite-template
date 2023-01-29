@@ -12,7 +12,7 @@ export default class collectionScene extends Phaser.Scene {
     constructor(){
         super({key: 'collectionScene'});
         this.nenesCollected = ["nene = new Nene();"];
-        this.names = ["nene"];
+        this.names = [""];
         this.colors = ["red","green","blue","purple"];
         this.hats = ["sunhat", "beanie","bucket-hat", "visor"];
     }
