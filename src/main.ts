@@ -4,6 +4,7 @@ import collectionScene from './CollectionScene'
 import GameScene from './GameScene'
 import titleScene from './titleScene'
 import RexUIPlugin from 'phaser3-rex-plugins/templates/ui/ui-plugin'
+import End from './End'
 
 const config: Phaser.Types.Core.GameConfig = {
 	type: Phaser.AUTO,

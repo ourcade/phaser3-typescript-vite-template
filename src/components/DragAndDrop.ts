@@ -12,7 +12,7 @@ export default class DragAndDrop extends Phaser.GameObjects.Container {
     private currentAttributes: Record<string,string>;
     private hat?: Phaser.GameObjects.GameObject;
     private resetButton: Phaser.GameObjects.GameObject;
-    private totalnene: number
+    
     private totalnenetext: Phaser.GameObjects.Text;
   
   //COLORS V2 END ----------------------------------------------
@@ -24,8 +24,8 @@ export default class DragAndDrop extends Phaser.GameObjects.Container {
     this.text = this.scene.add.text(650,450, "nene = new Nene();", {"align":"left","color":"0x000000","fixedWidth":250});
     this.nene = this.scene.physics.add.image(750, 300, "nene").setInteractive();
     this.resetButton = this.scene.physics.add.image(750, 100, "reset").setInteractive();
-    this.totalnene = 1;
-    this.totalnenetext = this.scene.add.text(650,550, `Total Nenes Found: ${this.totalnene}`,{"color":"0x000000"})
+    
+    this.totalnenetext = this.scene.add.text(670,160, `Total Nenes Found: ${(this.scene as GameScene).totalnene}`,{"color":"0x000000"})
     this.currentAttributes = {};
     this.dragColors = {};
     this.dragHats = {};
@@ -137,8 +137,8 @@ private handleColorCollision(
           (this.scene as GameScene).coinTracker.push(this.text.text);
           (this.scene as GameScene).coins = (this.scene as GameScene).coins +1;
           (this.scene as GameScene).shop?.scoreText.setText(`Coins: ${(this.scene as GameScene).coins}`);
-          this.totalnene = this.totalnene +1;
-          this.totalnenetext = this.totalnenetext.setText(`Total Nenes Found: ${this.totalnene}`)
+          (this.scene as GameScene).totalnene = (this.scene as GameScene).totalnene +1;
+          this.totalnenetext = this.totalnenetext.setText(`Total Nenes Found: ${(this.scene as GameScene).totalnene}`)
         }
 
       }
@@ -165,8 +165,8 @@ private handleColorCollision(
               (this.scene as GameScene).coinTracker.push(this.text.text);
               (this.scene as GameScene).coins = (this.scene as GameScene).coins+1;
               (this.scene as GameScene).shop?.scoreText.setText(`Coins: ${(this.scene as GameScene).coins}`);
-              this.totalnene = this.totalnene +1;
-              this.totalnenetext = this.totalnenetext.setText(`Total Nenes Found: ${this.totalnene}`)
+              (this.scene as GameScene).totalnene = (this.scene as GameScene).totalnene +1;
+              this.totalnenetext = this.totalnenetext.setText(`Total Nenes Found: ${(this.scene as GameScene).totalnene}`)
             }
           }
 

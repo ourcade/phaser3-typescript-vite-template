@@ -4,7 +4,7 @@ import Tutorial from "./components/Tutorial";
 import Questions from "./components/Questions";
 import DisplayArea from "./components/DisplayArea";
 import DragAndDrop from "./components/DragAndDrop";
-import eventsCenter from "./EventsCenter"
+//import eventsCenter from "./EventsCenter"
 
 export default class GameScene extends Phaser.Scene {
   private background?: Phaser.GameObjects.Image;
@@ -17,7 +17,7 @@ export default class GameScene extends Phaser.Scene {
   //private popup?: Phaser.GameObjects.Image;
   //private contain: Phaser.GameObjects.Container | undefined;
   //private quiztext?: Phaser.GameObjects.Text;
-
+  public totalnene: number
   public coinTracker: Array<string>;
   //Rachel End
 
@@ -55,7 +55,7 @@ export default class GameScene extends Phaser.Scene {
     this.colors = ["blue", "green", "purple", "red"];
     this.coins = 10;
     this.coinTracker = [];
-
+    this.totalnene=1;
     this.hats = ["beanie", "bucket-hat", "sunhat", "visor"];
 
     //Mycah
