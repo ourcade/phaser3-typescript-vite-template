@@ -2,6 +2,7 @@
 import Phaser from 'phaser'
 import GameScene from "../GameScene"
 import game from '../main';
+import quizJson from '../components/quiz.json'
 export default class Questions extends Phaser.GameObjects.Container {
     
     //Rachel
@@ -18,14 +19,11 @@ export default class Questions extends Phaser.GameObjects.Container {
 
     constructor(scene: GameScene) { //don't touch
         super(scene) //Don't touch
-        this.scene.load.json('questions', 'src/components/quiz.json');
-        this.scene.load.start();
         this.generatePopUp();
         this.scene.add.existing(this); //Don't touch
     }
 
     private generatePopUp(){
-        let quizJson = this.scene.cache.json.get('questions');
         this.index = Math.floor(Math.random() * 20);
         this.popupBG = this.scene.physics.add.image(150,100, 'popup').setOrigin(0);
         this.quiztext = this.scene.add.text(200, 150, quizJson[this.index].question, { align: "center", wordWrap: { width: 400, useAdvancedWrap: true } })
@@ -83,6 +81,6 @@ export default class Questions extends Phaser.GameObjects.Container {
 
     private addCoins(){
         (this.scene as GameScene).coins += 2;
-        console.log((this.scene as GameScene).coins);
+        (this.scene as GameScene).shop?.scoreText.setText(`Coins: ${(this.scene as GameScene).coins}`);
     } 
 }

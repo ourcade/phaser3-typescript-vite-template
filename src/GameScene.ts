@@ -1,7 +1,7 @@
 import Phaser from "phaser";
 import Shop from "./components/Shop";
 import Tutorial from "./components/Tutorial";
-//import Questions from "./components/Questions";
+import Questions from "./components/Questions";
 import DisplayArea from "./components/DisplayArea";
 import DragAndDrop from "./components/DragAndDrop";
 import eventsCenter from "./EventsCenter";
@@ -15,9 +15,6 @@ export default class GameScene extends Phaser.Scene {
   //Rachel
   public coins: number;
   public totalnene: number;
-  //private popup?: Phaser.GameObjects.Image;
-  //private contain: Phaser.GameObjects.Container | undefined;
-  //private quiztext?: Phaser.GameObjects.Text;
 
   public coinTracker: Record<string,string>;
   //Rachel End
@@ -32,7 +29,7 @@ export default class GameScene extends Phaser.Scene {
 
   // Question pop ups
   // Also processes question data and displays
-  //private questions?: Questions;
+  private questions?: Questions;
 
   // Where the different objects are displayed / stacked
   //private displayArea?: DisplayArea;
@@ -96,7 +93,7 @@ export default class GameScene extends Phaser.Scene {
     this.dragAndDrop = new DragAndDrop(this);
 
     // CREATES THE SHOP OBJECT & initializes values & SHOWS
-    //new Questions(this);
+    new Questions(this);
 
     // CREATES THE SHOP OBJECT & initializes values & SHOWS
     new Tutorial(this);
