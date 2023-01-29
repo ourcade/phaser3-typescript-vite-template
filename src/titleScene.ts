@@ -22,24 +22,26 @@ export default class titleScene extends Phaser.Scene {
       preload()
       {
         this.load.image('titleScreen','assets/titleScene.jpg')
+        //Loads Title words
+        this.load.image('title','assets/title.png')
         this.load.image('titleStart','assets/startButton.png')
         this.load.image('easyButton','assets/easy.png')
         this.load.image('hardButton','assets/hard.png')
+        this.load.image('nene','assets/neneTitle.png')
 
       }
     
     create(){
-        
+        //background
         this.add.image(400,300,'titleScreen');
-        this.cursorKeys = this.input.keyboard.createCursorKeys();
-        
-        this.titleText=this.add.text(320,100,'Build A Bird',{
-			fontSize: '32px',
-			fill: '#000'
-		})
 
+        this.cursorKeys = this.input.keyboard.createCursorKeys();
+        //Title Words
+        this.add.image(430,100,'title');
+        //Add NeNe
+        this.add.image(430,400,'nene');
         //Easy difficulty selection
-        this.easyButton=this.add.image(200,470,'easyButton')
+        this.easyButton=this.add.image(195,470,'easyButton')
         this.easyButton.setVisible(false)
         this.easyButton.setAlpha(.7);
         this.easyButton.setInteractive();
@@ -56,7 +58,7 @@ export default class titleScene extends Phaser.Scene {
         })
         
          //Hard difficulty selection
-         this.hardButton=this.add.image(430,470,'hardButton')
+         this.hardButton=this.add.image(748,470,'hardButton')
          this.hardButton.setVisible(false)
          this.hardButton.setAlpha(.7);
          this.hardButton.setInteractive();
@@ -86,6 +88,7 @@ export default class titleScene extends Phaser.Scene {
         
         //create startButton
         this.startButton = this.add.image(430, 470, 'titleStart');
+        this.startButton.setTint(0xffffff)
         this.startButton.setAlpha(.7);
         this.startButton.setInteractive();
         this.startButton.on("pointerover",() =>{
