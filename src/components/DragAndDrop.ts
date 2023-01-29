@@ -1,25 +1,28 @@
 import Phaser from "phaser";
 import eventsCenter from "../EventsCenter";
 import GameScene from "../GameScene"
+import Questions from './Questions'
 //import Shop from "./Shop";
 
 export default class DragAndDrop extends Phaser.GameObjects.Container {
 
   //COLORS V2 START --------------------------------------------
-    public dragColors: Record<string, Phaser.GameObjects.GameObject>;
-    public dragHats: Record<string, Phaser.GameObjects.GameObject>;
+    public dragColors: Record<string, Phaser.GameObjects.Image>;
+    public dragHats: Record<string, Phaser.GameObjects.Image>;
     private nene: Phaser.GameObjects.GameObject;
-    private text: Phaser.GameObjects.Text;
+    public text: Phaser.GameObjects.Text;
     private currentAttributes: Record<string,string>;
     private hat?: Phaser.GameObjects.GameObject;
     private resetButton: Phaser.GameObjects.GameObject;
     public gothats: boolean;
     public gotcolors: boolean;
     private totalnenetext: Phaser.GameObjects.Text;
+    private questions: Questions
+    private difficulty: Array<string>
   
   //COLORS V2 END ----------------------------------------------
 
-  constructor(scene: GameScene) {
+  constructor(scene: GameScene, difficulty: Array<string>) {
 
     super(scene); 
 
@@ -32,6 +35,8 @@ export default class DragAndDrop extends Phaser.GameObjects.Container {
     this.dragColors = {};
     this.dragHats = {};
     this.gothats = false;
+    this.questions = new Questions(scene);
+    this.difficulty = difficulty;
     this.gotcolors = false;
     this.displayValueOptions((this.scene as GameScene).colors, this.dragColors);
     this.displayValueOptions2((this.scene as GameScene).hats, this.dragHats);
@@ -44,7 +49,7 @@ export default class DragAndDrop extends Phaser.GameObjects.Container {
     //COLORS V2 END ---------------------------------------------------------------
   }
 
-  private displayValueOptions(attributeNames: Array<string>, dragItems: Record<string, Phaser.GameObjects.GameObject>) {
+  private displayValueOptions(attributeNames: Array<string>, dragItems: Record<string, Phaser.GameObjects.Image>) {
     let y_pos = 100;
     //const x_pos = Math.random() * 300 + 300;
     attributeNames.forEach((attribute) =>
@@ -57,7 +62,7 @@ export default class DragAndDrop extends Phaser.GameObjects.Container {
         dragItems["purple"].setVisible(false)
         }
   }
-  private displayValueOptions2(attributeNames: Array<string>, dragItems: Record<string, Phaser.GameObjects.GameObject>) {
+  private displayValueOptions2(attributeNames: Array<string>, dragItems: Record<string, Phaser.GameObjects.Image>) {
     let y_pos = 100;
     //const x_pos = Math.random() * 300 + 300;
     attributeNames.forEach((attribute) =>
@@ -172,9 +177,18 @@ private handleColorCollision(
             
           }
       
-      private updateText() {
+      public updateText(name?: string) {
         const newText = this.generateDisplayString();
-        this.text = this.text.setText("nene = new Nene(\n\t" + newText + "\n);");
+        if (!name) {
+          name = "nene";
+        }
+        if (newText ==="") {
+          this.text = this.text.setText(name + " = new Nene();");
+        }
+        else {
+          this.text = this.text.setText(name + " = new Nene(\n\t" + newText + "\n);");
+        }
+        
 
         // Checks if nene is new for coins 
         if(!Object.keys((this.scene as GameScene).coinTracker).includes(newText)){
@@ -184,6 +198,9 @@ private handleColorCollision(
           eventsCenter.emit("update-nenes", (this.scene as GameScene).coinTracker);
           (this.scene as GameScene).totalnene = (this.scene as GameScene).totalnene +1;
           this.totalnenetext = this.totalnenetext.setText(`Total Nenes Found: ${(this.scene as GameScene).totalnene}`)
+          if ((this.scene as GameScene).totalnene % 5 == 0 && this.difficulty[0]==="true"){
+            this.questions.generatePopUp();
+          }
           if ((this.scene as GameScene).totalnene == 25) {
             this.scene.scene.stop().launch("End");
           }
