@@ -19,7 +19,6 @@ export default class Questions extends Phaser.GameObjects.Container {
 
     constructor(scene: GameScene) { //don't touch
         super(scene) //Don't touch
-        this.generatePopUp();
         this.scene.add.existing(this); //Don't touch
     }
 
