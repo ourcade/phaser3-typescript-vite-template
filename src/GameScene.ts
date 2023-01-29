@@ -15,9 +15,6 @@ export default class GameScene extends Phaser.Scene {
   //Rachel
   public coins: number;
   public totalnene: number;
-  //private popup?: Phaser.GameObjects.Image;
-  //private contain: Phaser.GameObjects.Container | undefined;
-  //private quiztext?: Phaser.GameObjects.Text;
 
   public coinTracker: Record<string,string>;
   //Rachel End
@@ -32,7 +29,7 @@ export default class GameScene extends Phaser.Scene {
 
   // Question pop ups
   // Also processes question data and displays
-  //private questions?: Questions;
+  private questions?: Questions;
 
   // Where the different objects are displayed / stacked
   //private displayArea?: DisplayArea;
