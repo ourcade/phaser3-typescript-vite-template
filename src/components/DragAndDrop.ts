@@ -172,6 +172,9 @@ private handleColorCollision(
           eventsCenter.emit("update-nenes", (this.scene as GameScene).coinTracker);
           this.totalnene = this.totalnene +1;
           this.totalnenetext = this.totalnenetext.setText(`Total Nenes Found: ${this.totalnene}`)
+          if (this.totalnene == 25) {
+            this.scene.scene.stop().launch("End");
+          }
           // TODO trigger question pop up
         }   
 
