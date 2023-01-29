@@ -30,7 +30,7 @@ export default class titleScene extends Phaser.Scene {
         this.load.image('easyButton','assets/easy.png')
         this.load.image('hardButton','assets/hard.png')
         this.load.image('bigNene','assets/neneTitle.png')
-        this.load.audio('summerFun','assets/summerFun.mp3')
+        //this.load.audio('summerFun','assets/summerFun.mp3')
         this.load.image('mute','assets/pink.png')
 
         
@@ -38,8 +38,8 @@ export default class titleScene extends Phaser.Scene {
     
     create(){
         //load in music
-        this.music = this.sound.add("summerFun", { loop: true });
-        this.music.play()
+        /*this.music = this.sound.add("summerFun", { loop: true });
+        this.music.play() */
        
         //background
         this.add.image(400,300,'titleScreen');
