@@ -41,7 +41,7 @@ export default class GameScene extends Phaser.Scene {
   // Drag and drop components
   // The "machine" or whatever we're calling it
   // Where the attribute values go
-  private dragAndDrop?: DragAndDrop;
+  public dragAndDrop?: DragAndDrop;
 
   colors: Array<string>;
   hats: Array<string>;
@@ -53,7 +53,7 @@ export default class GameScene extends Phaser.Scene {
   constructor() {
     super("GameScene");
     this.colors = ["blue", "green", "purple", "red"];
-    this.coins = 10;
+    this.coins = 0;
     this.coinTracker = {"":"vanilla nene"};
     this.totalnene = 1;
     this.hats = ["beanie", "bucket-hat", "sunhat", "visor"];
@@ -172,7 +172,7 @@ export default class GameScene extends Phaser.Scene {
   update() {
     if (this.totalnene == 25) {
       this.totalnene = 1;
-      this.coins = 10;
+      this.coins = 0;
       this.goToEndScene();
     }
   }

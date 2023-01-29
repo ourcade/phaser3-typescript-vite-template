@@ -20,7 +20,7 @@ export default class End extends Phaser.Scene {
 
         //Displays the back button
         //When the back button is clicked, it returns to the Game Scene 
-        this.backButton=this.add.image(100, 530, "Pink").setInteractive();
+        this.backButton=this.add.image(300, 530, "Pink").setInteractive();
 
         this.backButton.on("pointerover",() =>{
             this.backButton.setAlpha(1);

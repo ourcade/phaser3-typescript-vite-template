@@ -6,14 +6,15 @@ import GameScene from "../GameScene"
 export default class DragAndDrop extends Phaser.GameObjects.Container {
 
   //COLORS V2 START --------------------------------------------
-    private dragColors: Record<string, Phaser.GameObjects.GameObject>;
-    private dragHats: Record<string, Phaser.GameObjects.GameObject>;
+    public dragColors: Record<string, Phaser.GameObjects.GameObject>;
+    public dragHats: Record<string, Phaser.GameObjects.GameObject>;
     private nene: Phaser.GameObjects.GameObject;
     private text: Phaser.GameObjects.Text;
     private currentAttributes: Record<string,string>;
     private hat?: Phaser.GameObjects.GameObject;
     private resetButton: Phaser.GameObjects.GameObject;
-    
+    public gothats: boolean;
+    public gotcolors: boolean;
     private totalnenetext: Phaser.GameObjects.Text;
   
   //COLORS V2 END ----------------------------------------------
@@ -30,10 +31,13 @@ export default class DragAndDrop extends Phaser.GameObjects.Container {
     this.currentAttributes = {};
     this.dragColors = {};
     this.dragHats = {};
-    
+    this.gothats = false;
+    this.gotcolors = false;
     this.displayValueOptions((this.scene as GameScene).colors, this.dragColors);
     this.displayValueOptions2((this.scene as GameScene).hats, this.dragHats);
-
+    console.log(this.dragColors)
+    console.log("BRUH")
+    
     this.setUpButton();
     this.setUpDrag();
     this.setUpCollisions();
@@ -47,7 +51,11 @@ export default class DragAndDrop extends Phaser.GameObjects.Container {
         (dragItems[attribute] = this.scene.physics.add.image(350, y_pos, attribute).setInteractive(),
         this.scene.input.setDraggable(dragItems[attribute]),
         y_pos += 125)
-    );
+        );
+        if (this.gotcolors ==false){
+        dragItems["red"].setVisible(false)
+        dragItems["purple"].setVisible(false)
+        }
   }
   private displayValueOptions2(attributeNames: Array<string>, dragItems: Record<string, Phaser.GameObjects.GameObject>) {
     let y_pos = 100;
@@ -57,6 +65,10 @@ export default class DragAndDrop extends Phaser.GameObjects.Container {
         this.scene.input.setDraggable(dragItems[attribute]),
         y_pos += 125)
     );
+    if(this.gothats == false){
+    dragItems["sunhat"].setVisible(false)
+    dragItems["visor"].setVisible(false)
+    }
   }
 
   private setUpDrag () {
@@ -135,13 +147,7 @@ private handleColorCollision(
         this.text = this.text.setText("nene = new Nene(\n\t" + this.generateDisplayString() + "\n);");
         this.updateText();
         this.setUpCollisions();
-        if(!(this.scene as GameScene).coinTracker.includes(this.text.text)){
-          (this.scene as GameScene).coinTracker.push(this.text.text);
-          (this.scene as GameScene).coins = (this.scene as GameScene).coins +1;
-          (this.scene as GameScene).shop?.scoreText.setText(`Coins: ${(this.scene as GameScene).coins}`);
-          (this.scene as GameScene).totalnene = (this.scene as GameScene).totalnene +1;
-          this.totalnenetext = this.totalnenetext.setText(`Total Nenes Found: ${(this.scene as GameScene).totalnene}`)
-        }
+        
 
       }
 
@@ -163,13 +169,7 @@ private handleColorCollision(
             this.currentAttributes["hat"] = (dragHat as Phaser.GameObjects.Image).texture.key;
             this.updateText();
             this.setUpCollisions();
-            if(!(this.scene as GameScene).coinTracker.includes(this.text.text)){
-              (this.scene as GameScene).coinTracker.push(this.text.text);
-              (this.scene as GameScene).coins = (this.scene as GameScene).coins+1;
-              (this.scene as GameScene).shop?.scoreText.setText(`Coins: ${(this.scene as GameScene).coins}`);
-              (this.scene as GameScene).totalnene = (this.scene as GameScene).totalnene +1;
-              this.totalnenetext = this.totalnenetext.setText(`Total Nenes Found: ${(this.scene as GameScene).totalnene}`)
-            }
+            
           }
       
       private updateText() {
@@ -224,5 +224,12 @@ private handleColorCollision(
           this.setUpCollisions();
 
         }));
+        
+      }
+      public SetcolorsGot(){
+        this.gotcolors=true;
+      }
+      public SethatsGot(){
+        this.gothats=true;
       }
 }

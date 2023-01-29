@@ -1,5 +1,6 @@
 import Phaser from 'phaser'
 import GameScene from '../GameScene';
+import DragAndDrop from './DragAndDrop';
 
 export default class Shop extends Phaser.GameObjects.Container{
     
@@ -14,9 +15,9 @@ export default class Shop extends Phaser.GameObjects.Container{
         super(scene)
         
         this.add(this.scene.add.text(40,240, "Additional Colors", {fontSize: '18px',"color":"#FFFFFF"}))
-        this.add(this.scene.add.text(60,415, "Baseball Caps", {fontSize: '18px',"color":"#FFFFFF"}))
-        this.add(this.scene.add.text(80,260, "5 Coins", {fontSize: '18px',"color":"#FFFFFF"}))
-        this.add(this.scene.add.text(80,440, "3 Coins", {fontSize: '18px', "color":"#FFFFFF"}))
+        this.add(this.scene.add.text(45,415, "Additional Hats", {fontSize: '18px',"color":"#FFFFFF"}))
+        this.add(this.scene.add.text(80,260, "6 Coins", {fontSize: '18px',"color":"#FFFFFF"}))
+        this.add(this.scene.add.text(80,440, "8 Coins", {fontSize: '18px', "color":"#FFFFFF"}))
         this.scoreText = this.scene.add.text(20,550,`Coins: ${(this.scene as GameScene).coins}`, {fontSize: '32px',"color":"#FFFFFF"});
         this.color = this.scene.add.image(125,175,'color')
         this.color.setScale(0.25)
@@ -25,17 +26,27 @@ export default class Shop extends Phaser.GameObjects.Container{
         this.color.setInteractive()
         this.hats.setInteractive()
         this.color.on('pointerup',() =>{
-            (this.scene as GameScene).coins = (this.scene as GameScene).coins-5;
+            if((this.scene as GameScene).coins>=6){
+            (this.scene as GameScene).coins = (this.scene as GameScene).coins-6;
             this.scoreText.setText(`Coins: ${(this.scene as GameScene).coins}`);
-            this.color.removeInteractive()
+            this.color.removeInteractive();
+
+            (this.scene as GameScene).dragAndDrop?.dragColors["red"].setVisible(true);
+
+            (this.scene as GameScene).dragAndDrop?.dragColors["purple"].setVisible(true);
+            (this.scene as GameScene).dragAndDrop?.SetcolorsGot() 
             this.add(this.scene.add.text(65,175, "SOLD OUT!",  {fontSize: '24px',"color":"#FFFFFF"}))
-        })
+    }})
         this.hats.on('pointerup',() =>{
-            (this.scene as GameScene).coins = (this.scene as GameScene).coins-3;
+            if((this.scene as GameScene).coins>=8){
+            (this.scene as GameScene).coins = (this.scene as GameScene).coins-8;
                this.scoreText.setText(`Coins: ${(this.scene as GameScene).coins}`);
-                this.hats.removeInteractive()
+                this.hats.removeInteractive();
+                (this.scene as GameScene).dragAndDrop?.dragHats["sunhat"].setVisible(true);
+                (this.scene as GameScene).dragAndDrop?.dragHats["visor"].setVisible(true);
+                (this.scene as GameScene).dragAndDrop?.SethatsGot() 
                 this.add(this.scene.add.text(65,340, "SOLD OUT!", {fontSize: '24px',"color":"#ff0303"}))
-            })
+    }})
 
         //last lines here
         this.scene.add.existing(this);
