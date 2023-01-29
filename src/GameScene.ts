@@ -177,11 +177,12 @@ export default class GameScene extends Phaser.Scene {
 	this.scene.stop('GameScene').launch('End');
   }
   
-  update(){
-	if(this.totalnene == 25){
-	this.totalnene =1;
-	this.coins =10;
-	this.goToEndScene()
-}
-}
+  
+  //update(){
+	//if(this.totalnene == 25){
+	//this.totalnene =1;
+	//this.coins =10;
+	//this.goToEndScene()
+//}
+//}
 }
