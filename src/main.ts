@@ -18,11 +18,7 @@ const config: Phaser.Types.Core.GameConfig = {
 		},
 	},
 
-<<<<<<< HEAD
-	scene: [titleScene,GameScene,collectionScene],
-=======
 	scene: [titleScene,collectionScene,GameScene,End],
->>>>>>> origin
 	dom: {
         createContainer: true
     },
