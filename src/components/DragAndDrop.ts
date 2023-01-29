@@ -165,8 +165,8 @@ private handleColorCollision(
         this.text = this.text.setText("nene = new Nene(\n\t" + newText + "\n);");
 
         // Checks if nene is new for coins 
-        if(!(this.scene as GameScene).coinTracker.includes(newText)){
-          (this.scene as GameScene).coinTracker.push(newText);
+        if(!Object.keys((this.scene as GameScene).coinTracker).includes(newText)){
+          (this.scene as GameScene).coinTracker[newText] = newText;
           (this.scene as GameScene).coins++;
           (this.scene as GameScene).shop?.scoreText.setText(`Coins: ${(this.scene as GameScene).coins}`);
           eventsCenter.emit("update-nenes", (this.scene as GameScene).coinTracker);
@@ -181,12 +181,14 @@ private handleColorCollision(
         return [Math.random() * 300 + 250, Math.random() * 400 + 100];
       }
 
-      private generateDisplayString() {
+      public generateDisplayString() {
         const lines: Array<string> = [];
         Object.keys(this.currentAttributes).sort().forEach(
             (key) => lines.push( "\"" + this.currentAttributes[key] + "\",")
         );
-        return lines.join("\n\t");
+        if (lines)
+          return lines.join("\n\t");
+        return "";
       }
 
       private setUpButton() {

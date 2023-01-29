@@ -19,7 +19,7 @@ export default class GameScene extends Phaser.Scene {
   //private contain: Phaser.GameObjects.Container | undefined;
   //private quiztext?: Phaser.GameObjects.Text;
 
-  public coinTracker: Array<string>;
+  public coinTracker: Record<string,string>;
   //Rachel End
 
   // Holds coin management system
@@ -40,12 +40,11 @@ export default class GameScene extends Phaser.Scene {
   // Drag and drop components
   // The "machine" or whatever we're calling it
   // Where the attribute values go
-  //private dragAndDrop?: DragAndDrop;
+  private dragAndDrop?: DragAndDrop;
 
   colors: Array<string>;
   hats: Array<string>;
 
-  public names: Array<string>;
   rexUI: any;
   textObj: any;
   userText: Phaser.GameObjects.Text | undefined;
@@ -54,12 +53,10 @@ export default class GameScene extends Phaser.Scene {
     super("GameScene");
     this.colors = ["blue", "green", "purple", "red"];
     this.coins = 10;
-    this.coinTracker = ["nene = new Nene();"];
+    this.coinTracker = {"":"vanilla nene"};
     this.totalnene = 1;
     this.hats = ["beanie", "bucket-hat", "sunhat", "visor"];
 
-    //Mycah
-    this.names = [];
   }
 
   preload() {
@@ -96,7 +93,7 @@ export default class GameScene extends Phaser.Scene {
     new DisplayArea(this);
 
     // CREATES THE SHOP OBJECT & initializes values & SHOWS
-    new DragAndDrop(this);
+    this.dragAndDrop = new DragAndDrop(this);
 
     // CREATES THE SHOP OBJECT & initializes values & SHOWS
     //new Questions(this);
@@ -146,10 +143,9 @@ export default class GameScene extends Phaser.Scene {
     this.saveButton.on("pointerdown", () => this.saveMyObject(editor.text));
   }
   saveMyObject(elem: string) {
-    this.names.push(elem as string);
+    this.coinTracker[this.dragAndDrop?.generateDisplayString() || ""] = (elem as string);
     //this.add.text(100, 100, "new name " + elem);
-    console.log("the names: " + this.names);
-    eventsCenter.emit("update-names", this.names);
+    eventsCenter.emit("update-nenes", this.coinTracker);
   }
 
   private loadAttribute(attributeName: string, attributeValues: Array<string>) {
