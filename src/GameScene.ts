@@ -175,7 +175,7 @@ export default class GameScene extends Phaser.Scene {
   }
 
   update() {
-    if (this.totalnene == 3) {
+    if (this.totalnene == 25) {
       this.totalnene = 1;
       this.coins = 0;
       this.coinTracker = {"":"vanilla nene"};
