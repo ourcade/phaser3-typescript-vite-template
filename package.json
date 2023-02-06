@@ -3,19 +3,24 @@
 	"private": true,
 	"version": "0.0.0",
 	"type": "module",
+	"homepage": "https://meganenglert.github.io/build-a-bird-MVP/",
 	"scripts": {
 		"start": "vite",
 		"build": "tsc && vite build",
+		"predeploy": "npm run build",
+		"deploy": "gh-pages -d dist",
 		"preview": "vite preview"
 	},
 	"devDependencies": {
 		"@typescript-eslint/eslint-plugin": "^5.40.0",
 		"@typescript-eslint/parser": "^5.40.0",
 		"eslint": "^8.25.0",
+		"gh-pages": "^5.0.0",
 		"typescript": "^4.6.4",
 		"vite": "^3.1.0"
 	},
 	"dependencies": {
-		"phaser": "^3.55.2"
+		"phaser": "^3.55.2",
+		"phaser3-rex-plugins": "^1.1.79"
 	}
 }

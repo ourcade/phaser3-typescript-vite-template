@@ -1,19 +1,34 @@
 import Phaser from 'phaser'
+import collectionScene from './CollectionScene'
 
-import HelloWorldScene from './HelloWorldScene'
+import GameScene from './GameScene'
+import titleScene from './titleScene'
+import RexUIPlugin from 'phaser3-rex-plugins/templates/ui/ui-plugin'
 
 const config: Phaser.Types.Core.GameConfig = {
 	type: Phaser.AUTO,
 	parent: 'app',
-	width: 800,
+	width: 900,
 	height: 600,
 	physics: {
 		default: 'arcade',
 		arcade: {
-			gravity: { y: 200 },
+			gravity: {},
 		},
 	},
-	scene: [HelloWorldScene],
+	scene: [titleScene,GameScene,collectionScene],
+	dom: {
+        createContainer: true
+    },
+	plugins: {
+		scene: [
+			{
+				key: 'rexUI',
+				plugin: RexUIPlugin,
+				mapping: 'rexUI'
+			}
+		]
+    }
 }
-
-export default new Phaser.Game(config)
+const game =  new Phaser.Game(config)
+export default game
